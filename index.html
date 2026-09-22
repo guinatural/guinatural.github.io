@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Guilherme Barreto — AWS Cloud Architect. Projetos reais de governança, segurança e infraestrutura em nuvem."/>
+<title>Guilherme Barreto — AWS Cloud Architect</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:       #0a0d14;
+  --bg2:      #111827;
+  --bg3:      #1a2235;
+  --borda:    #1e2d45;
+  --txt:      #e2e8f0;
+  --muted:    #64748b;
+  --blue:     #3b82f6;
+  --green:    #10b981;
+  --amber:    #f59e0b;
+  --purple:   #a855f7;
+  --ciano:    #06b6d4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── STARS ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 8%  12%, #fff, transparent),
+    radial-gradient(1px 1px at 22% 38%, #fff, transparent),
+    radial-gradient(1px 1px at 45%  7%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 63% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 78% 55%, #fff, transparent),
+    radial-gradient(1px 1px at 91%  9%, #fff, transparent),
+    radial-gradient(1px 1px at  5% 68%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 52% 79%, #fff, transparent),
+    radial-gradient(1px 1px at 88% 42%, #fff, transparent),
+    radial-gradient(1px 1px at 35% 91%, #fff, transparent),
+    radial-gradient(1px 1px at 17% 52%, rgba(59,130,246,.5), transparent),
+    radial-gradient(1px 1px at 84% 28%, rgba(16,185,129,.5), transparent),
+    radial-gradient(1px 1px at 60% 65%, rgba(168,85,247,.4), transparent);
+}
+
+/* ── LAYOUT ── */
+.wrapper { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,13,20,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borda);
+  padding: 14px 0;
+}
+.nav-inner {
+  max-width: 860px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 500; color: var(--ciano);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover { color: var(--txt); }
+
+/* ── HERO ── */
+#hero {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--borda);
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  color: var(--ciano); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 28px; height: 1px; background: var(--ciano);
+}
+h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700; line-height: 1.15;
+  margin-bottom: 8px; letter-spacing: -.5px;
+}
+h1 .name { color: var(--txt); }
+h1 .role { color: var(--blue); }
+.hero-sub {
+  font-size: 16px; color: var(--muted);
+  font-weight: 400; margin-bottom: 28px;
+  max-width: 540px; line-height: 1.6;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px; font-weight: 500;
+  padding: 4px 12px; border-radius: 20px;
+  border: 1px solid;
+}
+.tag-blue   { color: var(--blue);   border-color: rgba(59,130,246,.3);   background: rgba(59,130,246,.08); }
+.tag-green  { color: var(--green);  border-color: rgba(16,185,129,.3);   background: rgba(16,185,129,.08); }
+.tag-amber  { color: var(--amber);  border-color: rgba(245,158,11,.3);   background: rgba(245,158,11,.08); }
+.tag-purple { color: var(--purple); border-color: rgba(168,85,247,.3);   background: rgba(168,85,247,.08); }
+.tag-ciano  { color: var(--ciano);  border-color: rgba(6,182,212,.3);    background: rgba(6,182,212,.08); }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: #000; font-weight: 700;
+  font-size: 13.5px; padding: 10px 22px; border-radius: 8px;
+  text-decoration: none; transition: opacity .2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary:hover { opacity: .85; }
+.btn-outline {
+  border: 1px solid var(--borda); color: var(--txt); font-weight: 600;
+  font-size: 13.5px; padding: 10px 22px; border-radius: 8px;
+  text-decoration: none; transition: border-color .2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-outline:hover { border-color: var(--blue); }
+
+/* ── SECTION HEADERS ── */
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px; padding-top: 56px;
+}
+.section-header h2 { font-size: 20px; font-weight: 700; }
+.section-line { flex: 1; height: 1px; background: var(--borda); }
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--muted); font-weight: 500;
+}
+
+/* ── FEATURED PROJECT ── */
+.project-featured {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color .2s;
+  margin-bottom: 16px;
+}
+.project-featured:hover { border-color: var(--blue); }
+.pf-header {
+  background: linear-gradient(135deg, #0d1b35 0%, #1a2640 100%);
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--borda);
+}
+.pf-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; color: var(--amber); letter-spacing: 2px;
+  text-transform: uppercase; font-weight: 500; margin-bottom: 8px;
+}
+.pf-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.pf-subtitle { font-size: 13px; color: var(--muted); font-style: italic; }
+.pf-body { padding: 24px 28px; }
+.pf-desc { font-size: 14px; color: rgba(226,232,240,.8); line-height: 1.75; margin-bottom: 20px; }
+.pf-desc strong { color: #fff; font-weight: 600; }
+
+/* Métricas */
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 10px; margin-bottom: 22px; }
+.metric {
+  background: var(--bg3); border: 1px solid var(--borda);
+  border-radius: 10px; padding: 12px 14px; text-align: center;
+}
+.metric-val { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+.metric-lbl { font-size: 10.5px; color: var(--muted); font-weight: 500; }
+.metric-val.blue   { color: var(--blue); }
+.metric-val.green  { color: var(--green); }
+.metric-val.amber  { color: var(--amber); }
+.metric-val.purple { color: var(--purple); }
+.metric-val.ciano  { color: var(--ciano); }
+
+/* Stack */
+.stack-list { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
+.stack-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px; font-weight: 500;
+  padding: 3px 10px; border-radius: 6px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--borda); color: var(--ciano);
+}
+
+/* Incident callout */
+.incident-box {
+  background: rgba(239,68,68,.06);
+  border: 1px solid rgba(239,68,68,.2);
+  border-left: 3px solid rgba(239,68,68,.6);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px; margin-bottom: 20px;
+  font-size: 13px; line-height: 1.6;
+  color: rgba(226,232,240,.8);
+}
+.incident-box .label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(239,68,68,.8); margin-bottom: 4px; }
+.incident-box strong { color: #fff; }
+
+.pf-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.pf-links { display: flex; gap: 10px; }
+.link-btn {
+  font-size: 12.5px; font-weight: 600;
+  padding: 7px 16px; border-radius: 8px;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+  transition: all .2s;
+}
+.link-btn.gh   { background: rgba(59,130,246,.1); color: var(--blue); border: 1px solid rgba(59,130,246,.25); }
+.link-btn.case { background: rgba(16,185,129,.1); color: var(--green); border: 1px solid rgba(16,185,129,.25); }
+.link-btn.gh:hover   { background: rgba(59,130,246,.2); }
+.link-btn.case:hover { background: rgba(16,185,129,.2); }
+.pf-status { font-size: 11.5px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.dot-green { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+
+/* ── LABS GRID ── */
+.labs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 12px; }
+.lab-card {
+  background: var(--bg2); border: 1px solid var(--borda);
+  border-radius: 12px; padding: 18px 20px;
+  transition: border-color .2s, transform .2s;
+  cursor: default;
+}
+.lab-card:hover { border-color: var(--borda); transform: translateY(-2px); }
+.lab-card.done  { border-color: rgba(16,185,129,.2); }
+.lab-card.done:hover { border-color: var(--green); }
+.lab-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--muted); font-weight: 500;
+  margin-bottom: 6px; letter-spacing: 1px;
+}
+.lab-title { font-size: 13.5px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+.lab-tags  { display: flex; flex-wrap: wrap; gap: 4px; }
+.lab-tag {
+  font-size: 10px; font-weight: 600;
+  padding: 2px 7px; border-radius: 4px;
+}
+.lab-status {
+  font-size: 10.5px; font-weight: 700;
+  margin-top: 10px; display: flex; align-items: center; gap: 5px;
+}
+.lab-status.done   { color: var(--green); }
+.lab-status.active { color: var(--amber); }
+.lab-status.queue  { color: var(--muted); }
+
+/* ── ABOUT ── */
+#about { padding-bottom: 56px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:600px){ .about-grid { grid-template-columns: 1fr; } }
+.about-card {
+  background: var(--bg2); border: 1px solid var(--borda);
+  border-radius: 12px; padding: 20px;
+}
+.about-card h3 { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; }
+.cert-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; }
+.cert-icon { font-size: 18px; }
+.cert-name { font-weight: 600; }
+.cert-sub  { font-size: 11px; color: var(--muted); }
+.skill-bar-wrap { margin-bottom: 10px; }
+.skill-bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+.skill-bar-label span:first-child { font-weight: 600; }
+.skill-bar-label span:last-child  { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.skill-bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 4px; overflow: hidden; }
+.skill-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--borda);
+  padding: 28px 0; margin-top: 20px;
+}
+.footer-inner {
+  max-width: 860px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: var(--muted);
+}
+.footer-links { display: flex; gap: 16px; }
+.footer-links a {
+  font-size: 12.5px; font-weight: 600; color: var(--muted);
+  text-decoration: none; transition: color .2s;
+}
+.footer-links a:hover { color: var(--blue); }
+
+/* ── ANIMATIONS ── */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px) {
+  .metrics-grid { grid-template-columns: repeat(3,1fr); }
+  .hero-cta { flex-direction: column; align-items: flex-start; }
+  .pf-footer { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">gb.dev</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projetos</a></li>
+      <li><a href="#labs">Labs</a></li>
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="https://github.com/guinatural" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrapper">
+    <div class="hero-eyebrow">AWS Cloud Architect</div>
+    <h1>
+      <span class="name">Guilherme Barreto</span><br/>
+      <span class="role">Building things that matter in the cloud.</span>
+    </h1>
+    <p class="hero-sub">
+      Especializado em arquitetura AWS, governança de dados e automação de infraestrutura.
+      Projetos reais — não tutoriais.
+    </p>
+    <div class="hero-tags">
+      <span class="tag tag-blue">AWS SAA-C03</span>
+      <span class="tag tag-green">Terraform</span>
+      <span class="tag tag-amber">Python</span>
+      <span class="tag tag-purple">LGPD</span>
+      <span class="tag tag-ciano">Event-Driven</span>
+      <span class="tag tag-blue">GitHub Actions</span>
+      <span class="tag tag-green">Lambda</span>
+      <span class="tag tag-amber">CloudTrail</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">Ver projetos →</a>
+      <a href="https://github.com/guinatural" target="_blank" rel="noopener" class="btn-outline">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/guilherme-barreto" target="_blank" rel="noopener" class="btn-outline">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrapper">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2>Projetos</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- WAYFINDER FEATURED -->
+    <div class="project-featured fade-in">
+      <div class="pf-header">
+        <div class="pf-eyebrow">⭐ Projeto Principal</div>
+        <div class="pf-title">Wayfinder Cloud</div>
+        <div class="pf-subtitle">Cloud Governance Platform for Digital Health — VitaCore Health (cenário real)</div>
+      </div>
+      <div class="pf-body">
+
+        <div class="incident-box">
+          <div class="label">🔴 O problema que este projeto resolve</div>
+          Em março de 2026, um desenvolvedor júnior da VitaCore Health executou um comando errado.
+          Um bucket S3 com <strong>2.340 laudos médicos de pacientes</strong> ficou público por
+          <strong>18 dias</strong> sem detecção. Multa ANPD: R$ 420.000. Impacto total: <strong>R$ 2,1 milhões</strong>.
+          O Wayfinder detecta exatamente essa configuração em menos de 5 minutos e a corrige automaticamente.
+        </div>
+
+        <p class="pf-desc">
+          Sistema de governança cloud contínua que monitora infraestrutura AWS 24/7,
+          detecta desvios de segurança, <strong>auto-remedia violações críticas</strong>,
+          mapeia cada controle a um artigo da LGPD e mantém trilha de auditoria imutável
+          consultável com SQL via Athena. Construído do zero — sem templates, sem click-ops.
+        </p>
+
+        <div class="metrics-grid">
+          <div class="metric"><div class="metric-val amber">14</div><div class="metric-lbl">Regras LGPD</div></div>
+          <div class="metric"><div class="metric-val blue">8</div><div class="metric-lbl">Módulos Terraform</div></div>
+          <div class="metric"><div class="metric-val green">4</div><div class="metric-lbl">Lambdas Python</div></div>
+          <div class="metric"><div class="metric-val purple">80</div><div class="metric-lbl">Testes</div></div>
+          <div class="metric"><div class="metric-val ciano">&lt;5min</div><div class="metric-lbl">Detecção</div></div>
+          <div class="metric"><div class="metric-val amber">340×</div><div class="metric-lbl">ROI</div></div>
+          <div class="metric"><div class="metric-val blue">9</div><div class="metric-lbl">ADRs</div></div>
+          <div class="metric"><div class="metric-val green">3</div><div class="metric-lbl">CI/CD Pipelines</div></div>
+        </div>
+
+        <div class="stack-list">
+          <span class="stack-item">AWS Config</span>
+          <span class="stack-item">EventBridge</span>
+          <span class="stack-item">Lambda</span>
+          <span class="stack-item">CloudTrail</span>
+          <span class="stack-item">GuardDuty</span>
+          <span class="stack-item">Security Hub</span>
+          <span class="stack-item">KMS</span>
+          <span class="stack-item">Athena</span>
+          <span class="stack-item">S3 Object Lock</span>
+          <span class="stack-item">VPC Endpoints</span>
+          <span class="stack-item">Terraform</span>
+          <span class="stack-item">Python 3.12</span>
+          <span class="stack-item">moto</span>
+          <span class="stack-item">GitHub Actions OIDC</span>
+        </div>
+
+        <div class="pf-footer">
+          <div class="pf-links">
+            <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener" class="link-btn gh">
+              <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+              Ver código
+            </a>
+            <a href="wayfinder.html" class="link-btn case">Case study →</a>
+          </div>
+          <div class="pf-status">
+            <span class="dot-green"></span>
+            Em desenvolvimento ativo
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LABS -->
+<section id="labs">
+  <div class="wrapper">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2>Labs Práticos — Escola da Nuvem</h2>
+      <div class="section-line"></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);margin-bottom:24px;line-height:1.6;" class="fade-in">
+      23 laboratórios hands-on cobrindo os 4 domínios do exame AWS SAA-C03.
+      Cada lab é um ambiente real provisionado e destruído — sem simuladores.
+    </p>
+
+    <div class="labs-grid fade-in" id="labsGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrapper">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2>Sobre</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="about-grid fade-in">
+      <div class="about-card">
+        <h3>Certificações</h3>
+        <div class="cert-item">
+          <span class="cert-icon">🎯</span>
+          <div>
+            <div class="cert-name">AWS SAA-C03</div>
+            <div class="cert-sub">Solutions Architect Associate — em andamento</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="cert-icon">☁️</span>
+          <div>
+            <div class="cert-name">Escola da Nuvem</div>
+            <div class="cert-sub">AWS Cloud Practitioner training + 23 labs</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <h3>Skills Técnicas</h3>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>AWS (Security, Networking, Compute)</span><span>85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%;background:var(--blue)"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Terraform (IaC)</span><span>80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;background:var(--purple)"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Python (Lambda, moto, pytest)</span><span>75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%;background:var(--amber)"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>CI/CD (GitHub Actions, OIDC)</span><span>78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%;background:var(--green)"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>LGPD / Compliance / Auditoria</span><span>70%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%;background:var(--ciano)"></div></div>
+        </div>
+      </div>
+
+      <div class="about-card" style="grid-column:1/-1">
+        <h3>Por que este portfólio existe</h3>
+        <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.75;margin-bottom:8px;">
+          Terminei o treinamento AWS e fiz 23 labs. Cada lab ensinou uma peça. Mas nenhum
+          deles me pediu para combinar tudo com uma razão real por trás.
+        </p>
+        <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.75;">
+          Então construí algo que forçasse decisões reais de arquitetura. O cenário VitaCore Health
+          não é tutorial — é o tipo de problema que arquitetos resolvem no trabalho.
+          O Wayfinder Cloud é minha prova de que entendo não só os serviços,
+          mas <strong style="color:#fff">por que e quando cada um faz sentido</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">guilherme-barreto · 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/guinatural" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/guilherme-barreto" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── LABS DATA ────────────────────────────────────────────────────
+const labs = [
+  { num:"Lab 01", title:"VPC do Zero — Subnets, Route Tables e Internet Gateway",      tags:["Networking","VPC"],          status:"done",   color:"blue"   },
+  { num:"Lab 02", title:"Security Groups e NACLs — Camadas de Controle de Tráfego",    tags:["Security","Networking"],     status:"done",   color:"green"  },
+  { num:"Lab 03", title:"IAM — Usuários, Roles e Políticas de Menor Privilégio",       tags:["IAM","Security"],            status:"done",   color:"amber"  },
+  { num:"Lab 04", title:"S3 — Controle de Acesso, Versionamento e Lifecycle",          tags:["Storage","S3"],              status:"done",   color:"purple" },
+  { num:"Lab 05", title:"EC2 + Auto Scaling Group — Elasticidade por Métricas",        tags:["Compute","Scaling"],         status:"done",   color:"blue"   },
+  { num:"Lab 06", title:"RDS Multi-AZ e Read Replicas — HA e Escala de Leitura",       tags:["Database","HA"],             status:"done",   color:"green"  },
+  { num:"Lab 07", title:"CloudFront + S3 — CDN Global com Signed URLs",                tags:["Edge","CDN"],                status:"done",   color:"ciano"  },
+  { num:"Lab 08", title:"Lambda + API Gateway — API Serverless Event-Driven",          tags:["Serverless","API"],          status:"done",   color:"amber"  },
+  { num:"Lab 09", title:"SQS + SNS — Desacoplamento e Fanout de Mensagens",            tags:["Messaging","Decoupling"],    status:"done",   color:"purple" },
+  { num:"Lab 10", title:"CloudTrail + CloudWatch — Auditoria e Alertas em Tempo Real", tags:["Security","Observability"],  status:"done",   color:"blue"   },
+  { num:"Lab 11", title:"KMS — Criptografia em Repouso com CMK e Key Policies",        tags:["Security","KMS"],            status:"done",   color:"amber"  },
+  { num:"Lab 12", title:"ECS Fargate — Containers sem Gerenciar Servidores",           tags:["Containers","Compute"],      status:"done",   color:"green"  },
+  { num:"Lab 13", title:"ALB com Path-Based Routing — Microsserviços Atrás de 1 LB",  tags:["Networking","Load Balancer"],status:"done",   color:"ciano"  },
+  { num:"Lab 14", title:"DynamoDB — Modelo NoSQL, GSI e Streams",                      tags:["Database","NoSQL"],          status:"done",   color:"purple" },
+  { num:"Lab 15", title:"VPC Endpoints — Tráfego Privado para Serviços AWS",           tags:["Networking","Security"],     status:"done",   color:"blue"   },
+  { num:"Lab 16", title:"Secrets Manager — Rotação Automática de Credenciais",         tags:["Security","Secrets"],        status:"done",   color:"amber"  },
+  { num:"Lab 17", title:"GuardDuty — Detecção de Ameaças com Machine Learning",        tags:["Security","ML"],             status:"done",   color:"green"  },
+  { num:"Lab 18", title:"AWS Config — Regras de Compliance e Remediação Automática",   tags:["Governance","Compliance"],   status:"done",   color:"purple" },
+  { num:"Lab 19", title:"Athena + Glue — Data Lake e Queries SQL em S3",               tags:["Analytics","Data"],          status:"done",   color:"ciano"  },
+  { num:"Lab 20", title:"EKS — Kubernetes Gerenciado com IRSA e Fargate Profiles",     tags:["Containers","K8s"],          status:"done",   color:"blue"   },
+  { num:"Lab 21", title:"Route 53 — DNS Inteligente com Failover e Roteamento",        tags:["Networking","DNS"],          status:"done",   color:"amber"  },
+  { num:"Lab 22", title:"WordPress em HA — ALB + RDS Multi-AZ + EFS Compartilhado",   tags:["HA","Architecture"],         status:"done",   color:"green"  },
+  { num:"Lab 23", title:"Well-Architected Review — 5 Pilares na Prática",              tags:["Architecture","Review"],     status:"active", color:"purple" },
+];
+
+const tagColors = {
+  blue:   "rgba(59,130,246,.15)",
+  green:  "rgba(16,185,129,.15)",
+  amber:  "rgba(245,158,11,.15)",
+  purple: "rgba(168,85,247,.15)",
+  ciano:  "rgba(6,182,212,.15)",
+};
+const tagText = {
+  blue:"#3b82f6", green:"#10b981", amber:"#f59e0b", purple:"#a855f7", ciano:"#06b6d4"
+};
+const statusLabel = { done:"✅ Concluído", active:"🔄 Em progresso", queue:"⏳ A fazer" };
+
+const grid = document.getElementById('labsGrid');
+labs.forEach(lab => {
+  const card = document.createElement('div');
+  card.className = `lab-card${lab.status==='done'?' done':''}`;
+  card.innerHTML = `
+    <div class="lab-num">${lab.num}</div>
+    <div class="lab-title">${lab.title}</div>
+    <div class="lab-tags">
+      ${lab.tags.map(t=>`<span class="lab-tag" style="background:${tagColors[lab.color]};color:${tagText[lab.color]}">${t}</span>`).join('')}
+    </div>
+    <div class="lab-status ${lab.status}">${statusLabel[lab.status]}</div>
+  `;
+  grid.appendChild(card);
+});
+
+// ── INTERSECTION OBSERVER (fade-in) ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
