@@ -77,10 +77,10 @@ nav {
 }
 .nav-brand {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px; font-weight: 700; color: var(--ciano);
+  font-size: 14px; font-weight: 700; color: var(--txt);
   text-decoration: none; letter-spacing: .5px;
 }
-.nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+.nav-links { display: flex; gap: 4px; list-style: none; align-items: center; flex-wrap: wrap; }
 .nav-links a {
   font-size: 13px; font-weight: 500; color: var(--muted);
   text-decoration: none; padding: 6px 12px; border-radius: 7px;
@@ -124,7 +124,7 @@ nav {
 }
 .hero-role {
   font-size: clamp(18px, 3vw, 24px);
-  font-weight: 600; color: var(--blue);
+  font-weight: 600; color: var(--dim);
   margin-bottom: 20px; letter-spacing: -.3px;
 }
 .hero-desc {
@@ -150,12 +150,11 @@ nav {
   font-size: 11px; font-weight: 600;
   padding: 4px 11px; border-radius: 6px; border: 1px solid;
 }
-.tc { color: var(--ciano);  border-color: rgba(6,182,212,.3);  background: rgba(6,182,212,.07); }
-.tb { color: var(--blue);   border-color: rgba(59,130,246,.3); background: rgba(59,130,246,.07); }
-.tg { color: var(--green);  border-color: rgba(16,185,129,.3); background: rgba(16,185,129,.07); }
-.ta { color: var(--amber);  border-color: rgba(245,158,11,.3); background: rgba(245,158,11,.07); }
-.tp { color: var(--purple); border-color: rgba(168,85,247,.3); background: rgba(168,85,247,.07); }
-.tr { color: var(--red);    border-color: rgba(239,68,68,.3);  background: rgba(239,68,68,.07); }
+.tc, .tb, .tg, .ta, .tp, .tr {
+  color: var(--dim);
+  border-color: var(--borda);
+  background: rgba(255,255,255,.04);
+}
 
 .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
 .btn-p {
@@ -242,15 +241,13 @@ nav {
 }
 .metric .mv { font-size: 22px; font-weight: 800; line-height: 1; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
 .metric .ml { font-size: 10px; color: var(--muted); font-weight: 500; }
-.mc { color: var(--ciano); }  .mb { color: var(--blue); }
-.mg { color: var(--green); }  .ma { color: var(--amber); }
-.mp { color: var(--purple); } .mr { color: var(--red); }
+.mc, .mb, .mg, .ma, .mp, .mr { color: var(--txt); }
 
 .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
 .si {
   font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
   padding: 3px 10px; border-radius: 5px;
-  background: rgba(6,182,212,.07); border: 1px solid rgba(6,182,212,.18); color: var(--ciano);
+  background: rgba(255,255,255,.04); border: 1px solid var(--borda); color: var(--dim);
 }
 
 .pf-footer {
@@ -354,8 +351,74 @@ nav {
   display: inline-block; margin-top: 5px;
   font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
 }
-.cs-prog { background: rgba(245,158,11,.15); color: var(--amber); }
-.cs-done { background: rgba(16,185,129,.15); color: var(--green); }
+.cs-prog { background: rgba(255,255,255,.06); color: var(--dim); border: 1px solid var(--borda); }
+.cs-done { background: rgba(255,255,255,.06); color: var(--txt); border: 1px solid var(--borda); }
+
+/* ── EXPERIÊNCIA / FORMAÇÃO ── */
+.exp-list { display: flex; flex-direction: column; gap: 12px; }
+.exp-card {
+  background: var(--bg2); border: 1px solid var(--borda);
+  border-radius: 12px; padding: 22px 24px;
+}
+.exp-head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+.exp-role { font-size: 16px; font-weight: 700; }
+.exp-co { font-size: 13px; color: var(--dim); margin-top: 2px; }
+.exp-dates { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; }
+.exp-loc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.exp-card p { font-size: 14px; color: var(--dim); line-height: 1.7; margin: 10px 0; }
+.exp-card ul { margin: 8px 0 0 18px; color: var(--dim); font-size: 13.5px; line-height: 1.7; }
+.exp-card li { margin-bottom: 4px; }
+.exp-card strong { color: var(--txt); font-weight: 600; }
+
+/* ── CERT LIST ── */
+.cert-group { margin-bottom: 22px; }
+.cert-group h3 {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
+}
+.cert-row {
+  display: grid; grid-template-columns: 1fr 160px 150px auto;
+  gap: 12px; align-items: start;
+  padding: 14px 0; border-bottom: 1px solid var(--borda);
+}
+.cert-row:last-child { border-bottom: none; }
+.cert-title { font-size: 13.5px; font-weight: 600; }
+.cert-issuer { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.cert-desc { font-size: 12.5px; color: var(--dim); line-height: 1.55; margin-top: 6px; max-width: 560px; }
+.cert-when { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+.cert-id { font-size: 11px; color: var(--muted); word-break: break-all; }
+.cert-link {
+  font-size: 12px; font-weight: 600; color: var(--blue);
+  text-decoration: none; white-space: nowrap;
+}
+.cert-link:hover { text-decoration: underline; }
+@media(max-width:720px){
+  .cert-row { grid-template-columns: 1fr; gap: 6px; }
+  .exp-dates { text-align: left; }
+}
+
+/* ── OTHER PROJECTS ── */
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:720px){ .proj-grid { grid-template-columns: 1fr; } }
+.proj-card {
+  background: var(--bg2); border: 1px solid var(--borda);
+  border-radius: 12px; padding: 22px 24px;
+  display: flex; flex-direction: column;
+}
+.proj-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.proj-meta { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.proj-card p { font-size: 13.5px; color: var(--dim); line-height: 1.7; flex: 1; }
+.proj-card a { margin-top: 14px; font-size: 12.5px; font-weight: 600; color: var(--blue); text-decoration: none; }
+.proj-card a:hover { text-decoration: underline; }
+.proj-card-links { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 14px; }
+.proj-card-links a { margin-top: 0; }
+
+.labs-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  background: var(--bg2); border: 1px solid var(--borda); border-radius: 12px;
+  padding: 18px 22px; margin-top: 8px;
+}
+.labs-cta p { font-size: 13.5px; color: var(--dim); max-width: 520px; }
 
 /* ── ABOUT / STORY ── */
 .story-card {
@@ -417,13 +480,13 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-brand">guilherme.dev</a>
+    <a href="index.html" class="nav-brand">guilherme.dev</a>
     <ul class="nav-links">
-      <li><a href="#projeto">Projeto</a></li>
-      <li><a href="#labs">Labs</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#contato" class="nav-gh">Contato ↗</a></li>
+      <li><a href="#projeto">Projetos</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#certificacoes">Certificações</a></li>
+      <li><a href="labs.html">Labs</a></li>
+      <li><a href="#contato" class="nav-gh">Contato</a></li>
     </ul>
   </div>
 </nav>
@@ -446,20 +509,20 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hs-val" style="color:var(--amber)">14</span>
+        <span class="hs-val">14</span>
         <span class="hs-lbl">Regras LGPD escritas</span>
       </div>
       <div class="hero-stat">
-        <span class="hs-val" style="color:var(--blue)">115</span>
+        <span class="hs-val">115</span>
         <span class="hs-lbl">Testes automatizados</span>
       </div>
       <div class="hero-stat">
-        <span class="hs-val" style="color:var(--green)">23</span>
+        <span class="hs-val">23</span>
         <span class="hs-lbl">Labs AWS concluídos</span>
       </div>
       <div class="hero-stat">
-        <span class="hs-val" style="color:var(--purple)">340×</span>
-        <span class="hs-lbl">ROI do projeto</span>
+        <span class="hs-val">CLF</span>
+        <span class="hs-lbl">Cloud Practitioner ativa</span>
       </div>
     </div>
 
@@ -482,6 +545,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
         GitHub
       </a>
+      <a href="labs.html" class="btn-o">Ver os 23 labs</a>
       <a href="https://www.linkedin.com/in/guilherme-barreto-gomes/" target="_blank" rel="noopener" class="btn-o">LinkedIn</a>
     </div>
   </div>
@@ -499,7 +563,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     <div class="proj-feat fade-in">
       <div class="pf-top">
         <div>
-          <div class="pf-badge">⭐ Featured Project</div>
+          <div class="pf-badge">Projeto em destaque</div>
           <div class="pf-name">Wayfinder Cloud</div>
           <div class="pf-sub">Cloud Governance Platform · VitaCore Health · AWS + Terraform + Python</div>
         </div>
@@ -508,7 +572,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 
       <div class="pf-body">
         <div class="incident">
-          <div class="i-label">🔴 O problema que este projeto resolve</div>
+          <div class="i-label">O problema que este projeto resolve</div>
           <p>
             Em março de 2026, um bucket S3 com <strong>2.340 laudos médicos de pacientes</strong>
             ficou público por <strong>18 dias</strong> sem detecção. Multa ANPD: R$ 420.000.
@@ -547,7 +611,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         </div>
 
         <!-- TIMELINE -->
-        <p style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">📅 Progresso do Projeto</p>
+        <p style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Progresso do projeto</p>
         <div class="timeline" id="tl"></div>
 
         <div class="pf-footer">
@@ -567,86 +631,343 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
   </div>
 </section>
 
-<!-- LABS -->
-<section id="labs">
+<section id="outros-projetos">
   <div class="wrapper">
     <div class="sh fade-in">
       <span class="sh-num">02</span>
-      <h2>Labs Práticos — Escola da Nuvem</h2>
+      <h2>Outros projetos</h2>
       <div class="sh-line"></div>
     </div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.6;" class="fade-in">
-      23 laboratórios hands-on cobrindo os 4 domínios do SAA-C03. Ambiente real provisionado e destruído — sem simuladores.
-    </p>
-    <div class="labs-filter fade-in" id="labsFilter">
-      <button class="lf-btn active" data-cat="all">Todos (23)</button>
-      <button class="lf-btn" data-cat="Security">Segurança</button>
-      <button class="lf-btn" data-cat="Networking">Rede</button>
-      <button class="lf-btn" data-cat="Compute">Compute</button>
-      <button class="lf-btn" data-cat="Database">Banco de Dados</button>
-      <button class="lf-btn" data-cat="Storage">Storage</button>
-      <button class="lf-btn" data-cat="Architecture">Arquitetura</button>
+    <div class="proj-grid fade-in">
+      <article class="proj-card">
+        <h3>Holocron Sentinel</h3>
+        <div class="proj-meta">Capstone AWS re/Start · agente sob demanda (Boto3 + Bedrock)</div>
+        <p>
+          Quatro scanners reais (S3 público, IAM sem MFA, EBS órfão, SSH 0.0.0.0/0) orquestrados por Strands,
+          com sessão isolada por tenant. Consulta a conta agora — o Wayfinder vigia 24/7.
+        </p>
+        <div class="proj-card-links">
+          <a href="holocron.html">Case study →</a>
+          <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
+        </div>
+      </article>
+      <article class="proj-card">
+        <h3>Hack2Hire — DocuSmart</h3>
+        <div class="proj-meta">Hackathon Escola da Nuvem · jun 2026 · 01 - PROJETOS / Hack2Hire</div>
+        <p>
+          Motor Strands em conta de hackathon com deadline duro: Lambda, Bedrock, Textract/Comprehend, DynamoDB.
+          O lab de SNS/SQS/EventBridge vira evento de sinistro in, JSON out — sem acoplar o frontend.
+        </p>
+        <a href="labs.html">Como os labs 01, 05 e 17 entram neste desenho →</a>
+      </article>
+      <article class="proj-card">
+        <h3>SkinCare da Van (SKDV)</h3>
+        <div class="proj-meta">App Flutter + backend AWS · jan 2024 – fev 2025 · projeto pessoal</div>
+        <p>
+          Mobile com backend na AWS: VPC, IAM, CloudWatch e API. Mesma disciplina de isolamento de rede
+          do lab de SG/NACL, em produto — não em exercício.
+        </p>
+        <a href="https://github.com/guinatural/skincaredv" target="_blank" rel="noopener">github.com/guinatural/skincaredv</a>
+      </article>
     </div>
-    <div class="labs-grid fade-in" id="labsGrid"></div>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
+<section id="experiencia">
   <div class="wrapper">
     <div class="sh fade-in">
       <span class="sh-num">03</span>
-      <h2>Skills &amp; Certificações</h2>
+      <h2>Experiência</h2>
+      <div class="sh-line"></div>
+    </div>
+    <div class="exp-list fade-in">
+      <article class="exp-card">
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Cloud Engineer | AWS Security &amp; AI</div>
+            <div class="exp-co">Consultor independente</div>
+          </div>
+          <div>
+            <div class="exp-dates">jan 2025 — atual</div>
+            <div class="exp-loc">Santa Catarina · Remoto</div>
+          </div>
+        </div>
+        <p>Projetos práticos em AWS com foco em segurança, automação, compliance e IA generativa.</p>
+        <ul>
+          <li>Holocron Sentinel: auditoria LGPD com Python/Boto3 e arquitetura serverless.</li>
+          <li>IAM, menor privilégio, Zero Trust, criptografia e governança de dados.</li>
+          <li>Fluxos com RAG, agentes e serviços AWS para análise e automação.</li>
+          <li>Well-Architected (segurança, confiabilidade, operação e custo) e documentação de decisões.</li>
+        </ul>
+      </article>
+      <article class="exp-card">
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Co-fundador e Administrativo</div>
+            <div class="exp-co">SkinCaredaVan · Empresa familiar · Tempo integral</div>
+          </div>
+          <div>
+            <div class="exp-dates">fev 2019 — dez 2024</div>
+            <div class="exp-loc">Santa Catarina</div>
+          </div>
+        </div>
+        <p>Gestão operacional e administrativa, com processos, fornecedores e experiência do cliente.</p>
+        <ul>
+          <li>Rotinas administrativas, indicadores e organização interna.</li>
+          <li>Relacionamento com fornecedores e apoio comercial.</li>
+          <li>Liderança, comunicação e tomada de decisão no dia a dia da operação.</li>
+        </ul>
+      </article>
+      <article class="exp-card">
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Consultor de Tecnologia e Negócios</div>
+            <div class="exp-co">Benjamin Soluções Inteligentes · Autônomo</div>
+          </div>
+          <div>
+            <div class="exp-dates">jan 2018 — jan 2022</div>
+            <div class="exp-loc">Santa Catarina</div>
+          </div>
+        </div>
+        <p>
+          Levantamento de requisitos e apresentação de soluções tecnológicas para órgãos públicos
+          e instituições de ensino, com atendimento envolvendo 177 municípios de Santa Catarina.
+        </p>
+        <ul>
+          <li>Descoberta de necessidades e interface com gestores e equipes técnicas.</li>
+          <li>Apoio à estratégia de implantação e relacionamento com stakeholders.</li>
+          <li>Tradução de desafio de negócio em proposta de valor — base para arquitetura de soluções.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="certificacoes">
+  <div class="wrapper">
+    <div class="sh fade-in">
+      <span class="sh-num">04</span>
+      <h2>Licenças e certificações</h2>
       <div class="sh-line"></div>
     </div>
 
+    <div class="cert-group fade-in">
+      <h3>Certificações AWS</h3>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">AWS Certified AI Practitioner</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+          <p class="cert-desc">Conceitos de IA, ML e IA generativa na AWS; escolha de tecnologia por cenário e uso responsável dos serviços.</p>
+        </div>
+        <div class="cert-when">jul 2026 — jul 2029</div>
+        <div class="cert-id">7445eb927adf4c92ae73f16fb24757bb</div>
+        <a class="cert-link" href="https://www.credly.com/badges/7445eb92-7adf-4c92-ae73-f16fb24757bb" target="_blank" rel="noopener">Credencial</a>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">AWS Certified Cloud Practitioner (CLF-C02)</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+          <p class="cert-desc">Fundamentos de nuvem, serviços principais, segurança, precificação, suporte e Well-Architected.</p>
+        </div>
+        <div class="cert-when">fev 2026 — fev 2029</div>
+        <div class="cert-id">CLF-C02</div>
+        <span class="cert-id">Ativa</span>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">AWS Solutions Architect Associate (SAA-C03)</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+          <p class="cert-desc">Em preparação. Os 23 labs e o Wayfinder Cloud são a base prática dessa certificação.</p>
+        </div>
+        <div class="cert-when">2026</div>
+        <div class="cert-id">Em preparação</div>
+        <span class="cert-id">—</span>
+      </div>
+    </div>
+
+    <div class="cert-group fade-in">
+      <h3>Formação AWS e IA aplicada</h3>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Claude in Amazon Bedrock</div>
+          <div class="cert-issuer">Anthropic Academy</div>
+          <p class="cert-desc">Agentes, tool use, pipelines RAG, avaliação e arquitetura MCP em sistemas de IA na AWS.</p>
+        </div>
+        <div class="cert-when">abr 2026</div>
+        <div class="cert-id">hs2vptejmuk5</div>
+        <a class="cert-link" href="https://www.credential.net/hs2vptejmuk5" target="_blank" rel="noopener">Credencial</a>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Amazon Bedrock AgentCore</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+          <p class="cert-desc">Agentes em produção: runtime isolado, sandbox, MCP, identidade (OAuth) e observabilidade.</p>
+        </div>
+        <div class="cert-when">mar 2026</div>
+        <div class="cert-id">Curso concluído</div>
+        <span class="cert-id">—</span>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">AWS re/Start Graduate</div>
+          <div class="cert-issuer">Amazon Web Services · Escola da Nuvem</div>
+          <p class="cert-desc">Formação intensiva em cloud, segurança e operação, com projeto capstone aplicado.</p>
+        </div>
+        <div class="cert-when">jan 2026</div>
+        <div class="cert-id">Graduate</div>
+        <span class="cert-id">—</span>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">AWS Educate — Introduction to Cloud 101</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+        </div>
+        <div class="cert-when">out 2024</div>
+        <div class="cert-id">310dc876-d165-41e8-bdc8-e7060dc68691</div>
+        <a class="cert-link" href="https://www.credly.com/badges/310dc876-d165-41e8-bdc8-e7060dc68691" target="_blank" rel="noopener">Credencial</a>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">AWS Educate — Getting Started with Compute</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+        </div>
+        <div class="cert-when">out 2025</div>
+        <div class="cert-id">60611e4e-46b5-49d6-9e6c-74a203ca5b17</div>
+        <a class="cert-link" href="https://www.credly.com/badges/60611e4e-46b5-49d6-9e6c-74a203ca5b17" target="_blank" rel="noopener">Credencial</a>
+      </div>
+    </div>
+
+    <div class="cert-group fade-in">
+      <h3>Agentes e observabilidade</h3>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Introduction to Agent Observability &amp; Evaluations</div>
+          <div class="cert-issuer">LangChain</div>
+        </div>
+        <div class="cert-when">ago 2025</div>
+        <div class="cert-id">eymwrz3nbr</div>
+        <a class="cert-link" href="https://academy.langchain.com/certificates/eymwrz3nbr" target="_blank" rel="noopener">Credencial</a>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Introduction to LangGraph — Python</div>
+          <div class="cert-issuer">LangChain</div>
+        </div>
+        <div class="cert-when">ago 2025</div>
+        <div class="cert-id">a2azakrkyp</div>
+        <a class="cert-link" href="https://academy.langchain.com/certificates/a2azakrkyp" target="_blank" rel="noopener">Credencial</a>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Introduction to LangSmith</div>
+          <div class="cert-issuer">LangChain</div>
+        </div>
+        <div class="cert-when">ago 2025</div>
+        <div class="cert-id">eymwrz3nbr</div>
+        <a class="cert-link" href="https://academy.langchain.com/certificates/eymwrz3nbr" target="_blank" rel="noopener">Credencial</a>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Building Ambient</div>
+          <div class="cert-issuer">LangChain</div>
+          <p class="cert-desc">Concluído em ago 2025.</p>
+        </div>
+        <div class="cert-when">jun 2025</div>
+        <div class="cert-id">rlt1eiz5pj</div>
+        <a class="cert-link" href="https://academy.langchain.com/certificates/rlt1eiz5pj" target="_blank" rel="noopener">Credencial</a>
+      </div>
+    </div>
+
+    <div class="cert-group fade-in">
+      <h3>Segurança</h3>
+      <div class="cert-row">
+        <div>
+          <div class="cert-title">Formação em Cibersegurança</div>
+          <div class="cert-issuer">Hackers do Bem</div>
+          <p class="cert-desc">Base em conformidade, Python e práticas de segurança aplicadas a ambientes cloud.</p>
+        </div>
+        <div class="cert-when">mar 2025 — out 2032</div>
+        <div class="cert-id">—</div>
+        <span class="cert-id">Concluída</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formacao">
+  <div class="wrapper">
+    <div class="sh fade-in">
+      <span class="sh-num">05</span>
+      <h2>Formação acadêmica</h2>
+      <div class="sh-line"></div>
+    </div>
+    <div class="exp-list fade-in">
+      <article class="exp-card">
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">AWS — Cloud Computing e Segurança (re/Start)</div>
+            <div class="exp-co">Escola da Nuvem · Ensino técnico</div>
+          </div>
+          <div class="exp-dates">out 2025 — set 2026</div>
+        </div>
+        <p>
+          Programa intensivo com mais de 900 horas: serviços AWS (EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch),
+          segurança, redes, Linux, bancos de dados e arquitetura. 23 laboratórios em ambiente real.
+          Preparação para Cloud Practitioner, AI Practitioner e Solutions Architect Associate.
+        </p>
+      </article>
+      <article class="exp-card">
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Bacharelado em Direito</div>
+            <div class="exp-co">Faculdade Novo Milênio · LGPD e conformidade</div>
+          </div>
+          <div class="exp-dates">fev 2007 — dez 2012</div>
+        </div>
+        <p>
+          Formação jurídica em interpretação normativa, análise de risco, privacidade e governança.
+          Aplicada hoje em Cloud Security, LGPD e desenho de controles técnicos alinhados à regulação.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="labs">
+  <div class="wrapper">
+    <div class="sh fade-in">
+      <span class="sh-num">06</span>
+      <h2>Labs práticos</h2>
+      <div class="sh-line"></div>
+    </div>
+    <div class="labs-cta fade-in">
+      <p>23 labs da trilha SAA-C03 (Skill Builder / Escola da Nuvem). Cada card diz onde foi feito, para que serve o padrão, e se entrou no Wayfinder, no Holocron, no Hack2Hire — ou se foi recusado de propósito (Redshift, EFS, Storage Gateway).</p>
+      <a href="labs.html" class="btn-p">Abrir labs.html →</a>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrapper">
+    <div class="sh fade-in">
+      <span class="sh-num">07</span>
+      <h2>Competências</h2>
+      <div class="sh-line"></div>
+    </div>
     <div class="skills-grid fade-in">
       <div class="skill-group">
         <h3>Cloud AWS</h3>
-        <div class="skill-row"><div class="skill-head"><span>Security &amp; Compliance</span><span>87%</span></div><div class="skill-bar"><div class="skill-fill" data-w="87" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Networking &amp; VPC</span><span>82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82" style="background:var(--ciano)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Compute &amp; Serverless</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80" style="background:var(--green)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Storage &amp; Database</span><span>78%</span></div><div class="skill-bar"><div class="skill-fill" data-w="78" style="background:var(--amber)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>Security &amp; Compliance</span></div><div class="skill-bar"><div class="skill-fill" data-w="87" style="background:var(--blue)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>Networking &amp; VPC</span></div><div class="skill-bar"><div class="skill-fill" data-w="82" style="background:var(--blue)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>Compute &amp; Serverless</span></div><div class="skill-bar"><div class="skill-fill" data-w="80" style="background:var(--blue)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>Storage &amp; Database</span></div><div class="skill-bar"><div class="skill-fill" data-w="78" style="background:var(--blue)"></div></div></div>
       </div>
       <div class="skill-group">
-        <h3>Ferramentas &amp; Práticas</h3>
-        <div class="skill-row"><div class="skill-head"><span>Terraform (IaC)</span><span>82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82" style="background:var(--purple)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Python (Lambda, boto3, moto)</span><span>76%</span></div><div class="skill-bar"><div class="skill-fill" data-w="76" style="background:var(--amber)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>CI/CD (GitHub Actions, OIDC)</span><span>79%</span></div><div class="skill-bar"><div class="skill-fill" data-w="79" style="background:var(--green)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>LGPD / Auditoria / Compliance</span><span>72%</span></div><div class="skill-bar"><div class="skill-fill" data-w="72" style="background:var(--red)"></div></div></div>
-      </div>
-    </div>
-
-    <div class="sh fade-in" style="padding-top:32px;">
-      <span class="sh-num" style="opacity:.4">•</span>
-      <h2 style="font-size:16px;font-weight:700;color:var(--muted)">Certificações</h2>
-      <div class="sh-line"></div>
-    </div>
-
-    <div class="cert-grid fade-in">
-      <div class="cert-card">
-        <div class="cert-icon">🎯</div>
-        <div>
-          <div class="cert-name">AWS SAA-C03</div>
-          <div class="cert-sub">Solutions Architect Associate</div>
-          <span class="cert-status cs-prog">Em preparação · 2026</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">☁️</div>
-        <div>
-          <div class="cert-name">Escola da Nuvem</div>
-          <div class="cert-sub">AWS Cloud Architect · 23 labs hands-on</div>
-          <span class="cert-status cs-done">Concluído</span>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🔐</div>
-        <div>
-          <div class="cert-name">LGPD na Prática</div>
-          <div class="cert-sub">Controles técnicos mapeados no Wayfinder</div>
-          <span class="cert-status cs-done">Aplicado no projeto</span>
-        </div>
+        <h3>Ferramentas e práticas</h3>
+        <div class="skill-row"><div class="skill-head"><span>Terraform (IaC)</span></div><div class="skill-bar"><div class="skill-fill" data-w="82" style="background:var(--blue)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>Python (Lambda, boto3, moto)</span></div><div class="skill-bar"><div class="skill-fill" data-w="76" style="background:var(--blue)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>CI/CD (GitHub Actions, OIDC)</span></div><div class="skill-bar"><div class="skill-fill" data-w="79" style="background:var(--blue)"></div></div></div>
+        <div class="skill-row"><div class="skill-head"><span>LGPD / auditoria / compliance</span></div><div class="skill-bar"><div class="skill-fill" data-w="72" style="background:var(--blue)"></div></div></div>
       </div>
     </div>
   </div>
@@ -656,7 +977,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 <section id="sobre">
   <div class="wrapper">
     <div class="sh fade-in">
-      <span class="sh-num">04</span>
+      <span class="sh-num">08</span>
       <h2>Sobre</h2>
       <div class="sh-line"></div>
     </div>
@@ -689,7 +1010,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 <section id="contato">
   <div class="wrapper">
     <div class="sh fade-in">
-      <span class="sh-num">05</span>
+      <span class="sh-num">09</span>
       <h2>Contato</h2>
       <div class="sh-line"></div>
     </div>
@@ -720,6 +1041,13 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <div class="cc-val">barreto.guiv@gmail.com</div>
         </div>
       </a>
+      <a href="curriculo.html" class="contact-card">
+        <div class="cc-icon">📄</div>
+        <div>
+          <div class="cc-label">Currículo</div>
+          <div class="cc-val">HTML · imprimir em PDF</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -730,7 +1058,10 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       guilherme-barreto · 2026 · construído com <span>♥</span> e AWS
     </div>
     <div class="footer-links">
-      <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener">Wayfinder Cloud ↗</a>
+      <a href="labs.html">Labs</a>
+      <a href="curriculo.html">Currículo</a>
+      <a href="holocron.html">Holocron</a>
+      <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener">Wayfinder Cloud</a>
       <a href="https://github.com/guinatural" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/guilherme-barreto-gomes/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
@@ -761,7 +1092,6 @@ const sprints = [
 ];
 
 const tlEl = document.getElementById('tl');
-const tlColors = { tg:'var(--green)', tb:'var(--blue)', tc:'var(--ciano)', ta:'var(--amber)', tp:'var(--purple)', tr:'var(--red)' };
 sprints.forEach(s => {
   const div = document.createElement('div');
   div.className = 'tl-item';
@@ -770,71 +1100,11 @@ sprints.forEach(s => {
     <div class="tl-content">
       <div class="tl-title">${s.title}</div>
       <div class="tl-desc">${s.desc}</div>
-      <div class="tl-tags">${s.tags.map(t=>`<span class="tl-tag" style="background:${tlColors[s.tc]}22;color:${tlColors[s.tc]};border:1px solid ${tlColors[s.tc]}44">${t}</span>`).join('')}</div>
+      <div class="tl-tags">${s.tags.map(t=>`<span class="tl-tag" style="background:rgba(255,255,255,.05);color:var(--dim);border:1px solid var(--borda)">${t}</span>`).join('')}</div>
     </div>`;
   tlEl.appendChild(div);
 });
 
-// ── LABS DATA ────────────────────────────────────────────────────────────
-const labs = [
-  { n:'01', t:'VPC do Zero — Subnets, Route Tables e Internet Gateway',          cats:['Networking'],           c:'tb', s:'done'   },
-  { n:'02', t:'Security Groups e NACLs — Controle de Tráfego em Camadas',        cats:['Security','Networking'],c:'tg', s:'done'   },
-  { n:'03', t:'IAM — Roles, Políticas e Menor Privilégio',                        cats:['Security'],             c:'ta', s:'done'   },
-  { n:'04', t:'S3 — Acesso, Versionamento e Lifecycle',                           cats:['Storage','Security'],   c:'tp', s:'done'   },
-  { n:'05', t:'EC2 + Auto Scaling Group — Elasticidade por Métricas',             cats:['Compute'],              c:'tb', s:'done'   },
-  { n:'06', t:'RDS Multi-AZ e Read Replicas — HA e Escala de Leitura',            cats:['Database'],             c:'tg', s:'done'   },
-  { n:'07', t:'CloudFront + S3 — CDN Global com Signed URLs',                     cats:['Networking','Security'],c:'tc', s:'done'   },
-  { n:'08', t:'Lambda + API Gateway — API Serverless Event-Driven',               cats:['Compute'],              c:'ta', s:'done'   },
-  { n:'09', t:'SQS + SNS — Desacoplamento e Fanout',                              cats:['Compute'],              c:'tp', s:'done'   },
-  { n:'10', t:'CloudTrail + CloudWatch — Auditoria e Alertas',                    cats:['Security'],             c:'tb', s:'done'   },
-  { n:'11', t:'KMS — Criptografia em Repouso com CMK e Key Policies',             cats:['Security'],             c:'ta', s:'done'   },
-  { n:'12', t:'ECS Fargate — Containers Serverless',                              cats:['Compute'],              c:'tg', s:'done'   },
-  { n:'13', t:'ALB — Path-Based Routing para Microsserviços',                     cats:['Networking'],           c:'tc', s:'done'   },
-  { n:'14', t:'DynamoDB — Modelo NoSQL, GSI e Streams',                           cats:['Database'],             c:'tp', s:'done'   },
-  { n:'15', t:'VPC Endpoints — Tráfego Privado para Serviços AWS',                cats:['Networking','Security'],c:'tb', s:'done'   },
-  { n:'16', t:'Secrets Manager — Rotação Automática de Credenciais',              cats:['Security'],             c:'ta', s:'done'   },
-  { n:'17', t:'GuardDuty — Detecção de Ameaças com ML',                           cats:['Security'],             c:'tg', s:'done'   },
-  { n:'18', t:'AWS Config — Compliance e Remediação Automática',                  cats:['Security'],             c:'tc', s:'done'   },
-  { n:'19', t:'Athena + Glue — Data Lake e Queries SQL em S3',                    cats:['Storage'],              c:'tp', s:'done'   },
-  { n:'20', t:'EKS — Kubernetes Gerenciado com IRSA',                             cats:['Compute'],              c:'tb', s:'done'   },
-  { n:'21', t:'Route 53 — DNS com Failover e Roteamento Inteligente',             cats:['Networking'],           c:'ta', s:'done'   },
-  { n:'22', t:'WordPress em HA — ALB + RDS Multi-AZ + EFS',                      cats:['Architecture'],         c:'tg', s:'done'   },
-  { n:'23', t:'Well-Architected Review — 5 Pilares na Prática',                   cats:['Architecture'],         c:'tp', s:'active' },
-];
-
-const cBg  = { tb:'rgba(59,130,246,.12)',tg:'rgba(16,185,129,.12)',ta:'rgba(245,158,11,.12)',tp:'rgba(168,85,247,.12)',tc:'rgba(6,182,212,.12)',tr:'rgba(239,68,68,.12)' };
-const cTx  = { tb:'#3b82f6',tg:'#10b981',ta:'#f59e0b',tp:'#a855f7',tc:'#06b6d4',tr:'#ef4444' };
-const sSt  = { done:'✅ Concluído', active:'🔄 Em progresso' };
-
-const grid = document.getElementById('labsGrid');
-labs.forEach(lab => {
-  const card = document.createElement('div');
-  card.className = `lab-card${lab.s==='done'?' done':''}`;
-  card.dataset.cats = lab.cats.join(',');
-  card.innerHTML = `
-    <div class="lab-num">Lab ${lab.n}</div>
-    <div class="lab-title">${lab.t}</div>
-    <div class="lab-tags">${lab.cats.map(c=>`<span class="lab-tag" style="background:${cBg[lab.c]};color:${cTx[lab.c]};border:1px solid ${cTx[lab.c]}33">${c}</span>`).join('')}</div>
-    <div class="lab-status ${lab.s}">${sSt[lab.s]}</div>`;
-  grid.appendChild(card);
-});
-
-document.getElementById('labsFilter').addEventListener('click', e => {
-  const btn = e.target.closest('.lf-btn');
-  if (!btn) return;
-  document.querySelectorAll('.lf-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const cat = btn.dataset.cat;
-  document.querySelectorAll('.lab-card').forEach(card => {
-    if (cat === 'all' || card.dataset.cats.includes(cat)) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-});
-
-// ── SKILL BARS ────────────────────────────────────────────────────────────
 const skillObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {

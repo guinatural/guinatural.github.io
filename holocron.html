@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Holocron Sentinel — Case Study. Agente de auditoria AWS sob demanda: Boto3, Bedrock/Strands, isolamento de sessão e LGPD."/>
+<title>Holocron Sentinel — Case Study · Guilherme Barreto</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#0a0d14;--bg2:#111827;--bg3:#1a2235;--borda:#1e2d45;
+  --txt:#e2e8f0;--muted:#64748b;
+  --blue:#3b82f6;--green:#10b981;--amber:#f59e0b;--purple:#a855f7;--ciano:#06b6d4;--red:#ef4444;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 8% 12%,#fff,transparent),radial-gradient(1px 1px at 22% 38%,#fff,transparent),
+    radial-gradient(1.5px 1.5px at 63% 22%,#fff,transparent),radial-gradient(1px 1px at 78% 55%,#fff,transparent),
+    radial-gradient(1px 1px at 91% 9%,#fff,transparent),radial-gradient(1.5px 1.5px at 52% 79%,#fff,transparent),
+    radial-gradient(1px 1px at 17% 52%,rgba(168,85,247,.45),transparent),
+    radial-gradient(1px 1px at 84% 28%,rgba(16,185,129,.4),transparent);}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(10,13,20,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda);padding:14px 0;}
+.nav-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--purple);text-decoration:none;}
+.nav-back{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;}
+.nav-back:hover{color:var(--txt);}
+
+.wrapper{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 20px 80px;}
+.case-hero{padding:56px 0 40px;border-bottom:1px solid var(--borda);}
+.breadcrumb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px;}
+.breadcrumb a{color:var(--muted);text-decoration:none;}
+.breadcrumb a:hover{color:var(--purple);}
+.case-title{font-size:clamp(26px,4vw,38px);font-weight:700;line-height:1.15;letter-spacing:-.5px;margin-bottom:8px;}
+.case-title span{color:var(--purple);}
+.case-sub{font-size:15px;color:var(--muted);max-width:640px;margin-bottom:24px;line-height:1.6;}
+.case-meta{display:flex;flex-wrap:wrap;gap:20px;font-size:12.5px;color:var(--muted);}
+.case-meta span strong{color:var(--txt);font-weight:600;}
+.case-meta a{color:var(--purple);}
+
+.incident-banner{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:14px;padding:24px 28px;margin:36px 0 0;}
+.ib-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+.ib-title{font-size:18px;font-weight:700;margin-bottom:10px;}
+
+.sec{padding:44px 0 0;}
+.sec-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.sec-header h2{font-size:18px;font-weight:700;}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+.sec-line{flex:1;height:1px;background:var(--borda);}
+p.body-text{font-size:14px;color:rgba(226,232,240,.8);line-height:1.8;margin-bottom:14px;}
+p.body-text strong{color:#fff;font-weight:600;}
+
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin:16px 0;}
+.metric{background:var(--bg2);border:1px solid var(--borda);border-radius:10px;padding:12px 14px;text-align:center;}
+.metric-val{font-size:18px;font-weight:700;margin-bottom:2px;color:var(--purple);}
+.metric-lbl{font-size:10.5px;color:var(--muted);}
+
+.arch-box{background:#070b12;border:1px solid var(--borda);border-radius:12px;padding:20px 22px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;overflow-x:auto;white-space:pre;}
+.arch-box .s{color:var(--ciano);font-weight:700;}
+.arch-box .g{color:var(--green);}
+.arch-box .m{color:var(--muted);}
+
+.adr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+@media(max-width:580px){.adr-grid{grid-template-columns:1fr;}}
+.adr-card{background:var(--bg2);border:1px solid var(--borda);border-radius:10px;padding:14px 16px;}
+.adr-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px;}
+.adr-title{font-size:13px;font-weight:700;margin-bottom:4px;}
+.adr-why{font-size:12px;color:rgba(226,232,240,.7);line-height:1.5;}
+
+.stack-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.stack-item{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;padding:4px 11px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--borda);color:var(--ciano);}
+
+.lesson-list{list-style:none;padding:0;margin:14px 0;}
+.lesson-list li{padding:10px 14px;background:var(--bg2);border:1px solid var(--borda);border-radius:8px;margin-bottom:8px;font-size:13.5px;line-height:1.6;}
+
+.cta-box{background:linear-gradient(135deg,#1a1030,#1a2640);border:1px solid rgba(168,85,247,.25);border-radius:14px;padding:28px 30px;margin-top:40px;text-align:center;}
+.cta-box h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+.cta-box p{font-size:13.5px;color:var(--muted);margin-bottom:20px;}
+.cta-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-p{background:var(--purple);color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:8px;text-decoration:none;}
+.btn-o{border:1px solid var(--borda);color:var(--txt);font-weight:600;font-size:13px;padding:10px 22px;border-radius:8px;text-decoration:none;}
+
+footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
+.footer-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+.footer-links a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;}
+.footer-links a:hover{color:var(--purple);}
+.fade-in{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">gb.dev</a>
+    <a href="index.html" class="nav-back">← Portfólio</a>
+    <a href="labs.html" class="nav-back">Labs</a>
+    <a href="wayfinder.html" class="nav-back">Wayfinder</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <div class="case-hero fade-in">
+    <div class="breadcrumb">
+      <a href="index.html">Portfólio</a> / Projetos / Holocron Sentinel
+    </div>
+    <h1 class="case-title">Holocron <span>Sentinel</span></h1>
+    <p class="case-sub">
+      Capstone AWS re/Start: agente de auditoria que consulta a conta AWS <strong style="color:var(--txt)">agora</strong>,
+      com ferramentas Boto3 reais e raciocínio via Amazon Bedrock (Strands). Não é chatbot. Não é Config 24/7.
+    </p>
+    <div class="case-meta">
+      <span><strong>Contexto:</strong> Escola da Nuvem · capstone</span>
+      <span><strong>Stack:</strong> Python · Boto3 · Bedrock · Strands</span>
+      <span><strong>Status:</strong> PoC funcional (agente + scanners)</span>
+      <span><strong>Repo:</strong> <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Holocron-Sentinel-AWS-AgentCore ↗</a></span>
+    </div>
+
+    <div class="incident-banner">
+      <div class="ib-label">Diferença do Wayfinder</div>
+      <div class="ib-title">Sob demanda vs vigilância contínua</div>
+      <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.7;">
+        O <strong style="color:#fff">Wayfinder</strong> usa AWS Config e EventBridge para vigiar a conta o tempo todo.
+        O <strong style="color:#fff">Holocron</strong> entra quando um DPO ou consultor dispara um prompt:
+        o agente escolhe scanners (S3, IAM MFA, EBS órfão, porta 22 aberta) e devolve relatório.
+        São dois eixos no mesmo PDI — não o mesmo produto.
+      </p>
+    </div>
+  </div>
+
+  <div class="sec fade-in">
+    <div class="sec-header">
+      <span class="sec-num">01</span>
+      <h2>O que já existe no código</h2>
+      <div class="sec-line"></div>
+    </div>
+    <p class="body-text">
+      Núcleo em <code>01_AGENT_CORE</code>: classe <strong>HolocronSentinelCore</strong> com
+      <strong>FileSessionManager</strong> por <code>tenant_id</code> (<code>empresa_{id}</code>),
+      modelo Claude 3.5 Haiku no Bedrock, e quatro tools Strands em <code>scanners.py</code>.
+    </p>
+    <div class="metrics-grid">
+      <div class="metric"><div class="metric-val">4</div><div class="metric-lbl">Scanners Boto3</div></div>
+      <div class="metric"><div class="metric-val">S3</div><div class="metric-lbl">Block Public Access</div></div>
+      <div class="metric"><div class="metric-val">IAM</div><div class="metric-lbl">Usuários sem MFA</div></div>
+      <div class="metric"><div class="metric-val">EC2</div><div class="metric-lbl">EBS available + SG :22</div></div>
+    </div>
+    <div class="arch-box"><span class="m">// Fluxo do Holocron (sob demanda)</span>
+
+<span class="s">Prompt do DPO / consultor</span>
+    ▼
+<span class="s">Agent (Strands + Bedrock)</span>
+    ├─ session_id = empresa_{tenant_id}   <span class="g">isolamento de memória</span>
+    └─ tools:
+         auditar_permissoes_s3
+         auditar_mfa_iam
+         analisar_custos_aws_real      <span class="m">volumes EBS available</span>
+         verificar_seguranca_network   <span class="m">SSH 0.0.0.0/0</span>
+    ▼
+<span class="g">Relatório</span> (PDF / sessão do tenant)
+
+<span class="m">Labs que viram ferramenta: SG, IAM, S3, Boto3 (não tutorial solto).</span></div>
+  </div>
+
+  <div class="sec fade-in">
+    <div class="sec-header">
+      <span class="sec-num">02</span>
+      <h2>Decisões que um recrutador pode testar</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="adr-grid">
+      <div class="adr-card">
+        <div class="adr-num">D1</div>
+        <div class="adr-title">Tools, não só texto</div>
+        <div class="adr-why">Cada scanner é um <code>@tool</code> Strands com Boto3. O modelo chama a API da conta, não inventa o achado.</div>
+      </div>
+      <div class="adr-card">
+        <div class="adr-num">D2</div>
+        <div class="adr-title">Sessão por tenant</div>
+        <div class="adr-why">FileSessionManager com session_id próprio. Empresa Alpha não herda cache da Beta — LGPD como isolamento, não como parágrafo.</div>
+      </div>
+      <div class="adr-card">
+        <div class="adr-num">D3</div>
+        <div class="adr-title">PoC honesta</div>
+        <div class="adr-why">Ainda não é SaaS multi-tenant em produção. É agente + disco local / AgentCore. O desenho de tenant_id já está no código.</div>
+      </div>
+      <div class="adr-card">
+        <div class="adr-num">D4</div>
+        <div class="adr-title">Dois produtos, um portfólio</div>
+        <div class="adr-why">Holocron consulta agora. Wayfinder vigia sempre. Quem lê os dois cases não deve achar que é o mesmo repo.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec fade-in">
+    <div class="sec-header">
+      <span class="sec-num">03</span>
+      <h2>Stack</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="stack-wrap">
+      <span class="stack-item">Python</span>
+      <span class="stack-item">Boto3</span>
+      <span class="stack-item">Amazon Bedrock</span>
+      <span class="stack-item">Strands / AgentCore</span>
+      <span class="stack-item">FileSessionManager</span>
+      <span class="stack-item">S3 · IAM · EC2</span>
+      <span class="stack-item">LGPD</span>
+      <span class="stack-item">FPDF</span>
+    </div>
+  </div>
+
+  <div class="sec fade-in">
+    <div class="sec-header">
+      <span class="sec-num">04</span>
+      <h2>O que vem depois (código, não só doc)</h2>
+      <div class="sec-line"></div>
+    </div>
+    <ul class="lesson-list">
+      <li>Testes automatizados dos scanners (moto / pytest) — hoje a prova é lab + execução manual.</li>
+      <li>Não misturar a pasta Codex <code>work\holocron</code> (MCP wrappers + docs) com o V2 em <code>04_CODE\Holocron-Sentinel-V2</code>.</li>
+      <li>Wrappers MCP (<code>audit_event</code>, <code>generate_report</code>, <code>process_user_data</code>) existem como rascunho; o caminho de produto é endurecer o V2.</li>
+    </ul>
+  </div>
+
+  <div class="cta-box fade-in">
+    <h3>Ver o capstone e os labs que o originaram</h3>
+    <p>Código no GitHub · padrão dos labs na página de laboratórios · Wayfinder é o outro eixo.</p>
+    <div class="cta-links">
+      <a class="btn-p" href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
+      <a class="btn-o" href="labs.html">23 labs</a>
+      <a class="btn-o" href="wayfinder.html">Case Wayfinder</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">guilherme-barreto · Holocron Sentinel</div>
+    <div class="footer-links">
+      <a href="index.html">Portfólio</a>
+      <a href="labs.html">Labs</a>
+      <a href="curriculo.html">Currículo</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.fade-in').forEach((el,i) => {
+  setTimeout(() => el.classList.add('visible'), 80 + i * 70);
+});
+</script>
+</body>
+</html>

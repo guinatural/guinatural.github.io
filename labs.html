@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="23 labs SAA-C03 (Skill Builder / Escola da Nuvem): onde foram feitos, para que serve o padrão e em qual projeto entrou — Wayfinder, Holocron ou Hack2Hire."/>
+<title>Labs AWS — Guilherme Barreto</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root {
+  --bg:#08090f; --bg2:#0f1117; --bg3:#161b27; --borda:#1e2d45;
+  --txt:#e2e8f0; --muted:#64748b; --dim:#94a3b8; --blue:#3b82f6; --green:#10b981;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.7; }
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 17% 52%, rgba(59,130,246,.35), transparent);
+}
+.wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px; }
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(8,9,15,.9); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--borda);
+}
+.nav-inner {
+  max-width: 900px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 12px;
+}
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700; color: var(--txt);
+  text-decoration: none; letter-spacing: .5px;
+}
+.nav-links { display: flex; gap: 4px; list-style: none; flex-wrap: wrap; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  text-decoration: none; padding: 6px 12px; border-radius: 7px;
+}
+.nav-links a:hover { color: var(--txt); background: rgba(255,255,255,.05); }
+.hero { padding: 56px 0 28px; border-bottom: 1px solid var(--borda); }
+.kicker {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 10px;
+}
+h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+.lede { font-size: 15px; color: var(--dim); max-width: 720px; }
+.lede strong { color: var(--txt); font-weight: 600; }
+.stats { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 28px; }
+.hs-val { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 800; display: block; }
+.hs-lbl { font-size: 11px; color: var(--muted); }
+
+.stack {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin: 28px 0 0;
+}
+@media (max-width:720px){ .stack { grid-template-columns: 1fr; } }
+.stack article {
+  background: var(--bg2); border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px;
+}
+.stack h3 { font-size: 13.5px; font-weight: 700; margin-bottom: 4px; }
+.stack p { font-size: 12.5px; color: var(--dim); line-height: 1.6; }
+.stack .src { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 6px; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 28px 0 18px; }
+.lf-btn {
+  font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 20px;
+  border: 1px solid var(--borda); background: var(--bg3); color: var(--muted); cursor: pointer;
+}
+.lf-btn:hover, .lf-btn.active { border-color: var(--blue); color: var(--txt); background: rgba(59,130,246,.1); }
+.lab {
+  background: var(--bg2); border: 1px solid var(--borda); border-radius: 14px;
+  padding: 22px 24px; margin-bottom: 12px;
+}
+.lab.hidden { display: none; }
+.lab-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.lab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+.lab-st { font-size: 11px; font-weight: 700; color: var(--green); }
+.lab h2 { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.tag {
+  font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--borda); color: var(--dim); background: rgba(255,255,255,.04);
+}
+.tag.proj { color: var(--txt); border-color: rgba(59,130,246,.35); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+.block h3 { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.block p, .block li { font-size: 13.5px; color: var(--dim); line-height: 1.65; }
+.block ul { margin-left: 16px; }
+.full { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--borda); }
+.full p strong { color: var(--txt); }
+footer { border-top: 1px solid var(--borda); padding: 28px 0; margin-top: 24px; }
+.footer-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.footer-inner, .footer-inner a { font-size: 12.5px; color: var(--muted); text-decoration: none; }
+.footer-inner a:hover { color: var(--blue); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">guilherme.dev</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#projeto">Projetos</a></li>
+      <li><a href="wayfinder.html">Wayfinder</a></li>
+      <li><a href="curriculo.html">Currículo</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrapper">
+    <div class="kicker">SAA-C03 · Skill Builder · Escola da Nuvem</div>
+    <h1>O lab ensina o serviço. O projeto decide se ele entra.</h1>
+    <p class="lede">
+      Os 23 laboratórios abaixo foram feitos em <strong>conta AWS de lab</strong> (trilha Hands-on do Solutions Architect Associate / Escola da Nuvem) — ambiente provisionado e destruído, sem simulador.
+      Não são o portfólio. São a <strong>base de padrão</strong>. Wayfinder Cloud, Holocron Sentinel e Hack2Hire (DocuSmart) são onde o padrão virou decisão: usar, adaptar ou recusar.
+    </p>
+    <div class="stats">
+      <div><span class="hs-val">23</span><span class="hs-lbl">Labs SAA-C03</span></div>
+      <div><span class="hs-val">3</span><span class="hs-lbl">Projetos que consomem os padrões</span></div>
+      <div><span class="hs-val">3</span><span class="hs-lbl">Labs que recusei no desenho</span></div>
+    </div>
+    <div class="stack">
+      <article>
+        <div class="src">01 · PROJETOS / wayfinder-cloud</div>
+        <h3>Wayfinder Cloud</h3>
+        <p>Governança contínua (Config, EventBridge, Lambda, Terraform). Combina os labs quando o requisito é controle LGPD, não “subir um serviço”.</p>
+      </article>
+      <article>
+        <div class="src">01 · PROJETOS / Holocron</div>
+        <h3>Holocron Sentinel</h3>
+        <p>Capstone re/Start: auditoria LGPD, menor privilégio, KMS, CloudTrail e agentes (Bedrock / AgentCore). O lab de log e chave vira caixa de vidro.</p>
+      </article>
+      <article>
+        <div class="src">01 · PROJETOS / Hack2Hire</div>
+        <h3>Hack2Hire — DocuSmart</h3>
+        <p>Hackathon Escola da Nuvem (jun 2026). Motor Strands: Lambda + Bedrock + Textract/Comprehend + DynamoDB. Evento in, JSON de sinistro out — tempo de conta limitado.</p>
+      </article>
+      <article>
+        <div class="src">02 · ESTUDOS / ARCHITECT_SAA-C03 / Laboratórios</div>
+        <h3>Série hands-on 01–23</h3>
+        <p>Fonte única destes cards. Cada um isola um padrão (fila, peering, KMS, Aurora). Entrevista: “onde aprendi o tool”. Projeto: “quando e por que usei”.</p>
+      </article>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+  <div class="filters" id="labsFilter">
+    <button class="lf-btn active" data-cat="all">Todos</button>
+    <button class="lf-btn" data-cat="Wayfinder">Wayfinder</button>
+    <button class="lf-btn" data-cat="Holocron">Holocron</button>
+    <button class="lf-btn" data-cat="Hack2Hire">Hack2Hire</button>
+    <button class="lf-btn" data-cat="Recusei">Padrão recusado</button>
+    <button class="lf-btn" data-cat="Security">Segurança</button>
+    <button class="lf-btn" data-cat="Networking">Rede</button>
+    <button class="lf-btn" data-cat="Compute">Compute</button>
+    <button class="lf-btn" data-cat="Database">Dados</button>
+    <button class="lf-btn" data-cat="Architecture">Arquitetura</button>
+  </div>
+  <div id="labsRoot"></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span>Notas em 02 - ESTUDOS / ARCHITECT_SAA-C03 / Laboratórios</span>
+    <span>
+      <a href="index.html">Início</a> ·
+      <a href="wayfinder.html">Case Wayfinder</a> ·
+      <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener">Repo</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+const labs = [
+  { n:'01', t:'Arquitetura serverless com SNS, SQS e Lambda',
+    cats:['Compute','Architecture'], proj:['Wayfinder','Hack2Hire'],
+    onde:'Skill Builder / Escola da Nuvem · lab account. S3 dispara SNS; filas SQS consomem; Lambda processa.',
+    serve:'Contrato de desacoplamento: o produtor não espera o consumidor. Fan-out no tópico, buffer na fila, falha na DLQ. É o desenho certo quando o pico de evento não pode derrubar a API.',
+    aplica:'Wayfinder: pipeline de alerta CRITICAL / WARNING / INFO e DLQ das Lambdas de compliance. Hack2Hire: o motor não segura o frontend — o sinistro entra como evento e o JSON sai no DynamoDB.' },
+  { n:'02', t:'Acesso em escala com S3 Access Points',
+    cats:['Security','Storage'], proj:['Wayfinder'],
+    onde:'Lab SAA-C03. Access Point com política própria, restrição de VPC e tag; bucket policy delega o acesso ao ponto.',
+    serve:'Separar “quem entra no objeto” de “quem administra o bucket”. Em dado classificado, um único bucket policy vira inadministrável; o access point é a fronteira.',
+    aplica:'Wayfinder: políticas por classificação de dado no S3 de evidência. Holocron e Hack2Hire usam bucket privado + IAM de role, sem access point — granularidade extra não pagava o prazo.' },
+  { n:'03', t:'AWS KMS — criar chave, policy, cifrar e auditar uso',
+    cats:['Security'], proj:['Wayfinder','Holocron'],
+    onde:'Lab introdutório KMS na trilha SAA-C03: CMK, grant, encrypt/decrypt, CloudTrail no uso da chave.',
+    serve:'Criptografia sem dono da chave é teatro. O padrão é CMK com key policy estreita, rotação e trilha de quem chamou Decrypt. Art. 46 da LGPD pede isso em linguagem de arquiteto, não de checklist.',
+    aplica:'Wayfinder: várias CMKs por tipo de dado, rotação anual (ADR de KMS). Holocron Sentinel: dado sensível cifrado em repouso com a mesma disciplina de menor privilégio na key policy.' },
+  { n:'04', t:'NACLs e Security Groups na VPC',
+    cats:['Security','Networking'], proj:['Wayfinder','Holocron'],
+    onde:'Lab de rede: SG stateful no ENI, NACL stateless na subnet, tráfego EC2 controlado em duas camadas.',
+    serve:'Defesa em profundidade de borda. SG é o contrato do workload; NACL é o cinto da subnet. Senior não abre 0.0.0.0/0 “para testar” e esquece — documenta o mínimo e o porquê.',
+    aplica:'Wayfinder: VPC em camadas (sg-alb / sg-app / sg-data). Holocron: isolamento de funções de auditoria. SKDV: VPC no backend móvel.' },
+  { n:'05', t:'Event-driven com API Gateway, EventBridge e Lambda',
+    cats:['Compute','Architecture'], proj:['Wayfinder','Hack2Hire','Holocron'],
+    onde:'Lab de microsserviço serverless: HTTP API → EventBridge → regras → Lambda; volta por WebSocket.',
+    serve:'O barramento é o ponto de roteamento, não a função. Você casa evento com consumidor sem acoplar o produtor. É o esqueleto de qualquer motor de compliance ou de sinistro.',
+    aplica:'Wayfinder: Config NON_COMPLIANT → EventBridge → evaluator (ADR-002). Hack2Hire: POST /analisar-sinistro como borda; o motor Strands é o consumidor. Holocron: gatilhos de auditoria, não cron cego.' },
+  { n:'06', t:'Fundamentos do Amazon ECS',
+    cats:['Compute'], proj:['Wayfinder'],
+    onde:'Lab de cluster de teste: task definition, cluster, service com N tarefas.',
+    serve:'Unidade de deploy é a tarefa, não a VM. Role da task ≠ role da instância. Serve quando o runtime precisa de processo longo ou imagem própria — não quando o trabalho é um evento de 30s.',
+    aplica:'Wayfinder (camada VitaCore): API em Fargate, não na Lambda de compliance. Hack2Hire ficou em Lambda: o hackathon não precisava de cluster.' },
+  { n:'07', t:'ECS em escala — capacity provider e scheduling',
+    cats:['Compute'], proj:['Wayfinder'],
+    onde:'Lab de design: launch type, capacity provider, restrição de placement, custo vs. performance.',
+    serve:'Escalar container é política (Fargate vs. EC2, AZ, circuit breaker), não “subir mais task”. Senior escolhe o provider pelo perfil de carga e pelo blast radius.',
+    aplica:'Wayfinder: ECS em 2 AZs atrás de ALB com health check. Fora do escopo do Holocron capstone e do prazo Hack2Hire.' },
+  { n:'08', t:'Amazon RDS — failover, endpoint e Secrets Manager',
+    cats:['Database','Security'], proj:['Wayfinder','Holocron'],
+    onde:'Lab RDS: Multi-AZ, simulação de failover, aplicação no endpoint DNS, senha no Secrets Manager.',
+    serve:'HA relacional é failover gerenciado + aplicação que não cacheia IP. Segredo fora do código. Se o RPO/RTO do dado de paciente exige SQL, RDS/Aurora; se o acesso é chave-valor de evento, DynamoDB.',
+    aplica:'Wayfinder: Aurora MySQL Multi-AZ no domínio VitaCore (prontuário). Secrets no mesmo padrão do ADR-008. Holocron: credencial nunca no repositório.' },
+  { n:'09', t:'Amazon Redshift — warehouse colunar a partir do S3',
+    cats:['Database'], proj:['Recusei'],
+    onde:'Lab de cluster Redshift, COPY do S3, SQL de voos, monitoramento de nós.',
+    serve:'OLAP em petabyte, armazenamento colunar, BI clássico. Caro e excessivo para trilha de auditoria de config. O padrão existe; o caso de uso do portfólio não é warehouse corporativo.',
+    aplica:'Recusei no Wayfinder: Athena sobre S3 cobre a pergunta “quem alterou o bucket e quando” com custo de query. Dizer isso em entrevista vale mais do que forçar Redshift no diagrama.' },
+  { n:'10', t:'Troubleshooting de peering de VPC',
+    cats:['Networking'], proj:['Wayfinder'],
+    onde:'Lab quebrado de propósito: HTTP cliente↔servidor em VPCs diferentes; Reachability Analyzer; rotas e SG do peering.',
+    serve:'Peering não é “ligar dois VPCs”. São rotas simétricas, CIDR sem overlap, SG que referencia o peer, NACL que não corta a volta. Arquiteto sênior debuga conectividade antes de redesenhar o produto.',
+    aplica:'Wayfinder: o mesmo método de diagnóstico foi para VPC endpoints (ADR-009) — tráfego privado para S3/KMS/Config, sem NAT “porque o peering falhou”.' },
+  { n:'11', t:'CloudTrail + CloudWatch — trilha, métrica, alarme, Insights',
+    cats:['Security'], proj:['Wayfinder','Holocron'],
+    onde:'Lab de conta: trilha multi-serviço, Trail no Logs, SNS, metric filter, alarme, Insights.',
+    serve:'CloudTrail responde “quem fez”. CloudWatch responde “quando cruzou o limiar”. Sem os dois, auditoria LGPD (art. 37) é planilha. Senior liga trilha em todas as regiões e trata log como dado classificado.',
+    aplica:'Wayfinder: Trail multi-região + dashboard + Athena. Holocron Sentinel: cada acesso a dado sensível registrado — a “caixa de vidro” do pitch.' },
+  { n:'12', t:'Arquitetura multi-tier (projeto final da trilha)',
+    cats:['Architecture','Networking'], proj:['Wayfinder'],
+    onde:'Lab final SAA-C03: CloudFormation de VPC multi-AZ, RDS HA, EFS na app, ASG de web, requisitos de negócio não lineares.',
+    serve:'Camadas (borda / app / dado) e AZ. É o desenho default de sistema que tem estado relacional e HTTP. O exercício força juntar serviços; o portfólio força escolher o que sobra fora.',
+    aplica:'Wayfinder: VPC pública / privada-app / privada-data. EFS do lab não veio — objeto de evidência vive no S3 com Object Lock.' },
+  { n:'13', t:'Web app altamente disponível — ALB, Auto Scaling, Aurora',
+    cats:['Architecture','Compute'], proj:['Wayfinder'],
+    onde:'Padrão da trilha (mapa labs → Wayfinder): health check no ALB, scale na app, banco Multi-AZ. Continuação natural do lab 12.',
+    serve:'Disponibilidade é teste de falha, não slide de 99,9%. Target group unhealthy, AZ morta, writer do Aurora: a aplicação segue no DNS do ALB e no endpoint do cluster.',
+    aplica:'Wayfinder — camada de aplicação VitaCore (ALB + ECS + Aurora). A esteira de compliance permanece serverless: carga diferente, runtime diferente.' },
+  { n:'14', t:'Storage Gateway — S3 File Gateway (NFS/SMB híbrido)',
+    cats:['Storage'], proj:['Recusei'],
+    onde:'Lab híbrido: File Gateway em EC2, share NFS/SMB, portas, cópia on-prem → S3, métricas CloudWatch.',
+    serve:'Quando o datacenter ainda fala NFS/SMB e o lake precisa ser S3. É ponte, não destino. Nenhum dos três projetos tem filial com file server legado no caminho crítico.',
+    aplica:'Fora de escopo. S3 nativo cobre evidência (Wayfinder), artefato de sinistro (Hack2Hire) e objeto de auditoria (Holocron).' },
+  { n:'15', t:'Amazon EFS — NFS elástico multi-AZ',
+    cats:['Storage'], proj:['Recusei'],
+    onde:'Lab console: criar EFS, montar em EC2 Linux, medir throughput.',
+    serve:'Estado compartilhado POSIX entre instâncias (lift-and-shift, CMS, home dir). Não é object store. Se o dado é evidência imutável ou PDF de sinistro, S3 ganha em custo, lock e integração com Config.',
+    aplica:'Recusei no Wayfinder (nota do mapa de labs). Lab 12 ensinou o padrão; o ADR escolheu S3.' },
+  { n:'16', t:'CloudFormation — stack, retenção, ASG e ELB',
+    cats:['Architecture'], proj:['Wayfinder','Hack2Hire'],
+    onde:'Lab IaC: bucket com deletion policy, app PHP, update de instância, IAM instance profile, ELB+ASG no template.',
+    serve:'Infra é código versionado, com rollback. O tool do lab é CloudFormation; o contrato é o mesmo no Terraform: plan, apply, state, sem click-ops em produção.',
+    aplica:'Wayfinder: Terraform 1.6+, remote state, OIDC (ADR-001). Hack2Hire: automação no prazo da conta do hackathon — o hábito de template, não o console artesanal.' },
+  { n:'17', t:'DynamoDB Streams + Kinesis + Lambda',
+    cats:['Database','Compute'], proj:['Wayfinder','Hack2Hire'],
+    onde:'Lab em duas partes: Kinesis → Lambda; DynamoDB Streams → Lambda. Evento como fonte da verdade.',
+    serve:'Mudança de item ou recorde de stream dispara trabalho. Guardrail, estado de remediação e payload de sinistro cabem em NoSQL. Relacional fica para o que precisa de join e consistência forte de prontuário.',
+    aplica:'Wayfinder: estado de guardrail em DynamoDB; wearable/stream no mapa VitaCore via Kinesis. Hack2Hire: persistência do JSON do motor no DynamoDB.' },
+  { n:'18', t:'Autenticação customizada com Amazon Cognito',
+    cats:['Security'], proj:['Wayfinder'],
+    onde:'Lab: User Pool, Lambda no fluxo de auth, teste de login, log no CloudWatch.',
+    serve:'Identidade gerenciada, MFA, token de curta duração. Senior não inventa tabela de senha. Cognito é a borda de humano; IAM role é a borda de máquina.',
+    aplica:'Wayfinder / VitaCore: pools de médico (MFA) e paciente. Hack2Hire e Holocron: identidade de API via IAM da Lambda e da conta do lab — sem user pool no caminho crítico do hackathon.' },
+  { n:'19', t:'Automação: Console, CLI, SDK (boto3) e Session Manager',
+    cats:['Architecture'], proj:['Wayfinder','Holocron','Hack2Hire'],
+    onde:'Lab de três superfícies + SSM Session Manager sem bastion nem SSH aberto.',
+    serve:'Console ensina. CLI/SDK opera. SSM audita o acesso ao host. Access key de longa duração em laptop de time é cheiro de incidente. O padrão é role + sessão.',
+    aplica:'Wayfinder: bootstrap_state.py em boto3; CI com OIDC. Holocron: wrappers Python/Boto3 e MCP. Hack2Hire: invocação programática do motor (Postman / Lambda), não clique no console na banca.' },
+  { n:'20', t:'Troubleshooting de site atrás do ALB',
+    cats:['Networking','Architecture'], proj:['Wayfinder'],
+    onde:'Lab quebrado: site inacessível no DNS do load balancer; SG, listener, target, AZ.',
+    serve:'ALB é contrato HTTP. 502/unhealthy quase nunca é “a aplicação sumiu” — é health check, subnet, security group ou target em AZ sem listener. Senior lê o target group antes de reescrever o código.',
+    aplica:'Wayfinder sprint de deploy: health check das tasks ECS. Mesma disciplina se o Holocron ou o DocuSmart forem para ALB depois do MVP.' },
+  { n:'21', t:'Evolução de site: S3 estático → LAMP → pedaços serverless',
+    cats:['Architecture','Compute'], proj:['Wayfinder','Hack2Hire'],
+    onde:'Lab narrativo: S3 estático, depois EC2 LAMP, depois MySQL → DynamoDB conforme a carga muda.',
+    serve:'Arquitetura não é o diagrama do dia 1. É a migração consciente. Senior troca estado e runtime quando o custo operacional passa o valor de controlar o servidor.',
+    aplica:'Wayfinder: o motor de compliance nasceu serverless (não há EC2 no caminho Config→Lambda). Hack2Hire: o mesmo raciocínio — prazo de conta AWS, motor em Lambda, não frota LAMP.' },
+  { n:'22', t:'Route 53 — zona privada, health check e política de roteamento',
+    cats:['Networking'], proj:['Wayfinder'],
+    onde:'Lab de DNS interno: hosted zone privada, registros, health de endpoint público vs. CloudWatch em recurso privado, política simples no ALB.',
+    serve:'DNS é controle de tráfego e de exposição. Zona privada para nome interno; health check para não apontar a um ALB morto. Latency / failover são decisão de produto, não enfeite.',
+    aplica:'Wayfinder: Route 53 com health check na camada de aplicação. Labs de compliance não precisam de domínio público — o evento não entra por DNS.' },
+  { n:'23', t:'Aurora Serverless v2 — escala por ACU e Performance Insights',
+    cats:['Database'], proj:['Wayfinder'],
+    onde:'Lab PostgreSQL Aurora Serverless v2, pgbench, CloudWatch, Performance Insights.',
+    serve:'Capacidade relacional que acompanha carga sem resize de instância. Bom para perfil irregular. Ruim se você precisa de plano previsível de IOPS e de um único writer clássico o tempo todo.',
+    aplica:'Wayfinder: opção de Aurora no ambiente prod VitaCore. O lab ensinou a métrica (ACU, commit, lag); a escolha de Serverless vs. provisioned fica no ADR de dados, não no hype.' }
+];
+
+const root = document.getElementById('labsRoot');
+labs.forEach(lab => {
+  const el = document.createElement('article');
+  el.className = 'lab';
+  el.dataset.cats = [...lab.cats, ...lab.proj].join(',');
+  el.innerHTML = `
+    <div class="lab-top">
+      <span class="lab-num">Lab ${lab.n} · trilha SAA-C03</span>
+      <span class="lab-st">Feito em conta de laboratório</span>
+    </div>
+    <h2>${lab.t}</h2>
+    <div class="tags">
+      ${lab.cats.map(c => `<span class="tag">${c}</span>`).join('')}
+      ${lab.proj.map(p => `<span class="tag proj">${p}</span>`).join('')}
+    </div>
+    <div class="grid">
+      <div class="block"><h3>Onde foi feito</h3><p>${lab.onde}</p></div>
+      <div class="block"><h3>Para que serve o padrão</h3><p>${lab.serve}</p></div>
+    </div>
+    <div class="block full"><h3>Onde isso entrou (ou por que não entrou)</h3><p>${lab.aplica}</p></div>`;
+  root.appendChild(el);
+});
+
+document.getElementById('labsFilter').addEventListener('click', e => {
+  const btn = e.target.closest('.lf-btn');
+  if (!btn) return;
+  document.querySelectorAll('.lf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cat = btn.dataset.cat;
+  document.querySelectorAll('.lab').forEach(card => {
+    card.classList.toggle('hidden', !(cat === 'all' || card.dataset.cats.includes(cat)));
+  });
+});
+</script>
+</body>
+</html>

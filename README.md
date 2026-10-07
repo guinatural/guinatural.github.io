@@ -1,23 +1,33 @@
-# guilherme-barreto.github.io
+# Portfólio — Guilherme Barreto
 
-Portfólio de Guilherme Barreto — AWS Cloud Architect.
+**Site:** https://guinatural.github.io  
+**Pasta no PC:** `C:\Users\barre\Documents\Codex\2026-08-15\me-ajude\work\portfolio`
 
-**Site:** https://guinatural.github.io (após publicar no GitHub Pages)
+**Mapa de todos os projetos (Holocron, Wayfinder, estudos):** [MAPA.md](MAPA.md)
 
 ## Páginas
 
-- `index.html` — Landing page com projetos e labs
-- `wayfinder.html` — Case study completo do Wayfinder Cloud
+- `index.html` — Landing
+- `wayfinder.html` — Case Wayfinder Cloud (Config 24/7)
+- `holocron.html` — Case Holocron Sentinel (agente sob demanda)
+- `labs.html` — 23 labs SAA-C03
+- `curriculo.html` — CV para impressão / PDF
 
-## Como publicar
+## Publicar
 
-1. Crie o repositório `guinatural.github.io` no GitHub
-2. Push do conteúdo para a branch `main`
-3. Em Settings → Pages → Source: selecione **GitHub Actions**
-4. O workflow `.github/workflows/deploy.yml` publica automaticamente
+```powershell
+cd "C:\Users\barre\Documents\Codex\2026-08-15\me-ajude\work\portfolio"
+git add .
+git commit -m "feat(portfolio): case Holocron + mapa de pastas"
+git push origin main
+```
 
-## Próximos passos
+Settings → Pages → Source: **GitHub Actions** (workflow `deploy.yml`).
 
-- [ ] Adicionar domínio personalizado (quando disponível)
-- [ ] Migrar para S3 + CloudFront (com Terraform — mais um projeto para o portfólio)
-- [ ] Adicionar páginas individuais para outros labs relevantes
+## Não confundir
+
+| Pasta | O que é |
+|---|---|
+| Esta (`work\portfolio`) | Site público |
+| `...\04_CODE\Holocron-Sentinel-V2` | Código do agente (scanners) |
+| `...\work\holocron` | Rascunho MCP + docs — não é a fonte de verdade |
