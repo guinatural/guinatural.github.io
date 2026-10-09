@@ -1,0 +1,434 @@
+:root {
+  --bg: #f3f6f9;
+  --bg2: #fff;
+  --bg3: #e9eff5;
+  --bg4: #dce5ee;
+  --borda: #cbd5df;
+  --txt: #172b3e;
+  --muted: #5b6f82;
+  --dim: #3b5064;
+  --blue: #145d86;
+  --green: #13795b;
+  --amber: #8c4b00;
+  --purple: #734e9b;
+  --ciano: #226a8a;
+  --red: #b42318;
+  --pink: #a33d52;
+  --accent: #ff9900;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--txt);
+}
+
+body::before {
+  background-image:
+    radial-gradient(ellipse at 82% 0, rgba(255,153,0,.08), transparent 32%),
+    radial-gradient(ellipse at 12% 18%, rgba(50,119,161,.06), transparent 34%);
+}
+
+.utility-bar {
+  background: linear-gradient(105deg,#172b3e 0%,#233c5a 66%,#493365 100%);
+  color: #e5edf4;
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+
+.utility-inner {
+  max-width: 900px;
+  min-height: 32px;
+  margin: 0 auto;
+  padding: 6px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.utility-inner strong {
+  color: #ffb547;
+  font-weight: 700;
+}
+
+nav {
+  background: rgba(255,255,255,.97);
+  border-bottom-color: #d6dee6;
+  box-shadow: 0 2px 8px rgba(23,43,62,.06);
+}
+
+.nav-brand {
+  color: #172b3e;
+}
+
+.nav-links a,
+.nav-back {
+  color: #40566b;
+}
+
+.nav-links a:hover,
+.nav-back:hover {
+  color: #0b4f78;
+  background: #edf3f8;
+}
+
+.nav-links .nav-gh {
+  color: #172b3e;
+  background: #ff9900;
+  border-color: #e68a00;
+}
+
+.nav-links .nav-gh:hover {
+  background: #ffad32;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline-color: #145d86;
+}
+
+.hero-glow {
+  width: min(600px, 100%);
+}
+
+#hero {
+  background: linear-gradient(120deg,#fff 0%,#f0f5f9 66%,#f0ecf7 100%);
+}
+
+.hero-name,
+.case-title,
+.sh h2,
+.sec-header h2 {
+  color: #172b3e;
+}
+
+.hero-stat .hs-val {
+  color: #145d86;
+}
+
+.hero-tags .tag,
+.tag,
+.si,
+.stack-item {
+  color: #31546d;
+  background: #eef3f7;
+  border-color: #d1dce6;
+}
+
+.btn-p {
+  background: #ff9900;
+  color: #172b3e;
+  border-color: #e68a00;
+}
+
+.btn-p:hover {
+  background: #ffad32;
+}
+
+.btn-o {
+  color: #172b3e;
+  background: #fff;
+  border-color: #b9c7d4;
+}
+
+.btn-o:hover {
+  border-color: #145d86;
+}
+
+.proj-feat,
+.proj-card,
+.exp-card,
+.skill-group,
+.cert-card,
+.story-card,
+.contact-card,
+.metric,
+.adr-card,
+.lesson-list li,
+.lab,
+.stack article {
+  background-color: #fff;
+  border-color: #d3dde6;
+  box-shadow: 0 2px 8px rgba(23,43,62,.04);
+}
+
+.proj-feat {
+  border-top: 3px solid #ff9900;
+}
+
+.proj-feat:hover {
+  border-color: #e68a00;
+  box-shadow: 0 12px 30px rgba(23,43,62,.1);
+}
+
+.pf-top {
+  background: linear-gradient(115deg,#102a43 0%,#173b59 68%,#493365 100%);
+  border-bottom-color: #294a66;
+}
+
+.pf-top .pf-name {
+  color: #fff;
+}
+
+.pf-top .pf-sub {
+  color: #d1dde8;
+}
+
+.pf-badge {
+  color: #ffc15a;
+}
+
+.incident p,
+.pf-desc,
+.exp-card p,
+.exp-card ul,
+.story-card p,
+.body-text,
+p.body-text {
+  color: #40566b;
+}
+
+.incident strong,
+.pf-desc strong,
+p.body-text strong {
+  color: #172b3e;
+}
+
+.story-card .quote {
+  color: #40566b;
+  border-left-color: #ff9900;
+}
+
+.exp-card strong,
+.skill-list,
+.proj-card p {
+  color: #40566b;
+}
+
+.proj-card h3,
+.exp-role,
+.cert-title,
+.skill-group h3 {
+  color: #172b3e;
+}
+
+.incident-banner {
+  background: #eef4f8;
+  border-color: #d1dfe9;
+  border-left: 4px solid #ff9900;
+}
+
+.ib-label {
+  color: #8c4b00;
+}
+
+.ib-title {
+  color: #172b3e;
+}
+
+.arch-flow {
+  background: linear-gradient(145deg,#edf3f8 0%,#f8fafc 62%,#f4eff8 100%);
+  border-color: #cbd8e3;
+}
+
+.arch-step {
+  background: #fff;
+  border-color: #cbd8e3;
+  border-top-color: #ff9900;
+}
+
+.arch-service {
+  color: #8c4b00;
+}
+
+.arch-step strong {
+  color: #172b3e;
+}
+
+.arch-step span:last-child,
+.arch-flow figcaption,
+.arch-outputs span {
+  color: #52677b;
+}
+
+.arch-step::after {
+  border-color: #145d86 !important;
+}
+
+.arch-output,
+.arch-tool {
+  background: #f8fafc;
+  border-color: #d1dce6;
+}
+
+.arch-output strong {
+  color: #145d86;
+}
+
+.arch-tool:nth-child(even) {
+  background: #f5f1f8;
+  border-color: #d9cee6;
+}
+
+.audit-lane {
+  border-top-color: #d3dde6;
+}
+
+.audit-lane h3 {
+  color: #40566b;
+}
+
+.table-wrap {
+  border-color: #cbd5df;
+  background: #fff;
+}
+
+.rules-table thead tr {
+  background: #edf3f8;
+}
+
+.rules-table thead th {
+  color: #40566b;
+  border-bottom-color: #cbd5df;
+}
+
+.rules-table tbody tr {
+  border-bottom-color: #e4eaf0;
+}
+
+.rules-table tbody tr:hover {
+  background: #f5f8fb;
+}
+
+.rules-table tbody td {
+  color: #253c52;
+}
+
+.rules-table tbody td:first-child {
+  color: #145d86;
+}
+
+.adr-why {
+  color: #52677b;
+}
+
+.lesson-list li {
+  color: #30465b;
+}
+
+.cta-box {
+  background: linear-gradient(115deg,#102a43 0%,#173b59 68%,#493365 100%);
+  border-color: #294a66;
+}
+
+.cta-box h3 {
+  color: #fff;
+}
+
+.cta-box p {
+  color: #d1dde8;
+}
+
+.stack article p,
+.lab .block p,
+.lab .block li,
+.lede {
+  color: #40566b;
+}
+
+.lab {
+  border-top: 2px solid #ff9900;
+}
+
+.lab h2,
+.stack h3 {
+  color: #172b3e;
+}
+
+.lab-num,
+.kicker,
+.block h3,
+.stack .src {
+  color: #52677b;
+}
+
+.tag.proj {
+  color: #8c4b00;
+  border-color: #e6b56f;
+  background: #fff7e8;
+}
+
+.lf-btn {
+  background: #fff;
+  color: #40566b;
+  border-color: #cbd5df;
+}
+
+.lf-btn:hover,
+.lf-btn.active {
+  color: #172b3e;
+  border-color: #e68a00;
+  background: #fff3df;
+}
+
+.filters .lf-btn:focus-visible {
+  outline-color: #145d86;
+}
+
+.cert-row {
+  border-bottom-color: #d6dee6;
+}
+
+.cert-link,
+.proj-card a,
+.footer-links a:hover {
+  color: #145d86;
+}
+
+.contact-card {
+  color: #172b3e;
+}
+
+.cc-label,
+.proj-meta,
+.cert-issuer,
+.cert-when,
+.cert-id,
+.exp-dates,
+.exp-loc {
+  color: #5b6f82;
+}
+
+footer {
+  border-top-color: #cbd5df;
+}
+
+.footer-brand,
+.footer-left,
+.footer-links a,
+.footer-inner,
+.footer-inner a {
+  color: #52677b;
+}
+
+@media (max-width: 640px) {
+  .utility-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .utility-inner span:last-child {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

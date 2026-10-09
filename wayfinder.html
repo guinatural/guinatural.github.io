@@ -13,22 +13,18 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 :root{
-  --bg:#0a0d14;--bg2:#111827;--bg3:#1a2235;--borda:#1e2d45;
-  --txt:#e2e8f0;--muted:#64748b;
-  --blue:#3b82f6;--green:#10b981;--amber:#f59e0b;--purple:#a855f7;--ciano:#06b6d4;--red:#ef4444;
+  --bg:#0b1422;--bg2:#111f30;--bg3:#17283c;--borda:#2b4259;
+  --txt:#f2f5f8;--muted:#9aabbc;
+  --blue:#ff9900;--green:#56c7a5;--amber:#ffc15a;--purple:#ffb547;--ciano:#8ebbd8;--red:#ff7777;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    radial-gradient(1px 1px at 8% 12%,#fff,transparent),radial-gradient(1px 1px at 22% 38%,#fff,transparent),
-    radial-gradient(1.5px 1.5px at 63% 22%,#fff,transparent),radial-gradient(1px 1px at 78% 55%,#fff,transparent),
-    radial-gradient(1px 1px at 91% 9%,#fff,transparent),radial-gradient(1.5px 1.5px at 52% 79%,#fff,transparent),
-    radial-gradient(1px 1px at 17% 52%,rgba(59,130,246,.5),transparent),
-    radial-gradient(1px 1px at 84% 28%,rgba(16,185,129,.4),transparent);}
+  background-image:radial-gradient(ellipse at 84% 0%,rgba(255,153,0,.09),transparent 35%),
+    radial-gradient(ellipse at 8% 24%,rgba(82,145,190,.08),transparent 34%);}
 
-nav{position:sticky;top:0;z-index:100;background:rgba(10,13,20,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda);padding:14px 0;}
+nav{position:sticky;top:0;z-index:100;background:rgba(11,20,34,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda);padding:14px 0;}
 .nav-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;}
 .nav-brand{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--ciano);text-decoration:none;}
 .nav-back{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:6px;}
@@ -75,12 +71,22 @@ p.body-text strong{color:#fff;font-weight:600;}
 .mv-ciano{color:var(--ciano);} .mv-red{color:var(--red);}
 
 /* ARCH DIAGRAM */
-.arch-box{background:#070b12;border:1px solid var(--borda);border-radius:12px;padding:20px 22px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;overflow-x:auto;white-space:pre;}
-.arch-box .s{color:var(--ciano);font-weight:700;}
-.arch-box .g{color:var(--green);}
-.arch-box .w{color:var(--amber);}
-.arch-box .r{color:var(--red);}
-.arch-box .m{color:var(--muted);}
+.arch-flow{background:linear-gradient(145deg,#101e2e,#0d1928);border:1px solid var(--borda);border-radius:14px;padding:22px;margin:16px 0;}
+.arch-flow figcaption{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.arch-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:0;margin:0;}
+.arch-step{position:relative;min-width:0;background:var(--bg2);border:1px solid var(--borda);border-top:3px solid var(--blue);border-radius:10px;padding:14px;}
+.arch-step:not(:last-child)::after{content:"";position:absolute;left:calc(100% + 5px);top:50%;width:14px;border-top:2px solid var(--ciano);}
+.arch-service{display:block;color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.arch-step strong{display:block;color:var(--txt);font-size:13px;line-height:1.4;margin-bottom:4px;}
+.arch-step span:last-child{display:block;color:var(--muted);font-size:11.5px;line-height:1.5;}
+.arch-outputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px;}
+.arch-output{border:1px solid var(--borda);border-radius:8px;padding:10px 12px;background:rgba(255,255,255,.025);}
+.arch-output strong{display:block;color:var(--ciano);font-size:12px;margin-bottom:3px;}
+.arch-output span{color:var(--muted);font-size:11px;line-height:1.45;}
+.audit-lane{margin-top:20px;padding-top:16px;border-top:1px solid var(--borda);}
+.audit-lane h3{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.audit-lane .arch-steps{grid-template-columns:repeat(4,minmax(0,1fr));}
+@media(max-width:620px){.arch-steps,.audit-lane .arch-steps{grid-template-columns:1fr;gap:10px}.arch-step:not(:last-child)::after{left:50%;top:calc(100% + 3px);width:0;height:9px;border-top:0;border-left:2px solid var(--ciano)}.arch-outputs{grid-template-columns:1fr}}
 
 /* RULES TABLE */
 .rules-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:16px 0;}
@@ -104,7 +110,7 @@ p.body-text strong{color:#fff;font-weight:600;}
 .adr-why{font-size:12px;color:rgba(226,232,240,.7);line-height:1.5;}
 
 /* STACK */
-.stack-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.stack-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;list-style:none;padding:0;}
 .stack-item{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;padding:4px 11px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--borda);color:var(--ciano);}
 
 /* LESSONS */
@@ -113,7 +119,7 @@ p.body-text strong{color:#fff;font-weight:600;}
 .lesson-list li .icon{flex-shrink:0;font-size:15px;margin-top:2px;}
 
 /* CTA */
-.cta-box{background:linear-gradient(135deg,#0d1b35,#1a2640);border:1px solid rgba(59,130,246,.2);border-radius:14px;padding:28px 30px;margin-top:40px;text-align:center;}
+.cta-box{background:linear-gradient(135deg,#172b40,#102033);border:1px solid rgba(255,153,0,.25);border-radius:14px;padding:28px 30px;margin-top:40px;text-align:center;}
 .cta-box h3{font-size:18px;font-weight:700;margin-bottom:8px;}
 .cta-box p{font-size:13.5px;color:var(--muted);margin-bottom:20px;}
 .cta-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
@@ -133,9 +139,16 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offset:3px;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
+<link rel="stylesheet" href="portfolio-theme.css">
 </head>
 <body>
 
+<div class="utility-bar">
+  <div class="utility-inner">
+    <strong>PORTFÓLIO DE CLOUD</strong>
+    <span>Segurança, governança e automação · projetos e estudos</span>
+  </div>
+</div>
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-brand">gb.dev</a>
@@ -167,7 +180,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     <div class="incident-banner">
       <div class="ib-label">Cenário hipotético de projeto</div>
       <div class="ib-title">Exposição de dados em um ambiente de saúde</div>
-      <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.7;">
+      <p style="font-size:13.5px;color:var(--dim);line-height:1.7;">
         VitaCore Health é um cenário fictício usado para explorar controles contra exposição de dados
         sensíveis. Não representa um incidente, uma organização, uma sanção ou um resultado operacional real.
       </p>
@@ -192,23 +205,28 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <strong>S3 Object Lock</strong>. A retenção e os controles efetivos dependem da configuração
       implantada e da política aplicável; esta página não declara conformidade legal.
     </p>
-    <div class="arch-box"><span class="m">// Fluxo principal do Wayfinder</span>
-
-<span class="s">AWS Config</span> (regras managed + regras custom WAYFINDER-*)
-    │ recurso muda de configuração
-    ▼
-<span class="s">EventBridge</span> (roteamento por severidade e tipo)
-    │
-    ▼
-<span class="s">Lambda: compliance-evaluator</span>
-    ├─ enriquece: referência LGPD, severidade e dados do recurso
-    ├─ publica métrica no <span class="s">CloudWatch</span>
-    ├─ notifica via <span class="s">SNS</span>
-    └─ remediação opcional com guardrails configurados
-
-<span class="s">CloudTrail</span> → <span class="s">S3 Object Lock</span> (retenção conforme política aplicável)
-    └─ <span class="s">Glue Crawler</span> → <span class="s">Athena</span>
-         └─ <span class="g">relatório via Lambda, conforme implementação</span></div>
+    <figure class="arch-flow" aria-labelledby="wayfinder-flow-caption">
+      <figcaption id="wayfinder-flow-caption">Fluxo proposto de avaliação e tratamento de achados</figcaption>
+      <ol class="arch-steps">
+        <li class="arch-step"><span class="arch-service">Avaliação</span><strong>AWS Config</strong><span>Regras gerenciadas e regras custom WAYFINDER-* avaliam a configuração do recurso.</span></li>
+        <li class="arch-step"><span class="arch-service">Roteamento</span><strong>Amazon EventBridge</strong><span>Encaminha mudanças de conformidade conforme o tipo e a severidade.</span></li>
+        <li class="arch-step"><span class="arch-service">Processamento</span><strong>Lambda · compliance-evaluator</strong><span>Enriquece o achado com referência LGPD, severidade e dados do recurso.</span></li>
+      </ol>
+      <div class="arch-outputs" aria-label="Saídas propostas do avaliador">
+        <div class="arch-output"><strong>CloudWatch</strong><span>Métricas operacionais do fluxo.</span></div>
+        <div class="arch-output"><strong>SNS</strong><span>Notificação do achado.</span></div>
+        <div class="arch-output"><strong>Remediação opcional</strong><span>Com guardrails definidos; não declarada como operação implantada.</span></div>
+      </div>
+      <div class="audit-lane">
+        <h3>Trilha de auditoria proposta</h3>
+        <ol class="arch-steps">
+          <li class="arch-step"><span class="arch-service">Registro</span><strong>CloudTrail</strong><span>Eventos de atividade da conta.</span></li>
+          <li class="arch-step"><span class="arch-service">Retenção</span><strong>S3 Object Lock</strong><span>Prazo conforme política aplicável.</span></li>
+          <li class="arch-step"><span class="arch-service">Catálogo</span><strong>Glue Crawler</strong><span>Catalogação dos logs para consulta.</span></li>
+          <li class="arch-step"><span class="arch-service">Consulta</span><strong>Athena</strong><span>Relatórios conforme a implementação.</span></li>
+        </ol>
+      </div>
+    </figure>
   </div>
 
   <!-- 2. AS 14 REGRAS -->
@@ -260,7 +278,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </div>
     <p class="body-text">
       Cada decisão relevante tem um ADR. Não uso ADR como burocracia —
-      uso para rastrear <strong>por que</strong> escolhi algo e quais alternativas descartas.
+      uso para rastrear <strong>por que</strong> escolhi algo e quais alternativas descartei.
     </p>
     <div class="adr-grid">
       <div class="adr-card">
@@ -304,7 +322,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="sec-line"></div>
     </div>
     <div class="metrics-grid">
-      <div class="metric"><div class="metric-val mv-amber">14</div><div class="metric-lbl">Regras LGPD custom</div></div>
       <div class="metric"><div class="metric-val mv-amber">14</div><div class="metric-lbl">Regras custom listadas neste case</div></div>
     </div>
   </div>
@@ -317,36 +334,25 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="sec-line"></div>
     </div>
     <p class="body-text"><strong>Infraestrutura (IaC):</strong></p>
-    <div class="stack-wrap">
-      <span class="stack-item">Terraform 1.6+</span>
-      <span class="stack-item">AWS Config</span>
-      <span class="stack-item">EventBridge</span>
-      <span class="stack-item">KMS CMK</span>
-      <span class="stack-item">VPC + Endpoints</span>
-      <span class="stack-item">S3 Object Lock</span>
-      <span class="stack-item">SNS</span>
-      <span class="stack-item">SQS + DLQ</span>
-      <span class="stack-item">DynamoDB</span>
-      <span class="stack-item">CloudWatch</span>
-    </div>
+    <ul class="stack-wrap" aria-label="Serviços e ferramentas de infraestrutura">
+      <li class="stack-item">Terraform 1.6+</li><li class="stack-item">AWS Config</li>
+      <li class="stack-item">EventBridge</li><li class="stack-item">KMS CMK</li>
+      <li class="stack-item">VPC + Endpoints</li><li class="stack-item">S3 Object Lock</li>
+      <li class="stack-item">SNS</li><li class="stack-item">SQS + DLQ</li>
+      <li class="stack-item">DynamoDB</li><li class="stack-item">CloudWatch</li>
+    </ul>
     <p class="body-text" style="margin-top:16px;"><strong>Lambdas (Python 3.12):</strong></p>
-    <div class="stack-wrap">
-      <span class="stack-item">boto3</span>
-      <span class="stack-item">moto (mock AWS)</span>
-      <span class="stack-item">pytest</span>
-      <span class="stack-item">importlib.util</span>
-      <span class="stack-item">CloudTrail + Athena</span>
-      <span class="stack-item">GuardDuty</span>
-      <span class="stack-item">Security Hub</span>
-      <span class="stack-item">Inspector v2</span>
-    </div>
+    <ul class="stack-wrap" aria-label="Ferramentas e serviços de processamento e segurança">
+      <li class="stack-item">boto3</li><li class="stack-item">moto (mock AWS)</li>
+      <li class="stack-item">pytest</li><li class="stack-item">importlib.util</li>
+      <li class="stack-item">CloudTrail + Athena</li><li class="stack-item">GuardDuty</li>
+      <li class="stack-item">Security Hub</li><li class="stack-item">Inspector v2</li>
+    </ul>
     <p class="body-text" style="margin-top:16px;"><strong>CI/CD:</strong></p>
-    <div class="stack-wrap">
-      <span class="stack-item">GitHub Actions</span>
-      <span class="stack-item">OIDC (sem access keys)</span>
-      <span class="stack-item">terraform plan/apply</span>
-      <span class="stack-item">Lambda deploy</span>
-    </div>
+    <ul class="stack-wrap" aria-label="Ferramentas de CI/CD">
+      <li class="stack-item">GitHub Actions</li><li class="stack-item">OIDC (sem access keys)</li>
+      <li class="stack-item">terraform plan/apply</li><li class="stack-item">Lambda deploy</li>
+    </ul>
   </div>
 
   <!-- 6. LIÇÕES -->
