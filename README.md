@@ -9,6 +9,7 @@ Site público: <https://guinatural.github.io>
 - `holocron.html` — case do capstone Holocron Sentinel / AgentCore
 - `labs.html` — notas de laboratórios AWS
 - `curriculo.html` — currículo em HTML, pronto para impressão
+- `portfolio-theme.css` — identidade visual compartilhada das páginas do portfólio e dos cases
 
 ## Repositórios de projeto
 

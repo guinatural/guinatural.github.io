@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Case de portfólio Holocron Sentinel: agente de auditoria AWS sob demanda com Boto3, Bedrock e Strands."/>
+<meta name="description" content="Case Holocron Sentinel: necessidade de auditoria AWS sob demanda, resposta da prova de conceito e limites de implementação."/>
 <link rel="canonical" href="https://guinatural.github.io/holocron.html"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Holocron Sentinel — Case de portfólio"/>
-<meta property="og:description" content="Agente de auditoria AWS sob demanda apresentado como prova de conceito de portfólio."/>
+<meta property="og:description" content="O problema, o fluxo sob demanda e o estado de prova de conceito do Holocron Sentinel."/>
 <meta property="og:url" content="https://guinatural.github.io/holocron.html"/>
 <title>Holocron Sentinel — Case Study · Guilherme Barreto</title>
 <style>
@@ -41,10 +41,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,20,34,.94);backdrop-fil
 .case-meta{display:flex;flex-wrap:wrap;gap:20px;font-size:12.5px;color:var(--muted);}
 .case-meta span strong{color:var(--txt);font-weight:600;}
 .case-meta a{color:var(--purple);}
-
-.incident-banner{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:14px;padding:24px 28px;margin:36px 0 0;}
-.ib-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
-.ib-title{font-size:18px;font-weight:700;margin-bottom:10px;}
 
 .sec{padding:44px 0 0;}
 .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
@@ -139,22 +135,35 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <span><strong>AgentCore capstone:</strong> <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Holocron-Sentinel-AWS-AgentCore ↗</a></span>
     </div>
 
-    <div class="incident-banner">
-      <div class="ib-label">Diferença do Wayfinder</div>
-      <div class="ib-title">Sob demanda vs avaliação orientada a eventos</div>
-      <p style="font-size:13.5px;color:var(--dim);line-height:1.7;">
-        O case <strong style="color:#fff">Wayfinder</strong> explora AWS Config e EventBridge para avaliação orientada a eventos.
-        O <strong style="color:#fff">Holocron</strong> entra quando um DPO ou consultor dispara um prompt:
-        o agente escolhe scanners (S3, IAM MFA, EBS órfão, porta 22 aberta) e devolve relatório.
-        São projetos e repositórios distintos, não modos de operação de um único produto.
-      </p>
+    <div class="case-story-grid" aria-label="Problema e resposta do Holocron Sentinel">
+      <article class="case-story-card problem">
+        <h2>A necessidade</h2>
+        <p>
+          Uma revisão pontual de uma conta AWS envolve olhar configurações diferentes de S3, IAM e
+          EC2. O capstone explora como reunir essas verificações quando um consultor solicita uma
+          auditoria, em vez de tratar cada scanner como uma tarefa isolada.
+        </p>
+      </article>
+      <article class="case-story-card solution">
+        <h2>A resposta da prova de conceito</h2>
+        <p>
+          O usuário envia um pedido; Strands e Bedrock podem selecionar quatro ferramentas Boto3 e
+          compor um relatório. O fluxo é sob demanda e termina em revisão humana — não é vigilância
+          contínua nem um serviço multi-tenant comprovado em produção.
+        </p>
+      </article>
     </div>
+    <aside class="case-status">
+      <strong>Estado real:</strong> o repositório do capstone apresenta a PoC e seus scanners.
+      Uma chave de sessão com <code>tenant_id</code> não demonstra autorização nem isolamento entre
+      clientes. Este projeto é separado do Wayfinder.
+    </aside>
   </div>
 
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">01</span>
-      <h2>O que já existe no código</h2>
+      <h2>Como a PoC responde a uma solicitação</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">

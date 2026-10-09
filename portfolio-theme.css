@@ -179,7 +179,6 @@ button:focus-visible {
   color: #ffc15a;
 }
 
-.incident p,
 .pf-desc,
 .exp-card p,
 .exp-card ul,
@@ -189,7 +188,6 @@ p.body-text {
   color: #40566b;
 }
 
-.incident strong,
 .pf-desc strong,
 p.body-text strong {
   color: #172b3e;
@@ -198,6 +196,111 @@ p.body-text strong {
 .story-card .quote {
   color: #40566b;
   border-left-color: #ff9900;
+}
+
+.case-story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0 0;
+}
+
+.case-story-card {
+  min-width: 0;
+  padding: 20px 22px;
+  background: #fff;
+  border: 1px solid #d3dde6;
+  border-top: 3px solid #145d86;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(23,43,62,.04);
+}
+
+.case-story-card.problem {
+  border-top-color: #ff9900;
+}
+
+.case-story-card.solution {
+  border-top-color: #734e9b;
+}
+
+.case-story-card h2,
+.case-story-card h3 {
+  color: #172b3e;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.case-story-card p {
+  color: #40566b;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.case-story-card p + p {
+  margin-top: 8px;
+}
+
+.case-status {
+  margin-top: 12px;
+  padding: 13px 16px;
+  color: #30465b;
+  background: #fff7e8;
+  border: 1px solid #e6c58e;
+  border-left: 4px solid #ff9900;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.case-status strong {
+  color: #704000;
+}
+
+.project-story {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+
+.project-story > div {
+  padding-left: 10px;
+  border-left: 2px solid #d5dee7;
+}
+
+.project-story .project-response {
+  border-left-color: #ff9900;
+}
+
+.project-story .project-context {
+  border-left-color: #734e9b;
+}
+
+.project-story h4 {
+  color: #52677b;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.project-story p {
+  color: #40566b;
+  font-size: 12.5px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.project-status {
+  color: #52677b;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+@media (max-width: 620px) {
+  .case-story-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .exp-card strong,
@@ -210,20 +313,6 @@ p.body-text strong {
 .exp-role,
 .cert-title,
 .skill-group h3 {
-  color: #172b3e;
-}
-
-.incident-banner {
-  background: #eef4f8;
-  border-color: #d1dfe9;
-  border-left: 4px solid #ff9900;
-}
-
-.ib-label {
-  color: #8c4b00;
-}
-
-.ib-title {
   color: #172b3e;
 }
 
