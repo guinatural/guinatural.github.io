@@ -14,21 +14,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root {
-  --bg:     #08090f;
-  --bg2:    #0f1117;
-  --bg3:    #161b27;
-  --bg4:    #1a2235;
-  --borda:  #1e2d45;
-  --txt:    #e2e8f0;
-  --muted:  #64748b;
-  --dim:    #94a3b8;
-  --blue:   #3b82f6;
-  --green:  #10b981;
-  --amber:  #f59e0b;
-  --purple: #a855f7;
-  --ciano:  #06b6d4;
-  --red:    #ef4444;
-  --pink:   #ec4899;
+  --bg:     #0b1422;
+  --bg2:    #111f30;
+  --bg3:    #17283c;
+  --bg4:    #1d334b;
+  --borda:  #2b4259;
+  --txt:    #f2f5f8;
+  --muted:  #9aabbc;
+  --dim:    #c0ccd7;
+  --blue:   #ff9900;
+  --green:  #56c7a5;
+  --amber:  #ffc15a;
+  --purple: #ffb547;
+  --ciano:  #8ebbd8;
+  --red:    #ff7777;
+  --pink:   #f08a39;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,22 +46,8 @@ body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    radial-gradient(1px 1px at  8% 12%, rgba(255,255,255,.7), transparent),
-    radial-gradient(1px 1px at 22% 38%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 45%  7%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.5px 1.5px at 63% 22%, rgba(255,255,255,.4), transparent),
-    radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 91%  9%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1px 1px at  5% 68%, rgba(255,255,255,.4), transparent),
-    radial-gradient(1.5px 1.5px at 52% 79%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 88% 42%, rgba(255,255,255,.3), transparent),
-    radial-gradient(1px 1px at 35% 91%, rgba(255,255,255,.4), transparent),
-    radial-gradient(1px 1px at 14% 55%, rgba(255,255,255,.3), transparent),
-    radial-gradient(1px 1px at 72% 33%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 17% 52%, rgba(59,130,246,.4), transparent),
-    radial-gradient(1px 1px at 84% 28%, rgba(16,185,129,.35), transparent),
-    radial-gradient(1px 1px at 60% 65%, rgba(168,85,247,.3), transparent),
-    radial-gradient(1px 1px at 40% 85%, rgba(6,182,212,.3), transparent);
+    radial-gradient(ellipse at 80% 2%, rgba(255,153,0,.09), transparent 32%),
+    radial-gradient(ellipse at 12% 20%, rgba(82,145,190,.08), transparent 34%);
 }
 
 /* ── LAYOUT ── */
@@ -70,7 +56,7 @@ body::before {
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(8,9,15,.9);
+  background: rgba(11,20,34,.94);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--borda);
   padding: 0;
@@ -93,19 +79,19 @@ nav {
 }
 .nav-links a:hover { color: var(--txt); background: rgba(255,255,255,.05); }
 .nav-links .nav-gh {
-  background: rgba(59,130,246,.12); color: var(--blue);
-  border: 1px solid rgba(59,130,246,.25); border-radius: 7px;
+  background: rgba(255,153,0,.1); color: var(--blue);
+  border: 1px solid rgba(255,153,0,.3); border-radius: 7px;
   padding: 6px 14px; font-weight: 600;
 }
-.nav-links .nav-gh:hover { background: rgba(59,130,246,.2); }
+.nav-links .nav-gh:hover { background: rgba(255,153,0,.18); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline-offset: 3px; }
 
 /* ── HERO ── */
 #hero { padding: 90px 0 70px; border-bottom: 1px solid var(--borda); position: relative; }
 .hero-glow {
   position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 300px; border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(59,130,246,.06) 0%, transparent 70%);
+  width: min(600px, 100%); height: 300px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,153,0,.1) 0%, transparent 70%);
   pointer-events: none;
 }
 .hero-available {
@@ -147,6 +133,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline
 .hero-stat .hs-val {
   font-size: 26px; font-weight: 800; line-height: 1;
   font-family: 'JetBrains Mono', monospace;
+  color: var(--blue);
 }
 .hero-stat .hs-lbl { font-size: 11px; color: var(--muted); font-weight: 500; margin-top: 3px; }
 
@@ -195,8 +182,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline
   margin-bottom: 14px;
 }
 .proj-feat:hover {
-  border-color: rgba(59,130,246,.4);
-  box-shadow: 0 0 40px rgba(59,130,246,.06);
+  border-color: rgba(255,153,0,.5);
+  box-shadow: 0 12px 36px rgba(255,153,0,.08);
 }
 .pf-top {
   background: linear-gradient(135deg, #0a1628 0%, #111f3a 100%);
@@ -250,6 +237,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline
 .mc, .mb, .mg, .ma, .mp, .mr { color: var(--txt); }
 
 .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+.stack { list-style: none; padding: 0; }
 .si {
   font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
   padding: 3px 10px; border-radius: 5px;
@@ -267,9 +255,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline
   text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
   transition: all .2s;
 }
-.lbtn-gh   { background: rgba(59,130,246,.1); color: var(--blue); border: 1px solid rgba(59,130,246,.25); }
+.lbtn-gh   { background: rgba(255,153,0,.1); color: var(--blue); border: 1px solid rgba(255,153,0,.3); }
 .lbtn-case { background: rgba(16,185,129,.1); color: var(--green); border: 1px solid rgba(16,185,129,.25); }
-.lbtn-gh:hover   { background: rgba(59,130,246,.2); }
+.lbtn-gh:hover   { background: rgba(255,153,0,.18); }
 .lbtn-case:hover { background: rgba(16,185,129,.2); }
 
 /* ── TIMELINE PROJETO ── */
@@ -420,6 +408,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline
   padding: 18px 22px; margin-top: 8px;
 }
 .labs-cta p { font-size: 13.5px; color: var(--dim); max-width: 520px; }
+.proj-feat { border-top: 2px solid var(--blue); }
+.pf-top { background: linear-gradient(120deg, #172b40, #102033 70%); }
+.proj-card, .exp-card, .skill-group, .story-card, .contact-card { box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+.hero-tags { list-style: none; padding: 0; }
+.hero-tags .tag { display: inline-flex; align-items: center; }
 
 /* ── ABOUT / STORY ── */
 .story-card {
@@ -478,10 +471,17 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 </style>
+<link rel="stylesheet" href="portfolio-theme.css">
 </head>
 <body>
 
 <!-- NAV -->
+<div class="utility-bar">
+  <div class="utility-inner">
+    <strong>PORTFÓLIO DE CLOUD</strong>
+    <span>Segurança, governança e automação · projetos e estudos</span>
+  </div>
+</div>
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-brand">guilherme.dev</a>
@@ -530,18 +530,18 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       </div>
     </div>
 
-    <div class="hero-tags">
-      <span class="tag tc">AWS Config</span>
-      <span class="tag tb">Terraform</span>
-      <span class="tag tg">Python 3.12</span>
-      <span class="tag ta">LGPD / Compliance</span>
-      <span class="tag tp">Event-Driven</span>
-      <span class="tag tc">GitHub Actions</span>
-      <span class="tag tb">Lambda</span>
-      <span class="tag tg">KMS</span>
-      <span class="tag ta">GuardDuty</span>
-      <span class="tag tp">moto / pytest</span>
-    </div>
+    <ul class="hero-tags" aria-label="Tecnologias e práticas">
+      <li class="tag tc">AWS Config</li>
+      <li class="tag tb">Terraform</li>
+      <li class="tag tg">Python 3.12</li>
+      <li class="tag ta">LGPD / Compliance</li>
+      <li class="tag tp">Event-Driven</li>
+      <li class="tag tc">GitHub Actions</li>
+      <li class="tag tb">Lambda</li>
+      <li class="tag tg">KMS</li>
+      <li class="tag ta">GuardDuty</li>
+      <li class="tag tp">moto / pytest</li>
+    </ul>
 
     <div class="hero-cta">
       <a href="#projeto" class="btn-p">Ver o projeto principal →</a>
@@ -595,16 +595,16 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <div class="metric"><div class="mv ma">14</div><div class="ml">Regras custom descritas no case</div></div>
         </div>
 
-        <div class="stack">
-          <span class="si">AWS Config</span><span class="si">EventBridge</span>
-          <span class="si">Lambda</span><span class="si">CloudTrail</span>
-          <span class="si">GuardDuty</span><span class="si">Security Hub</span>
-          <span class="si">KMS CMK</span><span class="si">Athena</span>
-          <span class="si">S3 Object Lock</span><span class="si">VPC Endpoints</span>
-          <span class="si">SNS + SQS + DLQ</span><span class="si">Terraform 1.6+</span>
-          <span class="si">Python 3.12</span><span class="si">moto + pytest</span>
-          <span class="si">GitHub Actions OIDC</span>
-        </div>
+        <ul class="stack" aria-label="Tecnologias e serviços considerados no projeto">
+          <li class="si">AWS Config</li><li class="si">EventBridge</li>
+          <li class="si">Lambda</li><li class="si">CloudTrail</li>
+          <li class="si">GuardDuty</li><li class="si">Security Hub</li>
+          <li class="si">KMS CMK</li><li class="si">Athena</li>
+          <li class="si">S3 Object Lock</li><li class="si">VPC Endpoints</li>
+          <li class="si">SNS + SQS + DLQ</li><li class="si">Terraform 1.6+</li>
+          <li class="si">Python 3.12</li><li class="si">moto + pytest</li>
+          <li class="si">GitHub Actions OIDC</li>
+        </ul>
 
         <p style="font-size:13px;color:var(--muted);">
           Estado: projeto de portfólio em desenvolvimento. Consulte o repositório para conferir o código e o escopo atuais.

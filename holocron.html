@@ -13,22 +13,18 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 :root{
-  --bg:#0a0d14;--bg2:#111827;--bg3:#1a2235;--borda:#1e2d45;
-  --txt:#e2e8f0;--muted:#64748b;
-  --blue:#3b82f6;--green:#10b981;--amber:#f59e0b;--purple:#a855f7;--ciano:#06b6d4;--red:#ef4444;
+  --bg:#0b1422;--bg2:#111f30;--bg3:#17283c;--borda:#2b4259;
+  --txt:#f2f5f8;--muted:#9aabbc;
+  --blue:#ff9900;--green:#56c7a5;--amber:#ffc15a;--purple:#ffb547;--ciano:#8ebbd8;--red:#ff7777;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    radial-gradient(1px 1px at 8% 12%,#fff,transparent),radial-gradient(1px 1px at 22% 38%,#fff,transparent),
-    radial-gradient(1.5px 1.5px at 63% 22%,#fff,transparent),radial-gradient(1px 1px at 78% 55%,#fff,transparent),
-    radial-gradient(1px 1px at 91% 9%,#fff,transparent),radial-gradient(1.5px 1.5px at 52% 79%,#fff,transparent),
-    radial-gradient(1px 1px at 17% 52%,rgba(168,85,247,.45),transparent),
-    radial-gradient(1px 1px at 84% 28%,rgba(16,185,129,.4),transparent);}
+  background-image:radial-gradient(ellipse at 84% 0%,rgba(255,153,0,.09),transparent 35%),
+    radial-gradient(ellipse at 8% 24%,rgba(82,145,190,.08),transparent 34%);}
 
-nav{position:sticky;top:0;z-index:100;background:rgba(10,13,20,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda);padding:14px 0;}
+nav{position:sticky;top:0;z-index:100;background:rgba(11,20,34,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda);padding:14px 0;}
 .nav-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .nav-brand{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--purple);text-decoration:none;}
 .nav-back{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;}
@@ -63,10 +59,18 @@ p.body-text strong{color:#fff;font-weight:600;}
 .metric-val{font-size:18px;font-weight:700;margin-bottom:2px;color:var(--purple);}
 .metric-lbl{font-size:10.5px;color:var(--muted);}
 
-.arch-box{background:#070b12;border:1px solid var(--borda);border-radius:12px;padding:20px 22px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;overflow-x:auto;white-space:pre;}
-.arch-box .s{color:var(--ciano);font-weight:700;}
-.arch-box .g{color:var(--green);}
-.arch-box .m{color:var(--muted);}
+.arch-flow{background:linear-gradient(145deg,#101e2e,#0d1928);border:1px solid var(--borda);border-radius:14px;padding:22px;margin:16px 0;}
+.arch-flow figcaption{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.arch-steps{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:0;margin:0;}
+.arch-step{position:relative;min-width:0;background:var(--bg2);border:1px solid var(--borda);border-top:3px solid var(--blue);border-radius:10px;padding:14px;}
+.arch-step:not(:last-child)::after{content:"";position:absolute;left:calc(100% + 5px);top:50%;width:14px;border-top:2px solid var(--ciano);}
+.arch-service{display:block;color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.arch-step strong{display:block;color:var(--txt);font-size:13px;line-height:1.4;margin-bottom:4px;}
+.arch-step span:last-child{display:block;color:var(--muted);font-size:11.5px;line-height:1.5;}
+.arch-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;}
+.arch-tool{background:rgba(255,153,0,.06);border:1px solid rgba(255,153,0,.22);border-radius:8px;padding:10px 12px;color:var(--txt);font:500 11.5px 'JetBrains Mono',monospace;overflow-wrap:anywhere;}
+@media(max-width:680px){.arch-steps{grid-template-columns:1fr;gap:10px}.arch-step:not(:last-child)::after{left:50%;top:calc(100% + 3px);width:0;height:9px;border-top:0;border-left:2px solid var(--ciano)}}
+@media(max-width:420px){.arch-tools{grid-template-columns:1fr}}
 
 .adr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
 @media(max-width:580px){.adr-grid{grid-template-columns:1fr;}}
@@ -75,17 +79,17 @@ p.body-text strong{color:#fff;font-weight:600;}
 .adr-title{font-size:13px;font-weight:700;margin-bottom:4px;}
 .adr-why{font-size:12px;color:rgba(226,232,240,.7);line-height:1.5;}
 
-.stack-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.stack-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;list-style:none;padding:0;}
 .stack-item{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;padding:4px 11px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--borda);color:var(--ciano);}
 
 .lesson-list{list-style:none;padding:0;margin:14px 0;}
 .lesson-list li{padding:10px 14px;background:var(--bg2);border:1px solid var(--borda);border-radius:8px;margin-bottom:8px;font-size:13.5px;line-height:1.6;}
 
-.cta-box{background:linear-gradient(135deg,#1a1030,#1a2640);border:1px solid rgba(168,85,247,.25);border-radius:14px;padding:28px 30px;margin-top:40px;text-align:center;}
+.cta-box{background:linear-gradient(135deg,#172b40,#102033);border:1px solid rgba(255,153,0,.25);border-radius:14px;padding:28px 30px;margin-top:40px;text-align:center;}
 .cta-box h3{font-size:18px;font-weight:700;margin-bottom:8px;}
 .cta-box p{font-size:13.5px;color:var(--muted);margin-bottom:20px;}
 .cta-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-.btn-p{background:var(--purple);color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:8px;text-decoration:none;}
+.btn-p{background:var(--purple);color:#172231;font-weight:700;font-size:13px;padding:10px 22px;border-radius:8px;text-decoration:none;}
 .btn-o{border:1px solid var(--borda);color:var(--txt);font-weight:600;font-size:13px;padding:10px 22px;border-radius:8px;text-decoration:none;}
 
 footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
@@ -98,9 +102,16 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offset:3px;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
+<link rel="stylesheet" href="portfolio-theme.css">
 </head>
 <body>
 
+<div class="utility-bar">
+  <div class="utility-inner">
+    <strong>PORTFÓLIO DE CLOUD</strong>
+    <span>Segurança, governança e automação · projetos e estudos</span>
+  </div>
+</div>
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-brand">gb.dev</a>
@@ -131,7 +142,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     <div class="incident-banner">
       <div class="ib-label">Diferença do Wayfinder</div>
       <div class="ib-title">Sob demanda vs avaliação orientada a eventos</div>
-      <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.7;">
+      <p style="font-size:13.5px;color:var(--dim);line-height:1.7;">
         O case <strong style="color:#fff">Wayfinder</strong> explora AWS Config e EventBridge para avaliação orientada a eventos.
         O <strong style="color:#fff">Holocron</strong> entra quando um DPO ou consultor dispara um prompt:
         o agente escolhe scanners (S3, IAM MFA, EBS órfão, porta 22 aberta) e devolve relatório.
@@ -157,21 +168,21 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="metric"><div class="metric-val">IAM</div><div class="metric-lbl">Usuários sem MFA</div></div>
       <div class="metric"><div class="metric-val">EC2</div><div class="metric-lbl">EBS available + SG :22</div></div>
     </div>
-    <div class="arch-box"><span class="m">// Fluxo do Holocron (sob demanda)</span>
-
-<span class="s">Prompt do DPO / consultor</span>
-    ▼
-<span class="s">Agent (Strands + Bedrock)</span>
-    ├─ session_id = empresa_{tenant_id}   <span class="g">chave de sessão; não prova isolamento</span>
-    └─ tools:
-         auditar_permissoes_s3
-         auditar_mfa_iam
-         analisar_custos_aws_real      <span class="m">volumes EBS available</span>
-         verificar_seguranca_network   <span class="m">SSH 0.0.0.0/0</span>
-    ▼
-<span class="g">Relatório</span> (PDF / sessão identificada pelo tenant)
-
-<span class="m">Labs que viram ferramenta: SG, IAM, S3, Boto3 (não tutorial solto).</span></div>
+    <figure class="arch-flow" aria-labelledby="holocron-flow-caption">
+      <figcaption id="holocron-flow-caption">Fluxo conceitual sob demanda; a chave de sessão não comprova isolamento entre tenants</figcaption>
+      <ol class="arch-steps">
+        <li class="arch-step"><span class="arch-service">Entrada</span><strong>Prompt do DPO ou consultor</strong><span>Solicitação de uma auditoria específica.</span></li>
+        <li class="arch-step"><span class="arch-service">Agente</span><strong>Strands + Amazon Bedrock</strong><span>Interpreta a solicitação e seleciona ferramentas.</span></li>
+        <li class="arch-step"><span class="arch-service">Sessão</span><strong>FileSessionManager</strong><span><code>empresa_{tenant_id}</code> identifica a sessão; não garante autorização ou isolamento.</span></li>
+        <li class="arch-step"><span class="arch-service">Saída</span><strong>Relatório</strong><span>Resultado da execução para revisão.</span></li>
+      </ol>
+      <div class="arch-tools" aria-label="Scanners disponíveis no protótipo">
+        <div class="arch-tool">auditar_permissoes_s3</div>
+        <div class="arch-tool">auditar_mfa_iam</div>
+        <div class="arch-tool">analisar_custos_aws_real · EBS available</div>
+        <div class="arch-tool">verificar_seguranca_network · SSH 0.0.0.0/0</div>
+      </div>
+    </figure>
   </div>
 
   <div class="sec fade-in">
@@ -210,16 +221,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <h2>Stack</h2>
       <div class="sec-line"></div>
     </div>
-    <div class="stack-wrap">
-      <span class="stack-item">Python</span>
-      <span class="stack-item">Boto3</span>
-      <span class="stack-item">Amazon Bedrock</span>
-      <span class="stack-item">Strands / AgentCore</span>
-      <span class="stack-item">FileSessionManager</span>
-      <span class="stack-item">S3 · IAM · EC2</span>
-      <span class="stack-item">LGPD</span>
-      <span class="stack-item">FPDF</span>
-    </div>
+    <ul class="stack-wrap" aria-label="Tecnologias e serviços do protótipo">
+      <li class="stack-item">Python</li><li class="stack-item">Boto3</li>
+      <li class="stack-item">Amazon Bedrock</li><li class="stack-item">Strands / AgentCore</li>
+      <li class="stack-item">FileSessionManager</li><li class="stack-item">S3 · IAM · EC2</li>
+      <li class="stack-item">LGPD</li><li class="stack-item">FPDF</li>
+    </ul>
   </div>
 
   <div class="sec fade-in">
