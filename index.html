@@ -632,11 +632,11 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     <div class="proj-grid fade-in">
       <article class="proj-card">
         <h3>Holocron Sentinel</h3>
-        <div class="proj-meta">Capstone AWS re/Start · agente sob demanda (Boto3 + Bedrock AgentCore)</div>
+        <div class="proj-meta">Capstone AWS re/Start · auditoria sob demanda (FastAPI + Boto3 + Bedrock)</div>
         <div class="project-story">
           <div><h4>Problema</h4><p>Revisar S3, IAM e EC2 numa auditoria pontual exige reunir verificações diferentes.</p></div>
-          <div class="project-response"><h4>Solução da PoC</h4><p>Um pedido sob demanda aciona um agente que escolhe scanners Boto3 e prepara um relatório.</p></div>
-          <div class="project-context"><h4>Limite</h4><p>É um capstone; chave de sessão não comprova isolamento. Não é a vigilância contínua proposta pelo Wayfinder.</p></div>
+          <div class="project-response"><h4>Ideia do capstone</h4><p>Uma solicitação inicia scanners Boto3 e organiza achados para uma revisão humana.</p></div>
+          <div class="project-context"><h4>Validação em andamento</h4><p>Os testes atuais não comprovam o fluxo completo; chamadas ao Bedrock e recuperação de resultados precisam ser corrigidas. Não é um serviço em produção nem a vigilância contínua proposta pelo Wayfinder.</p></div>
         </div>
         <div class="proj-card-links">
           <a href="holocron.html">Case study →</a>
