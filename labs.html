@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="23 labs SAA-C03 (Skill Builder / Escola da Nuvem): onde foram feitos, para que serve o padrão e em qual projeto entrou — Wayfinder, Holocron ou Hack2Hire."/>
+<meta name="description" content="Notas de 23 laboratórios AWS SAA-C03: contexto dos exercícios e relação com os projetos Wayfinder, Holocron e DocuSmart."/>
+<link rel="canonical" href="https://guinatural.github.io/labs.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Laboratórios AWS — Guilherme Barreto"/>
+<meta property="og:description" content="Notas de estudo AWS SAA-C03 e sua relação com projetos de portfólio."/>
+<meta property="og:url" content="https://guinatural.github.io/labs.html"/>
 <title>Labs AWS — Guilherme Barreto</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
@@ -59,6 +64,11 @@ h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -1px; 
   margin: 28px 0 0;
 }
 @media (max-width:720px){ .stack { grid-template-columns: 1fr; } }
+@media (max-width:600px){
+  .nav-inner { height:auto; min-height:56px; padding-top:8px; padding-bottom:8px; flex-wrap:wrap; }
+  .nav-links { width:100%; justify-content:center; }
+  .nav-links a { padding:6px 8px; }
+}
 .stack article {
   background: var(--bg2); border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px;
 }
@@ -98,6 +108,8 @@ footer { border-top: 1px solid var(--borda); padding: 28px 0; margin-top: 24px; 
 .footer-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .footer-inner, .footer-inner a { font-size: 12.5px; color: var(--muted); text-decoration: none; }
 .footer-inner a:hover { color: var(--blue); }
+a:focus-visible,button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+@media(prefers-reduced-motion:reduce){ html { scroll-behavior: auto; } *,*::before,*::after { animation-duration:.01ms!important;transition-duration:.01ms!important; } }
 </style>
 </head>
 <body>
@@ -121,6 +133,9 @@ footer { border-top: 1px solid var(--borda); padding: 28px 0; margin-top: 24px; 
       Os 23 laboratórios abaixo foram feitos em <strong>conta AWS de lab</strong> (trilha Hands-on do Solutions Architect Associate / Escola da Nuvem) — ambiente provisionado e destruído, sem simulador.
       Não são o portfólio. São a <strong>base de padrão</strong>. Wayfinder Cloud, Holocron Sentinel e Hack2Hire (DocuSmart) são onde o padrão virou decisão: usar, adaptar ou recusar.
     </p>
+    <p class="lede" style="margin-top:12px;">
+      As relações nos cards registram padrões considerados nos projetos; não afirmam que cada serviço ou arquitetura esteja implementado ou implantado. Confira o estado atual nos repositórios.
+    </p>
     <div class="stats">
       <div><span class="hs-val">23</span><span class="hs-lbl">Labs SAA-C03</span></div>
       <div><span class="hs-val">3</span><span class="hs-lbl">Projetos que consomem os padrões</span></div>
@@ -130,7 +145,7 @@ footer { border-top: 1px solid var(--borda); padding: 28px 0; margin-top: 24px; 
       <article>
         <div class="src">01 · PROJETOS / wayfinder-cloud</div>
         <h3>Wayfinder Cloud</h3>
-        <p>Governança contínua (Config, EventBridge, Lambda, Terraform). Combina os labs quando o requisito é controle LGPD, não “subir um serviço”.</p>
+        <p>Arquitetura de governança orientada a eventos (Config, EventBridge, Lambda, Terraform). Combina os labs quando o requisito é controle LGPD, não “subir um serviço”.</p>
       </article>
       <article>
         <div class="src">01 · PROJETOS / Holocron</div>
@@ -153,23 +168,25 @@ footer { border-top: 1px solid var(--borda); padding: 28px 0; margin-top: 24px; 
 
 <div class="wrapper">
   <div class="filters" id="labsFilter">
-    <button class="lf-btn active" data-cat="all">Todos</button>
-    <button class="lf-btn" data-cat="Wayfinder">Wayfinder</button>
-    <button class="lf-btn" data-cat="Holocron">Holocron</button>
-    <button class="lf-btn" data-cat="Hack2Hire">Hack2Hire</button>
-    <button class="lf-btn" data-cat="Recusei">Padrão recusado</button>
-    <button class="lf-btn" data-cat="Security">Segurança</button>
-    <button class="lf-btn" data-cat="Networking">Rede</button>
-    <button class="lf-btn" data-cat="Compute">Compute</button>
-    <button class="lf-btn" data-cat="Database">Dados</button>
-    <button class="lf-btn" data-cat="Architecture">Arquitetura</button>
+    <button class="lf-btn active" data-cat="all" aria-pressed="true">Todos</button>
+    <button class="lf-btn" data-cat="Wayfinder" aria-pressed="false">Wayfinder</button>
+    <button class="lf-btn" data-cat="Holocron" aria-pressed="false">Holocron</button>
+    <button class="lf-btn" data-cat="Hack2Hire" aria-pressed="false">Hack2Hire</button>
+    <button class="lf-btn" data-cat="Recusei" aria-pressed="false">Padrão recusado</button>
+    <button class="lf-btn" data-cat="Security" aria-pressed="false">Segurança</button>
+    <button class="lf-btn" data-cat="Networking" aria-pressed="false">Rede</button>
+    <button class="lf-btn" data-cat="Compute" aria-pressed="false">Compute</button>
+    <button class="lf-btn" data-cat="Database" aria-pressed="false">Dados</button>
+    <button class="lf-btn" data-cat="Architecture" aria-pressed="false">Arquitetura</button>
   </div>
+  <p id="filterStatus" role="status" aria-live="polite" class="kicker">23 labs</p>
   <div id="labsRoot"></div>
+  <noscript><p class="lede">Os cards dos laboratórios e seus filtros precisam de JavaScript habilitado.</p></noscript>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <span>Notas em 02 - ESTUDOS / ARCHITECT_SAA-C03 / Laboratórios</span>
+    <span>Laboratórios de estudo AWS · 2026</span>
     <span>
       <a href="index.html">Início</a> ·
       <a href="wayfinder.html">Case Wayfinder</a> ·
@@ -243,7 +260,7 @@ const labs = [
   { n:'13', t:'Web app altamente disponível — ALB, Auto Scaling, Aurora',
     cats:['Architecture','Compute'], proj:['Wayfinder'],
     onde:'Padrão da trilha (mapa labs → Wayfinder): health check no ALB, scale na app, banco Multi-AZ. Continuação natural do lab 12.',
-    serve:'Disponibilidade é teste de falha, não slide de 99,9%. Target group unhealthy, AZ morta, writer do Aurora: a aplicação segue no DNS do ALB e no endpoint do cluster.',
+    serve:'Disponibilidade envolve comportamento diante de falhas. Os exercícios abordam health checks, zonas e failover; objetivos de SLA só devem ser citados quando definidos e medidos no ambiente.',
     aplica:'Wayfinder — camada de aplicação VitaCore (ALB + ECS + Aurora). A esteira de compliance permanece serverless: carga diferente, runtime diferente.' },
   { n:'14', t:'Storage Gateway — S3 File Gateway (NFS/SMB híbrido)',
     cats:['Storage'], proj:['Recusei'],
@@ -258,7 +275,7 @@ const labs = [
   { n:'16', t:'CloudFormation — stack, retenção, ASG e ELB',
     cats:['Architecture'], proj:['Wayfinder','Hack2Hire'],
     onde:'Lab IaC: bucket com deletion policy, app PHP, update de instância, IAM instance profile, ELB+ASG no template.',
-    serve:'Infra é código versionado, com rollback. O tool do lab é CloudFormation; o contrato é o mesmo no Terraform: plan, apply, state, sem click-ops em produção.',
+    serve:'Infraestrutura como código registra mudanças e facilita revisão. O tool do lab é CloudFormation; Terraform usa conceitos semelhantes de plano e estado, sem eliminar a necessidade de revisão.',
     aplica:'Wayfinder: Terraform 1.6+, remote state, OIDC (ADR-001). Hack2Hire: automação no prazo da conta do hackathon — o hábito de template, não o console artesanal.' },
   { n:'17', t:'DynamoDB Streams + Kinesis + Lambda',
     cats:['Database','Compute'], proj:['Wayfinder','Hack2Hire'],
@@ -294,7 +311,7 @@ const labs = [
     cats:['Database'], proj:['Wayfinder'],
     onde:'Lab PostgreSQL Aurora Serverless v2, pgbench, CloudWatch, Performance Insights.',
     serve:'Capacidade relacional que acompanha carga sem resize de instância. Bom para perfil irregular. Ruim se você precisa de plano previsível de IOPS e de um único writer clássico o tempo todo.',
-    aplica:'Wayfinder: opção de Aurora no ambiente prod VitaCore. O lab ensinou a métrica (ACU, commit, lag); a escolha de Serverless vs. provisioned fica no ADR de dados, não no hype.' }
+    aplica:'Wayfinder: opção de Aurora no cenário VitaCore. O lab ajuda a comparar indicadores (ACU, commit, lag); a escolha de Serverless vs. provisioned depende dos requisitos e precisa ser documentada.' }
 ];
 
 const root = document.getElementById('labsRoot');
@@ -324,11 +341,16 @@ document.getElementById('labsFilter').addEventListener('click', e => {
   const btn = e.target.closest('.lf-btn');
   if (!btn) return;
   document.querySelectorAll('.lf-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lf-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
   btn.classList.add('active');
   const cat = btn.dataset.cat;
+  let visibleLabs = 0;
   document.querySelectorAll('.lab').forEach(card => {
-    card.classList.toggle('hidden', !(cat === 'all' || card.dataset.cats.includes(cat)));
+    const visible = cat === 'all' || card.dataset.cats.split(',').includes(cat);
+    card.classList.toggle('hidden', !visible);
+    if (visible) visibleLabs++;
   });
+  document.getElementById('filterStatus').textContent = `${visibleLabs} labs`;
 });
 </script>
 </body>

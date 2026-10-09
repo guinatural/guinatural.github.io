@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Guilherme Barreto — AWS Cloud Architect. Especializado em governança de dados, segurança e automação de infraestrutura na AWS."/>
-<title>Guilherme Barreto — AWS Cloud Architect</title>
+<meta name="description" content="Portfólio de Guilherme Barreto: projetos e estudos em AWS, segurança, governança de dados e automação de infraestrutura."/>
+<link rel="canonical" href="https://guinatural.github.io/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Guilherme Barreto — Cloud, segurança e governança"/>
+<meta property="og:description" content="Projetos de portfólio e estudos em AWS, segurança, governança de dados e automação."/>
+<meta property="og:url" content="https://guinatural.github.io/"/>
+<title>Guilherme Barreto — Cloud, segurança e governança</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
@@ -93,6 +98,7 @@ nav {
   padding: 6px 14px; font-weight: 600;
 }
 .nav-links .nav-gh:hover { background: rgba(59,130,246,.2); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline-offset: 3px; }
 
 /* ── HERO ── */
 #hero { padding: 90px 0 70px; border-bottom: 1px solid var(--borda); position: relative; }
@@ -255,7 +261,7 @@ nav {
   flex-wrap: wrap; gap: 12px;
   padding-top: 18px; border-top: 1px solid var(--borda);
 }
-.pf-links { display: flex; gap: 8px; }
+.pf-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .lbtn {
   font-size: 12.5px; font-weight: 700; padding: 8px 18px; border-radius: 8px;
   text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
@@ -328,13 +334,8 @@ nav {
   font-size: 11px; font-weight: 700; color: var(--muted);
   text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
 }
-.skill-row { margin-bottom: 10px; }
-.skill-row:last-child { margin-bottom: 0; }
-.skill-head { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 5px; }
-.skill-head span:first-child { font-weight: 600; }
-.skill-head span:last-child  { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-.skill-bar { height: 3px; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; }
-.skill-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+.skill-list { list-style: disc; padding-left: 20px; color: var(--dim); font-size: 13px; }
+.skill-list li { margin-bottom: 8px; }
 
 /* ── CERT ── */
 .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; margin-top: 14px; }
@@ -458,20 +459,23 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 }
 .footer-left { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
 .footer-left span { color: var(--green); }
-.footer-links { display: flex; gap: 18px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
 .footer-links a { font-size: 12.5px; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
 .footer-links a:hover { color: var(--blue); }
-
-/* ── FADE IN ── */
-.fade-in { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
 
 /* ── RESPONSIVE ── */
 @media(max-width:640px){
   .pf-top { flex-direction: column; }
   .hero-stats { gap: 20px; }
-  .metrics { grid-template-columns: repeat(4,1fr); }
+  .metrics { grid-template-columns: repeat(auto-fit,minmax(90px,1fr)); }
   .hero-cta { flex-direction: column; align-items: flex-start; }
+  .nav-inner { height: auto; min-height: 56px; padding-top: 8px; padding-bottom: 8px; flex-wrap: wrap; }
+  .nav-links { width: 100%; justify-content: center; }
+  .nav-links a { padding: 6px 8px; }
+}
+@media(prefers-reduced-motion:reduce){
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 </style>
 </head>
@@ -499,12 +503,12 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       <span class="dot-pulse"></span>
       Aberto a oportunidades
     </div>
-    <div class="hero-name">Guilherme Barreto</div>
-    <div class="hero-role">AWS Cloud Architect · Security &amp; Governance</div>
+    <h1 class="hero-name">Guilherme Barreto</h1>
+    <div class="hero-role">Cloud Engineer em formação · AWS Security &amp; Governance</div>
     <p class="hero-desc">
-      Especializado em <strong>arquitetura AWS, governança de dados e automação de infraestrutura</strong>.
-      Construí o Wayfinder Cloud — plataforma que detecta violações LGPD em &lt;5 minutos
-      e as corrige automaticamente, usando AWS Config, EventBridge e Lambda com Terraform.
+      Desenvolvo projetos de portfólio em <strong>AWS, segurança, governança de dados e automação de infraestrutura</strong>.
+      O Wayfinder Cloud explora uma arquitetura orientada a eventos com AWS Config, EventBridge, Lambda e Terraform.
+      O projeto está em desenvolvimento; não representa um serviço implantado nem um SLA medido.
     </p>
 
     <div class="hero-stats">
@@ -513,8 +517,8 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <span class="hs-lbl">Regras LGPD escritas</span>
       </div>
       <div class="hero-stat">
-        <span class="hs-val">115</span>
-        <span class="hs-lbl">Testes automatizados</span>
+        <span class="hs-val">4</span>
+        <span class="hs-lbl">Projetos em destaque</span>
       </div>
       <div class="hero-stat">
         <span class="hs-val">23</span>
@@ -565,38 +569,30 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <div>
           <div class="pf-badge">Projeto em destaque</div>
           <div class="pf-name">Wayfinder Cloud</div>
-          <div class="pf-sub">Cloud Governance Platform · VitaCore Health · AWS + Terraform + Python</div>
+          <div class="pf-sub">Projeto de governança cloud · cenário VitaCore Health · AWS + Terraform + Python</div>
         </div>
-        <div class="pf-live"><span class="dot-pulse"></span> Em desenvolvimento ativo</div>
+        <div class="pf-live"><span class="dot-pulse"></span> Em desenvolvimento</div>
       </div>
 
       <div class="pf-body">
         <div class="incident">
           <div class="i-label">O problema que este projeto resolve</div>
           <p>
-            Em março de 2026, um bucket S3 com <strong>2.340 laudos médicos de pacientes</strong>
-            ficou público por <strong>18 dias</strong> sem detecção. Multa ANPD: R$ 420.000.
-            Impacto total: <strong>R$ 2,1 milhões</strong>. O Wayfinder detecta exatamente
-            essa configuração em menos de 5 minutos e a corrige automaticamente.
+            <strong>VitaCore Health é um cenário hipotético de portfólio</strong>, criado para discutir
+            exposição de dados sensíveis e controles de governança. Não descreve um incidente real,
+            uma sanção aplicada ou um resultado medido do Wayfinder.
           </p>
         </div>
 
         <p class="pf-desc">
-          Sistema de governança cloud contínua que monitora infraestrutura AWS 24/7,
-          detecta desvios de segurança, <strong>auto-remedia violações críticas</strong>,
-          mapeia cada controle a um artigo da LGPD e mantém trilha de auditoria imutável
-          consultável com SQL via Athena. Construído do zero — sem templates, sem click-ops.
+          Projeto de portfólio que modela governança cloud orientada a eventos: avaliação de
+          conformidade com AWS Config, roteamento com EventBridge e tratamento de achados em Lambda.
+          O repositório documenta controles, opções de remediação e trilha de auditoria; não há
+          afirmação de operação contínua, implantação em produção ou desempenho medido.
         </p>
 
         <div class="metrics">
-          <div class="metric"><div class="mv ma">14</div><div class="ml">Regras LGPD</div></div>
-          <div class="metric"><div class="mv mb">8</div><div class="ml">Módulos Terraform</div></div>
-          <div class="metric"><div class="mv mg">4</div><div class="ml">Lambdas Python</div></div>
-          <div class="metric"><div class="mv mp">115</div><div class="ml">Testes (moto)</div></div>
-          <div class="metric"><div class="mv mc">&lt;5min</div><div class="ml">Detecção</div></div>
-          <div class="metric"><div class="mv ma">340×</div><div class="ml">ROI</div></div>
-          <div class="metric"><div class="mv mb">9</div><div class="ml">ADRs</div></div>
-          <div class="metric"><div class="mv mg">3</div><div class="ml">CI/CD</div></div>
+          <div class="metric"><div class="mv ma">14</div><div class="ml">Regras custom descritas no case</div></div>
         </div>
 
         <div class="stack">
@@ -610,9 +606,9 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <span class="si">GitHub Actions OIDC</span>
         </div>
 
-        <!-- TIMELINE -->
-        <p style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Progresso do projeto</p>
-        <div class="timeline" id="tl"></div>
+        <p style="font-size:13px;color:var(--muted);">
+          Estado: projeto de portfólio em desenvolvimento. Consulte o repositório para conferir o código e o escopo atuais.
+        </p>
 
         <div class="pf-footer">
           <div class="pf-links">
@@ -641,14 +637,26 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     <div class="proj-grid fade-in">
       <article class="proj-card">
         <h3>Holocron Sentinel</h3>
-        <div class="proj-meta">Capstone AWS re/Start · agente sob demanda (Boto3 + Bedrock)</div>
+        <div class="proj-meta">Capstone AWS re/Start · agente sob demanda (Boto3 + Bedrock AgentCore)</div>
         <p>
-          Quatro scanners reais (S3 público, IAM sem MFA, EBS órfão, SSH 0.0.0.0/0) orquestrados por Strands,
-          com sessão isolada por tenant. Consulta a conta agora — o Wayfinder vigia 24/7.
+          Case do agente sob demanda, separado do Wayfinder. O repositório documenta scanners AWS e
+          organização de sessões por tenant; isso não deve ser interpretado como garantia de isolamento
+          ou operação multi-tenant em produção.
         </p>
         <div class="proj-card-links">
           <a href="holocron.html">Case study →</a>
           <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
+        </div>
+      </article>
+      <article class="proj-card">
+        <h3>Holocron Sentinel V2</h3>
+        <div class="proj-meta">Projeto independente · repositório de evolução do Sentinel</div>
+        <p>
+          Repositório próprio, distinto do capstone AgentCore. Consulte o código e a documentação
+          do V2 para avaliar seu escopo e estado atuais.
+        </p>
+        <div class="proj-card-links">
+          <a href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Código do Sentinel V2 no GitHub</a>
         </div>
       </article>
       <article class="proj-card">
@@ -679,7 +687,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <div class="proj-meta">App Flutter + backend AWS · jan 2024 – fev 2025 · projeto pessoal</div>
         <p>
           Mobile com backend na AWS: VPC, IAM, CloudWatch e API. Mesma disciplina de isolamento de rede
-          do lab de SG/NACL, em produto — não em exercício.
+          do lab de SG/NACL, aplicada em um projeto de produto.
         </p>
         <a href="https://github.com/guinatural/skincaredv" target="_blank" rel="noopener">github.com/guinatural/skincaredv</a>
       </article>
@@ -745,7 +753,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         </div>
         <p>
           Levantamento de requisitos e apresentação de soluções tecnológicas para órgãos públicos
-          e instituições de ensino, com atendimento envolvendo 177 municípios de Santa Catarina.
+          e instituições de ensino em Santa Catarina.
         </p>
         <ul>
           <li>Descoberta de necessidades e interface com gestores e equipes técnicas.</li>
@@ -784,8 +792,8 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <p class="cert-desc">Fundamentos de nuvem, serviços principais, segurança, precificação, suporte e Well-Architected.</p>
         </div>
         <div class="cert-when">fev 2026 — fev 2029</div>
-        <div class="cert-id">CLF-C02</div>
-        <span class="cert-id">Ativa</span>
+        <div class="cert-id">CLF-C02 · ativa</div>
+        <a class="cert-link" href="https://www.credly.com/badges/9f28dc2a-d9b8-4774-ab9f-dfe3a8324ff0/public_url" target="_blank" rel="noopener">Credencial</a>
       </div>
       <div class="cert-row">
         <div>
@@ -815,7 +823,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <div>
           <div class="cert-title">Amazon Bedrock AgentCore</div>
           <div class="cert-issuer">Amazon Web Services</div>
-          <p class="cert-desc">Agentes em produção: runtime isolado, sandbox, MCP, identidade (OAuth) e observabilidade.</p>
+          <p class="cert-desc">Conteúdo sobre runtime isolado, sandbox, MCP, identidade (OAuth) e observabilidade.</p>
         </div>
         <div class="cert-when">mar 2026</div>
         <div class="cert-id">Curso concluído</div>
@@ -873,15 +881,6 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       </div>
       <div class="cert-row">
         <div>
-          <div class="cert-title">Introduction to LangSmith</div>
-          <div class="cert-issuer">LangChain</div>
-        </div>
-        <div class="cert-when">ago 2025</div>
-        <div class="cert-id">eymwrz3nbr</div>
-        <a class="cert-link" href="https://academy.langchain.com/certificates/eymwrz3nbr" target="_blank" rel="noopener">Credencial</a>
-      </div>
-      <div class="cert-row">
-        <div>
           <div class="cert-title">Building Ambient</div>
           <div class="cert-issuer">LangChain</div>
           <p class="cert-desc">Concluído em ago 2025.</p>
@@ -925,8 +924,8 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <div class="exp-dates">out 2025 — set 2026</div>
         </div>
         <p>
-          Programa intensivo com mais de 900 horas: serviços AWS (EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch),
-          segurança, redes, Linux, bancos de dados e arquitetura. 23 laboratórios em ambiente real.
+          Programa intensivo em serviços AWS (EC2, S3, IAM, VPC, RDS, Lambda, CloudWatch),
+          segurança, redes, Linux, bancos de dados e arquitetura. Laboratórios em conta AWS de estudo.
           Preparação para Cloud Practitioner, AI Practitioner e Solutions Architect Associate.
         </p>
       </article>
@@ -971,65 +970,22 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     <div class="skills-grid fade-in">
       <div class="skill-group">
         <h3>Cloud AWS</h3>
-        <div class="skill-row"><div class="skill-head"><span>Security &amp; Compliance</span></div><div class="skill-bar"><div class="skill-fill" data-w="87" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Networking &amp; VPC</span></div><div class="skill-bar"><div class="skill-fill" data-w="82" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Compute &amp; Serverless</span></div><div class="skill-bar"><div class="skill-fill" data-w="80" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Storage &amp; Database</span></div><div class="skill-bar"><div class="skill-fill" data-w="78" style="background:var(--blue)"></div></div></div>
+        <ul class="skill-list">
+          <li>Segurança e compliance</li>
+          <li>Networking e VPC</li>
+          <li>Compute e serverless</li>
+          <li>Storage e bancos de dados</li>
+        </ul>
       </div>
       <div class="skill-group">
         <h3>Ferramentas e práticas</h3>
-        <div class="skill-row"><div class="skill-head"><span>Terraform (IaC)</span></div><div class="skill-bar"><div class="skill-fill" data-w="82" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>Python (Lambda, boto3, moto)</span></div><div class="skill-bar"><div class="skill-fill" data-w="76" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>CI/CD (GitHub Actions, OIDC)</span></div><div class="skill-bar"><div class="skill-fill" data-w="79" style="background:var(--blue)"></div></div></div>
-        <div class="skill-row"><div class="skill-head"><span>LGPD / auditoria / compliance</span></div><div class="skill-bar"><div class="skill-fill" data-w="72" style="background:var(--blue)"></div></div></div>
+        <ul class="skill-list">
+          <li>Terraform (IaC)</li>
+          <li>Python, boto3 e testes</li>
+          <li>GitHub Actions e OIDC</li>
+          <li>LGPD, auditoria e compliance</li>
+        </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICAÇÕES -->
-<section id="certificacoes" style="background-color: var(--bg-alt);">
-  <div class="wrapper">
-    <div class="sh fade-in">
-      <span class="sh-num">07.5</span>
-      <h2>Certificações & Licenças</h2>
-      <div class="sh-line"></div>
-    </div>
-    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-      <a href="https://www.credly.com/badges/7da46949-3e21-4d3f-beb4-8a5bbdb7045a/public_url" target="_blank" rel="noopener" class="card fade-in" style="border: 2px solid #FF9900; background: linear-gradient(145deg, #1A1A1A, #111);">
-        <div class="tags"><span class="t-g">IA Generativa</span><span class="t-g">Machine Learning</span></div>
-        <h3>AWS Certified AI Practitioner</h3>
-        <p style="color:var(--dim); font-size:14px; margin-bottom:8px;">Emitido em jul. 2026 · AWS</p>
-        <p>Validação da capacidade de arquitetar soluções práticas utilizando serviços de IA da AWS para negócios.</p>
-      </a>
-      
-      <a href="https://www.credly.com/badges/9f28dc2a-d9b8-4774-ab9f-dfe3a8324ff0/public_url" target="_blank" rel="noopener" class="card fade-in" style="border: 2px solid #FF9900; background: linear-gradient(145deg, #1A1A1A, #111);">
-        <div class="tags"><span class="t-b">Cloud</span><span class="t-b">FinOps</span></div>
-        <h3>AWS Certified Cloud Practitioner</h3>
-        <p style="color:var(--dim); font-size:14px; margin-bottom:8px;">Emitido em fev. 2026 · AWS</p>
-        <p>Conhecimentos fundamentais de arquitetura em nuvem, modelos de segurança, e boas práticas da plataforma AWS.</p>
-      </a>
-
-      <a href="https://verify.skilljar.com/c/hs2vptejmuk5" target="_blank" rel="noopener" class="card fade-in" style="border: 2px solid #D97757; background: linear-gradient(145deg, #1A1A1A, #111);">
-        <div class="tags"><span class="t-p">AI Agents</span><span class="t-p">RAG Pipelines</span></div>
-        <h3>Claude in Amazon Bedrock</h3>
-        <p style="color:var(--dim); font-size:14px; margin-bottom:8px;">Emitido em abr. 2026 · Anthropic</p>
-        <p>Desenvolvimento avançado de sistemas baseados em LLM, integrados nativamente com ferramentas AWS.</p>
-      </a>
-
-      <div class="card fade-in" style="background: linear-gradient(145deg, #1A1A1A, #111);">
-        <div class="tags"><span class="t-a">AgentCore</span><span class="t-a">MCP</span></div>
-        <h3>Amazon Bedrock AgentCore</h3>
-        <p style="color:var(--dim); font-size:14px; margin-bottom:8px;">Emitido em mar. 2026 · AWS</p>
-        <p>Criação de agentes autônomos prontos para produção utilizando o framework Strands SDK e MCP.</p>
-      </div>
-      
-      <a href="https://www.credly.com/badges/246b689b-35c3-4d20-af3f-29ca47418822/linked_in_profile" target="_blank" rel="noopener" class="card fade-in" style="background: linear-gradient(145deg, #1A1A1A, #111);">
-        <div class="tags"><span class="t-c">Bootcamp</span><span class="t-c">Python</span></div>
-        <h3>AWS re/Start Graduate</h3>
-        <p style="color:var(--dim); font-size:14px; margin-bottom:8px;">Emitido em jan. 2026 · AWS</p>
-        <p>Programa intensivo focado em fundamentos de Cloud Engineering, Linux e Automação.</p>
-      </a>
     </div>
   </div>
 </section>
@@ -1053,15 +1009,14 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         "Então construí algo que me forçasse a tomar decisões reais de arquitetura — não seguir um tutorial."
       </div>
       <p>
-        O cenário VitaCore Health não é fictício para ficar bonito no portfólio.
-        É o tipo de problema que arquitetos de cloud resolvem em empresas reais:
-        <strong>dados sensíveis expostos, compliance violado, fatura crescendo sem controle</strong>.
-        O Wayfinder Cloud é minha resposta técnica a esse problema.
+        VitaCore Health é um cenário hipotético para discutir riscos de exposição de dados sensíveis
+        e opções de governança em nuvem. O Wayfinder Cloud é um exercício técnico de portfólio,
+        não um relato de incidente real nem de implantação em uma organização.
       </p>
       <p>
         O que me diferencia não é ter feito os labs — todo mundo faz.
         É ter entendido <strong>por que cada serviço existe e quando ele é a escolha certa</strong>.
-        Isso ficou documentado em 9 ADRs, 5 runbooks e 115 testes automatizados.
+        As decisões e os materiais técnicos disponíveis podem ser consultados no repositório do projeto.
       </p>
     </div>
   </div>
@@ -1092,7 +1047,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <div class="cc-icon"></div>
         <div>
           <div class="cc-label">LinkedIn</div>
-          <div class="cc-val">guilherme-barreto-gomes</div>
+          <div class="cc-val">linkedin.com/in/guillherme-barretog</div>
         </div>
       </a>
       <a href="mailto:barreto.guiv@gmail.com" class="contact-card em">
@@ -1116,7 +1071,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
 <footer>
   <div class="footer-inner">
     <div class="footer-left">
-      guilherme-barreto · 2026 · construído com <span></span> e AWS
+      guilherme-barreto · 2026 · estudos e projetos AWS
     </div>
     <div class="footer-links">
       <a href="labs.html">Labs</a>
@@ -1129,63 +1084,5 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
   </div>
 </footer>
 
-<script>
-// ── TIMELINE DATA ──────────────────────────────────────────────────────────
-const sprints = [
-  { icon:'', status:'done',   title:'Sprint 1 — Foundation',
-    desc:'VPC, IAM, KMS, S3 Object Lock, módulos Terraform base, remote state S3+DynamoDB',
-    tags:['Terraform','VPC','KMS','S3'], tc:'tg' },
-  { icon:'', status:'done',   title:'Sprint 2 — Compliance Engine',
-    desc:'14 regras WAYFINDER, AWS Config custom rules, Lambda compliance-evaluator, EventBridge',
-    tags:['AWS Config','Lambda','EventBridge'], tc:'tb' },
-  { icon:'', status:'done',   title:'Sprint 3 — Observability',
-    desc:'CloudWatch dashboards, métricas custom, Lambda audit-reporter, Athena + Glue',
-    tags:['CloudWatch','Athena','SNS'], tc:'tc' },
-  { icon:'', status:'done',   title:'Sprint 4 — Remediation &amp; Security',
-    desc:'Lambda auto-remediation com guardrails, GuardDuty, Security Hub, Inspector v2',
-    tags:['Remediação','GuardDuty','115 testes'], tc:'ta' },
-  { icon:'', status:'done',   title:'Sprint 5 — CI/CD &amp; Deploy',
-    desc:'GitHub Actions com OIDC (sem access keys), 3 pipelines: plan/apply dev+prod, lambda deploy',
-    tags:['GitHub Actions','OIDC','Terraform'], tc:'tp' },
-  { icon:'', status:'active', title:'Sprint 6 — Portfólio &amp; LinkedIn',
-    desc:'Este portfólio. Publicação no GitHub Pages. Artigo técnico no LinkedIn.',
-    tags:['Em progresso'], tc:'tr' },
-];
-
-const tlEl = document.getElementById('tl');
-sprints.forEach(s => {
-  const div = document.createElement('div');
-  div.className = 'tl-item';
-  div.innerHTML = `
-    <div class="tl-dot ${s.status}">${s.icon}</div>
-    <div class="tl-content">
-      <div class="tl-title">${s.title}</div>
-      <div class="tl-desc">${s.desc}</div>
-      <div class="tl-tags">${s.tags.map(t=>`<span class="tl-tag" style="background:rgba(255,255,255,.05);color:var(--dim);border:1px solid var(--borda)">${t}</span>`).join('')}</div>
-    </div>`;
-  tlEl.appendChild(div);
-});
-
-const skillObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.skill-fill').forEach(bar => {
-        bar.style.width = bar.dataset.w + '%';
-      });
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.skill-group').forEach(g => skillObs.observe(g));
-
-// ── FADE IN ───────────────────────────────────────────────────────────────
-const obs = new IntersectionObserver(entries => {
-  entries.forEach((e,i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 60);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-</script>
 </body>
 </html>

@@ -1,37 +1,36 @@
 # Rascunho — post LinkedIn (Holocron Sentinel V2)
 
-**Formato:** post curto (não artigo). Colar no LinkedIn.  
+**Formato:** post curto (não artigo). Colar no LinkedIn.
 **Gancho original:** “Quando a I.A. para de conversar e começa a trabalhar.”  
-**Não confundir com o Wayfinder:** aqui o agente **consulta a conta agora** (Boto3 + Bedrock). Lá, Config **vigia o tempo todo**.
+**Não confundir com o Wayfinder:** este case explora um agente acionado sob demanda (Boto3 + Bedrock). O Wayfinder explora avaliação de configuração orientada a eventos.
 
 ---
 
 Quando a I.A. para de conversar e começa a trabalhar.
 
-Parei de só consumir conteúdo e construí o **Holocron Sentinel V2** — capstone da Escola da Nuvem, agora com o próximo passo na trilha **AWS Developer**.
+Parei de só consumir conteúdo e passei a documentar projetos de portfólio para praticar AWS e IA generativa. O **Holocron Sentinel / AgentCore** é o capstone; o **Sentinel V2** fica em um repositório separado.
 
-Não é chatbot. É um agente de auditoria AWS: **Amazon Bedrock** (Claude via Strands) chama ferramentas **Boto3** reais. Um prompt dispara o trabalho. O relatório sai em PDF, no tenant certo.
+O capstone explora um agente de auditoria AWS: **Amazon Bedrock** (Claude via Strands) e ferramentas **Boto3**. O repositório e o case descrevem uma prova de conceito; não é um serviço multi-tenant em produção.
 
-**1 — Due diligence em uma passagem**  
+**1 — Due diligence em uma passagem**
 O agente orquestra, na mesma sessão:
 
-- perímetro: Security Groups com SSH (22) ou protocolo `-1` aberto em `0.0.0.0/0`  
-- identidade: usuários IAM **sem MFA**  
-- FinOps: volumes **EBS available** (não anexados), custo ocioso  
+- perímetro: Security Groups com SSH (22) ou protocolo `-1` aberto em `0.0.0.0/0`
+- identidade: usuários IAM **sem MFA**
+- FinOps: volumes **EBS available** (não anexados), custo ocioso
 - (e S3 sem Block Public Access, no mesmo kit de scanners)
 
 Isso é o lab de SG, o lab de IAM e o hábito do Boto3 (labs 04, 03/identidade, 19) **em ferramenta**, não em tutorial.
 
-**2 — Partição de memória (teste de vazamento)**  
-Sessão **Empresa Alpha** gera cache de auditoria. Sessão **Empresa Beta** pede o dado da rival por prompt injection.
+**2 — Sessões e limites de isolamento**
+O desenho usa `tenant_id` na identificação da sessão. Isso ajuda a organizar o estado, mas **não prova isolamento entre clientes**: autorização, validação de caminhos, permissões de armazenamento e proteção dos dados também precisam ser testadas.
 
-Bloqueio: cada tenant tem `FileSessionManager` com `session_id` próprio (`empresa_{tenant_id}`). O modelo não herda o contexto do outro cliente. LGPD aqui é **isolamento de sessão**, não um parágrafo na política.
+O projeto é uma prova de conceito e material de estudo, não uma oferta de consultoria pronta nem um produto implantado. O Wayfinder Cloud é outro eixo do portfólio — uma arquitetura de governança orientada a eventos.
 
-PoC que escala **como produto de consultoria**: cada scanner vira um serviço (hardening, FinOps, perímetro). O mapa labs → oferta está no repositório. Wayfinder Cloud é outro eixo — governança contínua com Config e Terraform.
-
-Portfólio: https://guinatural.github.io  
-Labs (de onde veio o padrão): https://guinatural.github.io/labs.html  
-Código: https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore
+Portfólio: https://guinatural.github.io
+Labs (de onde veio o padrão): https://guinatural.github.io/labs.html
+Capstone AgentCore: https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore
+Sentinel V2: https://github.com/guinatural/Holocron-Sentinel-Startup-V2
 
 #AWS #EscolaDaNuvem #DevSecOps #AmazonBedrock #Boto3 #ZeroTrust #FinOps #LGPD #Python
 
@@ -39,8 +38,7 @@ Código: https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore
 
 ## Notas (não colar)
 
-1. “SaaS” no post original: o núcleo é agente + sessão em disco. Pode dizer SaaS *como desenho* (tenant_id em tudo); não diga “multi-tenant em produção na AWS” se ainda é PoC local/AgentCore.  
-2. “6 Gigs ativos”: no material interno isso é **catálogo de linhas de serviço** (backup, bill shock, hardening, tuning, HA, IaC), não necessariamente seis contratos fechados. Se não houver seis clientes atuais, use a frase do rascunho acima.  
-3. SOC2: MFA sem MFA é risco de identidade; não precisa citar SOC2 se o avaliador for pedante. LGPD + menor privilégio basta.  
-4. Distinguir **Holocron** (agente sob demanda) de **Wayfinder** (Config 24/7) — quem lê os dois posts no perfil não deve achar que é o mesmo repo.  
-5. Link `lnkd.in/dvkiisuR`: manter se ainda aponta para o GitHub/vitrine; senão trocar pelos URLs do Pages.
+1. Distinguir os repositórios do capstone AgentCore e do Sentinel V2.
+2. Não afirmar que um `session_id` isolado, sozinho, impede vazamento entre tenants.
+3. Antes de publicar detalhes de implementação, conferir o estado atual de cada repositório.
+4. Distinguir Holocron (agente sob demanda) de Wayfinder (arquitetura de governança orientada a eventos).

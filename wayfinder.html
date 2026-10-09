@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Wayfinder Cloud — Case Study. Plataforma de governança cloud para saúde digital construída com AWS Config, Lambda, Terraform e Python."/>
+<meta name="description" content="Case de portfólio do Wayfinder Cloud: arquitetura de governança AWS orientada a eventos, com cenário hipotético e escopo em desenvolvimento."/>
+<link rel="canonical" href="https://guinatural.github.io/wayfinder.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Wayfinder Cloud — Case de portfólio"/>
+<meta property="og:description" content="Arquitetura de governança AWS orientada a eventos, apresentada como projeto de portfólio."/>
+<meta property="og:url" content="https://guinatural.github.io/wayfinder.html"/>
 <title>Wayfinder Cloud — Case Study · Guilherme Barreto</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -79,6 +84,8 @@ p.body-text strong{color:#fff;font-weight:600;}
 
 /* RULES TABLE */
 .rules-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:16px 0;}
+.table-wrap{overflow-x:auto;max-width:100%;border:1px solid var(--borda);border-radius:8px;}
+.table-wrap .rules-table{min-width:640px;}
 .rules-table thead tr{background:var(--bg3);}
 .rules-table thead th{padding:9px 12px;text-align:left;font-weight:700;font-size:11.5px;color:var(--muted);border-bottom:2px solid var(--borda);text-transform:uppercase;letter-spacing:.5px;}
 .rules-table tbody tr{border-bottom:1px solid rgba(255,255,255,.04);}
@@ -122,8 +129,9 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
 .footer-links a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s;}
 .footer-links a:hover{color:var(--blue);}
 
-.fade-in{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease;}
-.fade-in.visible{opacity:1;transform:translateY(0);}
+.fade-in{opacity:1;transform:none;}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
 </head>
 <body>
@@ -145,34 +153,24 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
     </div>
     <h1 class="case-title">Wayfinder <span>Cloud</span></h1>
     <p class="case-sub">
-      Plataforma de governança cloud contínua para saúde digital. Detecta desvios de segurança
-      em menos de 5 minutos, auto-remedia violações críticas e mantém trilha de auditoria
-      imutável conforme LGPD.
+      Projeto de portfólio que explora uma arquitetura de governança AWS orientada a eventos
+      para um cenário hipotético de saúde digital. Os tempos de detecção e os resultados de operação
+      não foram medidos como SLA.
     </p>
     <div class="case-meta">
-      <span><strong>Contexto:</strong> VitaCore Health (cenário real)</span>
+      <span><strong>Contexto:</strong> VitaCore Health (cenário hipotético)</span>
       <span><strong>Stack:</strong> AWS · Terraform · Python 3.12</span>
-      <span><strong>Status:</strong> Em desenvolvimento ativo</span>
+      <span><strong>Status:</strong> Projeto de portfólio em desenvolvimento; sem implantação produtiva declarada</span>
       <span><strong>Repositório:</strong> <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener" style="color:var(--blue)">github.com/guinatural/wayfinder-cloud ↗</a></span>
     </div>
 
     <div class="incident-banner">
-      <div class="ib-label">⚠ O incidente que motivou este projeto</div>
-      <div class="ib-title">VitaCore Health — Março de 2026</div>
+      <div class="ib-label">Cenário hipotético de projeto</div>
+      <div class="ib-title">Exposição de dados em um ambiente de saúde</div>
       <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.7;">
-        Um desenvolvedor júnior executou um comando AWS CLI no bucket errado.
-        <strong style="color:#fff">2.340 laudos médicos de pacientes</strong> ficaram publicamente acessíveis
-        por <strong style="color:#fff">18 dias</strong> sem que ninguém na empresa percebesse.
-        Um paciente encontrou sua própria tomografia via busca no Google e entrou em contato.
+        VitaCore Health é um cenário fictício usado para explorar controles contra exposição de dados
+        sensíveis. Não representa um incidente, uma organização, uma sanção ou um resultado operacional real.
       </p>
-      <div class="ib-grid">
-        <div class="ib-metric"><div class="ib-val">18 dias</div><div class="ib-lbl">Exposição não detectada</div></div>
-        <div class="ib-metric"><div class="ib-val">2.340</div><div class="ib-lbl">Laudos expostos</div></div>
-        <div class="ib-metric"><div class="ib-val">R$ 420k</div><div class="ib-lbl">Multa ANPD</div></div>
-        <div class="ib-metric"><div class="ib-val">R$ 2,1M</div><div class="ib-lbl">Impacto total</div></div>
-        <div class="ib-metric"><div class="ib-val">&lt;5 min</div><div class="ib-lbl">Wayfinder detecta</div></div>
-        <div class="ib-metric"><div class="ib-val">340×</div><div class="ib-lbl">ROI do projeto</div></div>
-      </div>
     </div>
   </div>
 
@@ -180,40 +178,37 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">01</span>
-      <h2>O que o Wayfinder faz</h2>
+      <h2>Arquitetura explorada</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
-      O Wayfinder monitora a infraestrutura AWS 24/7 usando o AWS Config como motor de avaliação.
-      Quando um recurso viola uma regra de compliance, o EventBridge roteia o evento para uma
-      Lambda que enriquece o achado com artigo LGPD correspondente, dispara alerta via SNS
-      e, para violações elegíveis, executa remediação automática com guardrails de segurança.
+      A arquitetura proposta usa AWS Config como motor de avaliação. No fluxo descrito, quando um
+      recurso viola uma regra, o EventBridge encaminha o evento a uma Lambda para enriquecer e
+      notificar o achado; uma remediação com guardrails é uma opção de desenho, não um resultado
+      operacional verificado nesta página.
     </p>
     <p class="body-text">
-      Todo evento — detecção, notificação e remediação — é registrado no CloudTrail,
-      que vai para um bucket S3 com <strong>Object Lock em modo COMPLIANCE</strong>,
-      tornando os logs imutáveis por 5 anos. Esses logs são consultáveis com SQL via Athena.
+      O desenho documenta registro de eventos e consulta via Athena, além do uso proposto de
+      <strong>S3 Object Lock</strong>. A retenção e os controles efetivos dependem da configuração
+      implantada e da política aplicável; esta página não declara conformidade legal.
     </p>
     <div class="arch-box"><span class="m">// Fluxo principal do Wayfinder</span>
 
-<span class="s">AWS Config</span> (37 regras: 23 managed + 14 WAYFINDER-*)
+<span class="s">AWS Config</span> (regras managed + regras custom WAYFINDER-*)
     │ recurso muda de configuração
     ▼
 <span class="s">EventBridge</span> (roteamento por severidade e tipo)
     │
     ▼
 <span class="s">Lambda: compliance-evaluator</span>
-    ├─ enriquece: artigo LGPD, severidade, dados do recurso
+    ├─ enriquece: referência LGPD, severidade e dados do recurso
     ├─ publica métrica no <span class="s">CloudWatch</span>
-    ├─ envia alerta via <span class="s">SNS</span> (email + Slack)
-    └─ se elegível → invoca <span class="s">Lambda: auto-remediation</span>
-                            ├─ guardrail: remediation-exempt tag?
-                            ├─ guardrail: tentativas &lt; 3 na última hora?
-                            └─ executa ação: S3 / CloudTrail / SG
+    ├─ notifica via <span class="s">SNS</span>
+    └─ remediação opcional com guardrails configurados
 
-<span class="s">CloudTrail</span> → <span class="s">S3 Object Lock</span> (COMPLIANCE, 5 anos)
+<span class="s">CloudTrail</span> → <span class="s">S3 Object Lock</span> (retenção conforme política aplicável)
     └─ <span class="s">Glue Crawler</span> → <span class="s">Athena</span>
-         └─ <span class="g">relatório semanal via Lambda: audit-reporter</span></div>
+         └─ <span class="g">relatório via Lambda, conforme implementação</span></div>
   </div>
 
   <!-- 2. AS 14 REGRAS -->
@@ -224,32 +219,34 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
-      Cada regra foi escrita partindo do que a <strong>lei exige</strong>, não do serviço AWS.
-      Primeiro o artigo LGPD, depois a implementação técnica que garante aquele controle.
+      As regras custom do case associam controles técnicos a referências da LGPD para discussão.
+      O mapeamento é ilustrativo e não substitui análise jurídica nem garante conformidade.
     </p>
+    <div class="table-wrap" role="region" aria-label="Regras custom do Wayfinder" tabindex="0">
     <table class="rules-table">
       <thead>
-        <tr><th>Regra</th><th>O que detecta</th><th>Artigo LGPD</th><th>Remediação</th></tr>
+      <tr><th scope="col">Regra</th><th scope="col">O que detecta</th><th scope="col">Referência</th><th scope="col">Remediação proposta</th></tr>
       </thead>
       <tbody>
-        <tr><td>WAYFINDER-001</td><td>S3 com dados de saúde sem KMS CMK</td><td>Art. 46</td><td><span class="badge-auto">Auto</span></td></tr>
-        <tr><td>WAYFINDER-002</td><td>S3 com dados de saúde com acesso público <em>(o incidente VitaCore)</em></td><td>Art. 46</td><td><span class="badge-auto">Auto</span></td></tr>
-        <tr><td>WAYFINDER-003</td><td>CloudTrail desabilitado</td><td>Art. 37, 48</td><td><span class="badge-auto">Auto</span></td></tr>
-        <tr><td>WAYFINDER-004</td><td>RDS sem criptografia em repouso</td><td>Art. 46</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-005</td><td>IAM policy com Action:* e Resource:*</td><td>Art. 6, 47</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-006</td><td>EC2 com tag de saúde em subnet pública</td><td>Art. 46, 49</td><td><span class="badge-auto">Auto</span></td></tr>
-        <tr><td>WAYFINDER-007</td><td>Lambda com variável de ambiente parecendo senha</td><td>Art. 46</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-008</td><td>CloudWatch Log Group sem criptografia KMS</td><td>Art. 46</td><td><span class="badge-auto">Auto</span></td></tr>
-        <tr><td>WAYFINDER-009</td><td>Security Group com SSH/RDP aberto para 0.0.0.0/0</td><td>Art. 46</td><td><span class="badge-auto">Auto</span></td></tr>
-        <tr><td>WAYFINDER-010</td><td>DynamoDB sem criptografia</td><td>Art. 46</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-011</td><td>ECS task com privileged=true</td><td>Art. 49</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-012</td><td>IAM access key com mais de 90 dias</td><td>Art. 47</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-013</td><td>S3 sem Object Lock quando tag de retenção está presente</td><td>CFM + Art. 37</td><td><span class="badge-manual">Alerta</span></td></tr>
-        <tr><td>WAYFINDER-014</td><td>Recurso com tag de saúde sem referência ao Secrets Manager</td><td>Art. 46</td><td><span class="badge-manual">Alerta</span></td></tr>
+        <tr><td>WAYFINDER-001</td><td>S3 com dados de saúde sem KMS CMK</td><td>Art. 46</td><td><span class="badge-auto">Proposta</span></td></tr>
+        <tr><td>WAYFINDER-002</td><td>S3 com dados de saúde com acesso público <em>(cenário hipotético)</em></td><td>Art. 46</td><td><span class="badge-auto">Proposta</span></td></tr>
+        <tr><td>WAYFINDER-003</td><td>CloudTrail desabilitado</td><td>Art. 37, 48</td><td><span class="badge-auto">Proposta</span></td></tr>
+        <tr><td>WAYFINDER-004</td><td>RDS sem criptografia em repouso</td><td>Art. 46</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-005</td><td>IAM policy com Action:* e Resource:*</td><td>Art. 6, 47</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-006</td><td>EC2 com tag de saúde em subnet pública</td><td>Art. 46, 49</td><td><span class="badge-auto">Proposta</span></td></tr>
+        <tr><td>WAYFINDER-007</td><td>Lambda com variável de ambiente parecendo senha</td><td>Art. 46</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-008</td><td>CloudWatch Log Group sem criptografia KMS</td><td>Art. 46</td><td><span class="badge-auto">Proposta</span></td></tr>
+        <tr><td>WAYFINDER-009</td><td>Security Group com SSH/RDP aberto para 0.0.0.0/0</td><td>Art. 46</td><td><span class="badge-auto">Proposta</span></td></tr>
+        <tr><td>WAYFINDER-010</td><td>DynamoDB sem criptografia</td><td>Art. 46</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-011</td><td>ECS task com privileged=true</td><td>Art. 49</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-012</td><td>IAM access key com mais de 90 dias</td><td>Art. 47</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-013</td><td>S3 sem Object Lock quando tag de retenção está presente</td><td>Política de retenção</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
+        <tr><td>WAYFINDER-014</td><td>Recurso com tag de saúde sem referência ao Secrets Manager</td><td>Art. 46</td><td><span class="badge-manual">Alerta proposto</span></td></tr>
       </tbody>
     </table>
+    </div>
     <p class="body-text">
-      A decisão de <strong>não auto-remediar</strong> IAM, RDS e permissões foi intencional e documentada em ADR-004.
+      A proposta de <strong>não auto-remediar</strong> IAM, RDS e permissões foi intencional e está documentada em ADR-004.
       Remediação automática de permissões pode causar downtime — um médico que não consegue logar é um incidente diferente.
     </p>
   </div>
@@ -269,32 +266,32 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
       <div class="adr-card">
         <div class="adr-num">ADR-001</div>
         <div class="adr-title">Terraform, não CDK</div>
-        <div class="adr-why">CDK gera CloudFormation por baixo. Quero entender o que está sendo implantado, não o que uma abstração gera. Terraform também aparece mais em vagas PJ no Brasil.</div>
+        <div class="adr-why">A decisão prioriza praticar e revisar diretamente os recursos declarados. A ferramenta escolhida depende do contexto e da familiaridade da equipe.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">ADR-002</div>
         <div class="adr-title">Event-driven, não polling agendado</div>
-        <div class="adr-why">Lambda a cada 5 minutos custaria mais e detectaria violações com até 5 minutos de atraso. EventBridge reage à mudança real em segundos.</div>
+        <div class="adr-why">O desenho orientado a eventos evita depender de varredura periódica. A latência e o custo reais dependem da implementação e precisam ser medidos.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">ADR-003</div>
         <div class="adr-title">S3 Object Lock COMPLIANCE (não GOVERNANCE)</div>
-        <div class="adr-why">CFM 1821/2007 exige prontuários por 20 anos. GOVERNANCE mode pode ser bypassado por admins. COMPLIANCE mode é o único que garante imutabilidade legal.</div>
+        <div class="adr-why">A escolha do modo e do prazo de retenção deve ser validada conforme o tipo de documento e as obrigações aplicáveis; Object Lock não é, por si só, certificação de conformidade.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">ADR-004</div>
         <div class="adr-title">Remediação seletiva, não total</div>
-        <div class="adr-why">Quase construí auto-remediação para tudo. Mas: e se a Lambda remove uma permissão que um sistema médico depende? Médico não loga. Novo incidente. Matriz de reversibilidade decidiu.</div>
+        <div class="adr-why">A remediação deve considerar reversibilidade e impacto no workload. O desenho favorece alertas quando uma mudança automática pode interromper um serviço.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">ADR-005</div>
         <div class="adr-title">VPC Endpoints, não NAT Gateway</div>
-        <div class="adr-why">Lambdas chamam KMS, CloudTrail e Config constantemente. Com NAT, esse tráfego sai pela internet pública antes do TLS. Com VPC Endpoints, fica dentro da rede AWS. Para dados de saúde, a escolha certa.</div>
+        <div class="adr-why">VPC Endpoints podem manter chamadas a serviços AWS no caminho privado da VPC e reduzir dependência de NAT; a escolha depende dos requisitos e custos do ambiente.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">ADR-009</div>
         <div class="adr-title">IAM OIDC no CI/CD, não access keys</div>
-        <div class="adr-why">Access keys estáticas no GitHub geram o mesmo problema que o WAYFINDER-007 detecta: credenciais em lugar errado. OIDC: token temporário emitido por STS no momento do deploy, sem chave armazenada.</div>
+        <div class="adr-why">OIDC permite trocar credenciais estáticas por credenciais temporárias quando o workflow e as políticas são configurados corretamente.</div>
       </div>
     </div>
   </div>
@@ -303,18 +300,12 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">04</span>
-      <h2>O que foi construído</h2>
+      <h2>Escopo documentado</h2>
       <div class="sec-line"></div>
     </div>
     <div class="metrics-grid">
       <div class="metric"><div class="metric-val mv-amber">14</div><div class="metric-lbl">Regras LGPD custom</div></div>
-      <div class="metric"><div class="metric-val mv-blue">23</div><div class="metric-lbl">Regras AWS managed</div></div>
-      <div class="metric"><div class="metric-val mv-green">8</div><div class="metric-lbl">Módulos Terraform</div></div>
-      <div class="metric"><div class="metric-val mv-purple">4</div><div class="metric-lbl">Lambdas Python</div></div>
-      <div class="metric"><div class="metric-val mv-ciano">115</div><div class="metric-lbl">Testes (moto)</div></div>
-      <div class="metric"><div class="metric-val mv-blue">9</div><div class="metric-lbl">ADRs documentados</div></div>
-      <div class="metric"><div class="metric-val mv-green">5</div><div class="metric-lbl">Runbooks operacionais</div></div>
-      <div class="metric"><div class="metric-val mv-amber">3</div><div class="metric-lbl">CI/CD pipelines</div></div>
+      <div class="metric"><div class="metric-val mv-amber">14</div><div class="metric-lbl">Regras custom listadas neste case</div></div>
     </div>
   </div>
 
@@ -366,18 +357,18 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
       <div class="sec-line"></div>
     </div>
     <ul class="lesson-list">
-      <li><span class="icon">🔐</span><span><strong>IAM é a base de tudo.</strong> A maioria dos incidentes de segurança não começa por falha de criptografia — começa por permissão excessiva. O WAYFINDER-005 existe porque 12 roles com AdministratorAccess em produção é um risco maior do que qualquer S3 sem KMS.</span></li>
-      <li><span class="icon">⚡</span><span><strong>Event-driven não é "mais moderno", é mais correto para este problema.</strong> Polling a cada 5 minutos detectaria o incidente VitaCore em até 5 minutos. EventBridge detecta em segundos. A diferença entre as duas abordagens é mensurável em reais de prejuízo.</span></li>
+      <li><span class="icon">🔐</span><span><strong>IAM é parte central do desenho.</strong> Permissões excessivas ampliam o impacto de erros; o case inclui controles para revisar políticas com escopo amplo.</span></li>
+      <li><span class="icon">⚡</span><span><strong>Event-driven é uma escolha de arquitetura, não uma promessa de latência.</strong> O case compara roteamento por eventos com varredura periódica; qualquer diferença de tempo ou custo precisa ser medida no ambiente alvo.</span></li>
       <li><span class="icon">🧪</span><span><strong>Testar código que chama AWS é difícil sem moto.</strong> Aprendi que dois handlers com o mesmo nome em sys.modules se sobrepõem. A solução com importlib.util.spec_from_file_location foi mais valiosa do que a feature em si.</span></li>
-      <li><span class="icon">📄</span><span><strong>ADRs não são burocracia.</strong> Quando decidi não auto-remediar IAM, escrever o ADR-004 me forçou a articular o raciocínio. Duas semanas depois, reli e ainda concordei com a decisão. Isso tem valor.</span></li>
-      <li><span class="icon">💰</span><span><strong>Custo de prevenção vs custo do incidente.</strong> O ambiente de governança custa ~R$ 6.200/ano. O incidente de março custou R$ 2,1 milhões. O ROI de 340× não é marketing — é aritmética simples que qualquer CTO precisa entender.</span></li>
+      <li><span class="icon">📄</span><span><strong>ADRs registram contexto.</strong> Documentar por que uma regra alerta em vez de remediar facilita revisar as premissas quando o contexto muda.</span></li>
+      <li><span class="icon">💰</span><span><strong>Custo faz parte da decisão.</strong> O cenário VitaCore não contém estimativa financeira verificada; custos de AWS precisam ser estimados com premissas explícitas para cada ambiente.</span></li>
     </ul>
   </div>
 
   <!-- CTA -->
   <div class="cta-box fade-in">
     <h3>Ver o código e a documentação</h3>
-    <p>O repositório tem README completo, ADRs, runbooks e todo o Terraform e Python documentados.</p>
+    <p>Consulte o repositório para revisar o código e a documentação disponíveis.</p>
     <div class="cta-links">
       <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener" class="btn-p">
         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
@@ -394,16 +385,10 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
     <span class="footer-brand">guilherme-barreto · 2026</span>
     <div class="footer-links">
       <a href="https://github.com/guinatural" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://linkedin.com/in/guilherme-barreto" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/guillherme-barretog/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
 </footer>
 
-<script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold:0.08});
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-</script>
 </body>
 </html>

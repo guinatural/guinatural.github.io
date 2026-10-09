@@ -1,33 +1,24 @@
 # Portfólio — Guilherme Barreto
 
-**Site:** https://guinatural.github.io  
-**Pasta no PC:** `C:\Users\barre\Documents\Codex\2026-08-15\me-ajude\work\portfolio`
-
-**Mapa de todos os projetos (Holocron, Wayfinder, estudos):** [MAPA.md](MAPA.md)
+Site público: <https://guinatural.github.io>
 
 ## Páginas
 
-- `index.html` — Landing
-- `wayfinder.html` — Case Wayfinder Cloud (Config 24/7)
-- `holocron.html` — Case Holocron Sentinel (agente sob demanda)
-- `labs.html` — 23 labs SAA-C03
-- `curriculo.html` — CV para impressão / PDF
+- `index.html` — portfólio e projetos
+- `wayfinder.html` — case de arquitetura Wayfinder Cloud
+- `holocron.html` — case do capstone Holocron Sentinel / AgentCore
+- `labs.html` — notas de laboratórios AWS
+- `curriculo.html` — currículo em HTML, pronto para impressão
 
-## Publicar
+## Repositórios de projeto
 
-```powershell
-cd "C:\Users\barre\Documents\Codex\2026-08-15\me-ajude\work\portfolio"
-git add .
-git commit -m "feat(portfolio): case Holocron + mapa de pastas"
-git push origin main
-```
+- Wayfinder Cloud: <https://github.com/guinatural/wayfinder-cloud>
+- Holocron Sentinel / AgentCore: <https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore>
+- Holocron Sentinel V2: <https://github.com/guinatural/Holocron-Sentinel-Startup-V2>
+- DocuSmart: <https://github.com/guinatural/docusmart-motor-strands>
 
-Settings → Pages → Source: **GitHub Actions** (workflow `deploy.yml`).
+## Publicação
 
-## Não confundir
+O GitHub Pages usa o workflow `.github/workflows/deploy.yml`. Revise as alterações e os resultados dos checks antes de mesclar uma pull request para `main`; não publique diretamente a partir de uma cópia local.
 
-| Pasta | O que é |
-|---|---|
-| Esta (`work\portfolio`) | Site público |
-| `...\04_CODE\Holocron-Sentinel-V2` | Código do agente (scanners) |
-| `...\work\holocron` | Rascunho MCP + docs — não é a fonte de verdade |
+O conteúdo descreve projetos de portfólio e cenários de estudo. Não representa, por si só, operação em produção, SLA ou resultados medidos.
