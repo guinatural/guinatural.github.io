@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Case de portfólio do Wayfinder Cloud: arquitetura de governança AWS orientada a eventos, com cenário hipotético e escopo em desenvolvimento."/>
+<meta name="description" content="Case Wayfinder Cloud: cenário fictício de exposição de dados, resposta AWS proposta e estado real das regras e do código."/>
 <link rel="canonical" href="https://guinatural.github.io/wayfinder.html"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Wayfinder Cloud — Case de portfólio"/>
-<meta property="og:description" content="Arquitetura de governança AWS orientada a eventos, apresentada como projeto de portfólio."/>
+<meta property="og:description" content="O problema, a resposta proposta e as lacunas técnicas do case Wayfinder Cloud."/>
 <meta property="og:url" content="https://guinatural.github.io/wayfinder.html"/>
 <title>Wayfinder Cloud — Case Study · Guilherme Barreto</title>
 <style>
@@ -42,15 +42,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,20,34,.94);backdrop-fil
 .case-sub{font-size:15px;color:var(--muted);max-width:600px;margin-bottom:24px;line-height:1.6;}
 .case-meta{display:flex;flex-wrap:wrap;gap:20px;font-size:12.5px;color:var(--muted);}
 .case-meta span strong{color:var(--txt);font-weight:600;}
-
-/* INCIDENT BANNER */
-.incident-banner{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:24px 28px;margin:36px 0 0;}
-.ib-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(239,68,68,.8);margin-bottom:12px;}
-.ib-title{font-size:18px;font-weight:700;margin-bottom:10px;}
-.ib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:16px;}
-.ib-metric{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.15);border-radius:8px;padding:10px 12px;text-align:center;}
-.ib-val{font-size:20px;font-weight:700;color:var(--red);margin-bottom:2px;}
-.ib-lbl{font-size:10.5px;color:var(--muted);}
 
 /* SECTIONS */
 .sec{padding:44px 0 0;}
@@ -166,9 +157,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </div>
     <h1 class="case-title">Wayfinder <span>Cloud</span></h1>
     <p class="case-sub">
-      Projeto de portfólio que explora uma arquitetura de governança AWS orientada a eventos
-      para um cenário hipotético de saúde digital. Os tempos de detecção e os resultados de operação
-      não foram medidos como SLA.
+      Um cenário fictício de exposição de dados mostra o problema; o Wayfinder propõe como detectar,
+      registrar e encaminhar a resposta. O desenho ainda não é uma operação implantada.
     </p>
     <div class="case-meta">
       <span><strong>Contexto:</strong> VitaCore Health (cenário hipotético)</span>
@@ -177,38 +167,54 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <span><strong>Repositório:</strong> <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener" style="color:var(--blue)">github.com/guinatural/wayfinder-cloud ↗</a></span>
     </div>
 
-    <div class="incident-banner">
-      <div class="ib-label">Cenário hipotético de projeto</div>
-      <div class="ib-title">Exposição de dados em um ambiente de saúde</div>
-      <p style="font-size:13.5px;color:var(--dim);line-height:1.7;">
-        VitaCore Health é um cenário fictício usado para explorar controles contra exposição de dados
-        sensíveis. Não representa um incidente, uma organização, uma sanção ou um resultado operacional real.
-      </p>
+    <div class="case-story-grid" aria-label="Problema e resposta proposta do Wayfinder">
+      <article class="case-story-card problem">
+        <h2>O problema · cenário fictício</h2>
+        <p>
+          Na história da VitaCore Health, um comando equivocado torna público um bucket S3 com
+          relatórios de imagem médica. A pergunta operacional é: como perceber a mudança, identificar
+          o recurso afetado e conservar evidências para decidir o que fazer?
+        </p>
+        <p>
+          VitaCore e o incidente são fictícios. Números de impacto no repositório são premissas do
+          exercício, não dados de um vazamento real nem resultados do projeto.
+        </p>
+      </article>
+      <article class="case-story-card solution">
+        <h2>A resposta proposta</h2>
+        <p>
+          Avaliar mudanças de configuração, encaminhar achados para análise e alerta, e manter uma
+          trilha consultável. Alterações sensíveis, como permissões de IAM, devem exigir revisão
+          humana; o desenho não presume remediação automática segura.
+        </p>
+      </article>
     </div>
+    <aside class="case-status">
+      <strong>Estado real:</strong> o repositório documenta Terraform, quatro handlers Lambda Python
+      e 115 testes com serviços AWS simulados. Não há evidência de implantação AWS. As 14 regras
+      custom estão declaradas, mas nenhuma funciona ponta a ponta no estado descrito pelo repositório.
+    </aside>
   </div>
 
-  <!-- 1. O QUE FAZ -->
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">01</span>
-      <h2>Arquitetura explorada</h2>
+      <h2>Como a solução deveria responder</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
-      A arquitetura proposta usa AWS Config como motor de avaliação. No fluxo descrito, quando um
-      recurso viola uma regra, o EventBridge encaminha o evento a uma Lambda para enriquecer e
-      notificar o achado; uma remediação com guardrails é uma opção de desenho, não um resultado
-      operacional verificado nesta página.
+      Este é o <strong>fluxo-alvo</strong>, não uma demonstração em produção: avaliar o estado do
+      recurso, rotear a mudança para análise, notificar e guardar uma trilha para consulta.
+      As etapas abaixo explicam a intenção da arquitetura.
     </p>
     <p class="body-text">
-      O desenho documenta registro de eventos e consulta via Athena, além do uso proposto de
-      <strong>S3 Object Lock</strong>. A retenção e os controles efetivos dependem da configuração
-      implantada e da política aplicável; esta página não declara conformidade legal.
+      A trilha de auditoria também é proposta. Retenção, criptografia e conformidade dependem da
+      implantação e de políticas revisadas; este portfólio não declara conformidade legal.
     </p>
     <figure class="arch-flow" aria-labelledby="wayfinder-flow-caption">
-      <figcaption id="wayfinder-flow-caption">Fluxo proposto de avaliação e tratamento de achados</figcaption>
+      <figcaption id="wayfinder-flow-caption">Fluxo-alvo proposto; não comprovado em uma conta AWS</figcaption>
       <ol class="arch-steps">
-        <li class="arch-step"><span class="arch-service">Avaliação</span><strong>AWS Config</strong><span>Regras gerenciadas e regras custom WAYFINDER-* avaliam a configuração do recurso.</span></li>
+        <li class="arch-step"><span class="arch-service">Avaliação</span><strong>AWS Config</strong><span>O alvo inclui regras gerenciadas e 14 custom; as custom não operam ponta a ponta hoje.</span></li>
         <li class="arch-step"><span class="arch-service">Roteamento</span><strong>Amazon EventBridge</strong><span>Encaminha mudanças de conformidade conforme o tipo e a severidade.</span></li>
         <li class="arch-step"><span class="arch-service">Processamento</span><strong>Lambda · compliance-evaluator</strong><span>Enriquece o achado com referência LGPD, severidade e dados do recurso.</span></li>
       </ol>
@@ -229,21 +235,42 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </figure>
   </div>
 
-  <!-- 2. AS 14 REGRAS -->
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">02</span>
-      <h2>As 14 regras WAYFINDER</h2>
+      <h2>O que existe no código — e a lacuna</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
-      As regras custom do case associam controles técnicos a referências da LGPD para discussão.
-      O mapeamento é ilustrativo e não substitui análise jurídica nem garante conformidade.
+      O repositório informa <strong>quatro handlers Lambda Python</strong> e
+      <strong>115 testes unitários com AWS simulada</strong>. Esses testes não comprovam
+      comportamento em uma conta AWS nem cobrem uma regra de conformidade operando de ponta a ponta.
+    </p>
+    <div class="case-status">
+      <strong>Principal lacuna técnica:</strong> as 14 regras estão declaradas como
+      <code>CUSTOM_LAMBDA</code>, mas o handler descrito recebe eventos de mudança do EventBridge;
+      ele não implementa o contrato de avaliação customizada do AWS Config
+      (<code>PutEvaluations</code>). Além disso, os nomes no Terraform e os metadados Python não
+      correspondem. Portanto, as regras não devem ser apresentadas como controles funcionando.
+    </div>
+  </div>
+
+  <!-- 3. AS 14 REGRAS -->
+  <div class="sec fade-in">
+    <div class="sec-header">
+      <span class="sec-num">03</span>
+      <h2>Catálogo proposto: 14 regras</h2>
+      <div class="sec-line"></div>
+    </div>
+    <p class="body-text">
+      Este é um catálogo de intenções declarado no Terraform, <strong>não uma lista de detecções
+      ativas</strong>. As ações descritas são propostas; o mapeamento LGPD é ilustrativo, não
+      substitui análise jurídica nem garante conformidade.
     </p>
     <div class="table-wrap" role="region" aria-label="Regras custom do Wayfinder" tabindex="0">
     <table class="rules-table">
       <thead>
-      <tr><th scope="col">Regra</th><th scope="col">O que detecta</th><th scope="col">Referência</th><th scope="col">Remediação proposta</th></tr>
+      <tr><th scope="col">Regra</th><th scope="col">O que pretende detectar</th><th scope="col">Referência</th><th scope="col">Resposta desejada (proposta)</th></tr>
       </thead>
       <tbody>
         <tr><td>WAYFINDER-001</td><td>S3 com dados de saúde sem KMS CMK</td><td>Art. 46</td><td><span class="badge-auto">Proposta</span></td></tr>
@@ -264,15 +291,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </table>
     </div>
     <p class="body-text">
-      A proposta de <strong>não auto-remediar</strong> IAM, RDS e permissões foi intencional e está documentada em ADR-004.
-      Remediação automática de permissões pode causar downtime — um médico que não consegue logar é um incidente diferente.
+      <strong>Nenhuma linha desta tabela representa cobertura ativa.</strong> A decisão de não
+      remediar permissões de IAM e recursos críticos sem revisão é uma salvaguarda planejada, não
+      um guardrail comprovadamente aplicado pelo código atual.
     </p>
   </div>
 
-  <!-- 3. DECISÕES DE ARQUITETURA -->
+  <!-- 4. DECISÕES DE ARQUITETURA -->
   <div class="sec fade-in">
     <div class="sec-header">
-      <span class="sec-num">03</span>
+      <span class="sec-num">04</span>
       <h2>Decisões de arquitetura (ADRs)</h2>
       <div class="sec-line"></div>
     </div>
@@ -314,25 +342,28 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </div>
   </div>
 
-  <!-- 4. NÚMEROS -->
+  <!-- 5. ESCOPO -->
   <div class="sec fade-in">
     <div class="sec-header">
-      <span class="sec-num">04</span>
+      <span class="sec-num">05</span>
       <h2>Escopo documentado</h2>
       <div class="sec-line"></div>
     </div>
     <div class="metrics-grid">
-      <div class="metric"><div class="metric-val mv-amber">14</div><div class="metric-lbl">Regras custom listadas neste case</div></div>
+      <div class="metric"><div class="metric-val mv-amber">14</div><div class="metric-lbl">Regras declaradas, sem execução ponta a ponta</div></div>
+      <div class="metric"><div class="metric-val mv-blue">4</div><div class="metric-lbl">Handlers Lambda no repositório</div></div>
+      <div class="metric"><div class="metric-val mv-blue">115</div><div class="metric-lbl">Testes com AWS simulada, conforme o repositório</div></div>
     </div>
   </div>
 
-  <!-- 5. STACK -->
+  <!-- 6. STACK -->
   <div class="sec fade-in">
     <div class="sec-header">
-      <span class="sec-num">05</span>
-      <h2>Stack técnica</h2>
+      <span class="sec-num">06</span>
+      <h2>Stack considerada no desenho</h2>
       <div class="sec-line"></div>
     </div>
+    <p class="body-text">A lista descreve tecnologias do desenho do case; não significa que todos os serviços estejam implantados ou integrados.</p>
     <p class="body-text"><strong>Infraestrutura (IaC):</strong></p>
     <ul class="stack-wrap" aria-label="Serviços e ferramentas de infraestrutura">
       <li class="stack-item">Terraform 1.6+</li><li class="stack-item">AWS Config</li>
@@ -355,10 +386,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </ul>
   </div>
 
-  <!-- 6. LIÇÕES -->
+  <!-- 7. LIÇÕES -->
   <div class="sec fade-in">
     <div class="sec-header">
-      <span class="sec-num">06</span>
+      <span class="sec-num">07</span>
       <h2>O que aprendi construindo isso</h2>
       <div class="sec-line"></div>
     </div>

@@ -210,20 +210,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ciano); outline
 
 .pf-body { padding: 28px 32px; }
 
-.incident {
-  background: rgba(239,68,68,.05);
-  border: 1px solid rgba(239,68,68,.18);
-  border-left: 3px solid rgba(239,68,68,.5);
-  border-radius: 0 10px 10px 0;
-  padding: 14px 18px; margin-bottom: 22px;
-}
-.incident .i-label {
-  font-size: 9.5px; font-weight: 800; letter-spacing: 1.5px;
-  text-transform: uppercase; color: rgba(239,68,68,.75); margin-bottom: 5px;
-}
-.incident p { font-size: 13.5px; color: rgba(226,232,240,.8); line-height: 1.65; }
-.incident strong { color: #fff; }
-
 .pf-desc { font-size: 14px; color: rgba(226,232,240,.8); line-height: 1.8; margin-bottom: 22px; }
 .pf-desc strong { color: #fff; font-weight: 600; }
 
@@ -575,24 +561,32 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       </div>
 
       <div class="pf-body">
-        <div class="incident">
-          <div class="i-label">O problema que este projeto resolve</div>
-          <p>
-            <strong>VitaCore Health é um cenário hipotético de portfólio</strong>, criado para discutir
-            exposição de dados sensíveis e controles de governança. Não descreve um incidente real,
-            uma sanção aplicada ou um resultado medido do Wayfinder.
-          </p>
+        <div class="case-story-grid" aria-label="Problema e solução proposta do Wayfinder">
+          <article class="case-story-card problem">
+            <h3>Problema · cenário fictício</h3>
+            <p>
+              Um bucket com relatórios médicos fica público após uma mudança equivocada. Como
+              detectar a alteração, identificar o recurso afetado e preservar evidências?
+              VitaCore Health é uma história de portfólio, não um incidente real.
+            </p>
+          </article>
+          <article class="case-story-card solution">
+            <h3>Solução proposta</h3>
+            <p>
+              AWS Config, EventBridge e Lambda formam o fluxo-alvo para avaliar mudanças e
+              encaminhar alertas; CloudTrail e armazenamento de auditoria sustentam a investigação.
+              Permissões críticas permanecem sob revisão humana.
+            </p>
+          </article>
         </div>
-
-        <p class="pf-desc">
-          Projeto de portfólio que modela governança cloud orientada a eventos: avaliação de
-          conformidade com AWS Config, roteamento com EventBridge e tratamento de achados em Lambda.
-          O repositório documenta controles, opções de remediação e trilha de auditoria; não há
-          afirmação de operação contínua, implantação em produção ou desempenho medido.
+        <p class="project-status">
+          <strong>Estado real:</strong> projeto em desenvolvimento, sem implantação AWS declarada.
+          As 14 regras estão no catálogo Terraform; o repositório informa que ainda não funcionam
+          ponta a ponta. <a href="wayfinder.html">Veja o problema, a proposta e a lacuna técnica →</a>
         </p>
 
         <div class="metrics">
-          <div class="metric"><div class="mv ma">14</div><div class="ml">Regras custom descritas no case</div></div>
+          <div class="metric"><div class="mv ma">14</div><div class="ml">Regras declaradas, sem avaliação ponta a ponta</div></div>
         </div>
 
         <ul class="stack" aria-label="Tecnologias e serviços considerados no projeto">
@@ -638,11 +632,11 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       <article class="proj-card">
         <h3>Holocron Sentinel</h3>
         <div class="proj-meta">Capstone AWS re/Start · agente sob demanda (Boto3 + Bedrock AgentCore)</div>
-        <p>
-          Case do agente sob demanda, separado do Wayfinder. O repositório documenta scanners AWS e
-          organização de sessões por tenant; isso não deve ser interpretado como garantia de isolamento
-          ou operação multi-tenant em produção.
-        </p>
+        <div class="project-story">
+          <div><h4>Problema</h4><p>Revisar S3, IAM e EC2 numa auditoria pontual exige reunir verificações diferentes.</p></div>
+          <div class="project-response"><h4>Solução da PoC</h4><p>Um pedido sob demanda aciona um agente que escolhe scanners Boto3 e prepara um relatório.</p></div>
+          <div class="project-context"><h4>Limite</h4><p>É um capstone; chave de sessão não comprova isolamento. Não é a vigilância contínua proposta pelo Wayfinder.</p></div>
+        </div>
         <div class="proj-card-links">
           <a href="holocron.html">Case study →</a>
           <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
@@ -650,22 +644,24 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       </article>
       <article class="proj-card">
         <h3>Holocron Sentinel V2</h3>
-        <div class="proj-meta">Projeto independente · repositório de evolução do Sentinel</div>
-        <p>
-          Repositório próprio, distinto do capstone AgentCore. Consulte o código e a documentação
-          do V2 para avaliar seu escopo e estado atuais.
-        </p>
+        <div class="proj-meta">Hub de documentação e governança do ecossistema Holocron</div>
+        <div class="project-story">
+          <div><h4>Necessidade</h4><p>Manter referências, arquitetura e materiais de vários projetos em um lugar navegável.</p></div>
+          <div class="project-response"><h4>Papel do repositório</h4><p>Centraliza documentação e aponta para cada implementação em seu próprio repositório.</p></div>
+          <div class="project-context"><h4>Limite</h4><p>O V2 não é o runtime do agente Sentinel nem o capstone AgentCore.</p></div>
+        </div>
         <div class="proj-card-links">
-          <a href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Código do Sentinel V2 no GitHub</a>
+          <a href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Hub de documentação no GitHub</a>
         </div>
       </article>
       <article class="proj-card">
         <h3>Hack2Hire — DocuSmart</h3>
         <div class="proj-meta">Hackathon Escola da Nuvem · jun 2026 · Pipeline Serverless IDP</div>
-        <p>
-          Motor Strands em conta de hackathon com deadline duro: Lambda, Bedrock, Textract/Comprehend, DynamoDB.
-          O lab de SNS/SQS/EventBridge vira evento de sinistro in, JSON out — sem acoplar o frontend.
-        </p>
+        <div class="project-story">
+          <div><h4>Problema</h4><p>Um sinistro de automóvel chega com documentos variados que precisam ser lidos e triados.</p></div>
+          <div class="project-response"><h4>Solução do projeto</h4><p>O desenho do hackathon usa processamento de documentos e agentes para extrair dados, com decisão encaminhada para aprovação automática ou revisão humana.</p></div>
+          <div class="project-context"><h4>Limite</h4><p>Case de hackathon; o repositório não é evidência de operação em produção.</p></div>
+        </div>
         <div class="proj-card-links">
           <a href="https://github.com/guinatural/docusmart-motor-strands" target="_blank" rel="noopener">Código no GitHub</a>
           <a href="labs.html">Como os labs entram neste desenho →</a>
@@ -673,11 +669,12 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       </article>
       <article class="proj-card">
         <h3>Holocron Career AI</h3>
-        <div class="proj-meta">Carreira & Mentoria AI · Fase 1 (Em desenvolvimento)</div>
-        <p>
-          Sistema inteligente focado no ecossistema Holocron. Aplicação containerizada com Docker, integrando 
-          funcionalidades de mentoria impulsionadas por IA na jornada de engenharia de software e nuvem.
-        </p>
+        <div class="proj-meta">Proposta de produto · gestão de carreira com agentes de IA</div>
+        <div class="project-story">
+          <div><h4>Problema</h4><p>Organizar candidaturas, currículos e preparação profissional pode exigir várias ferramentas e etapas desconectadas.</p></div>
+          <div class="project-response"><h4>Solução planejada</h4><p>O README propõe reunir gestão de carreira e assistência por IA em uma plataforma com busca e correspondência de vagas.</p></div>
+          <div class="project-context"><h4>Status</h4><p>As fases de implementação estão descritas como planejadas; não apresento a arquitetura-alvo como produto implantado.</p></div>
+        </div>
         <div class="proj-card-links">
           <a href="https://github.com/guinatural/Holocron-Career-AI" target="_blank" rel="noopener">Código no GitHub</a>
         </div>
@@ -685,10 +682,11 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       <article class="proj-card">
         <h3>SkinCare da Van (SKDV)</h3>
         <div class="proj-meta">App Flutter + backend AWS · jan 2024 – fev 2025 · projeto pessoal</div>
-        <p>
-          Mobile com backend na AWS: VPC, IAM, CloudWatch e API. Mesma disciplina de isolamento de rede
-          do lab de SG/NACL, aplicada em um projeto de produto.
-        </p>
+        <div class="project-story">
+          <div><h4>Informação ainda não documentada</h4><p>Os materiais revisados não descrevem com clareza o problema de negócio nem o fluxo do usuário.</p></div>
+          <div class="project-response"><h4>O que posso afirmar</h4><p>O portfólio lista um app Flutter e backend AWS, com VPC, IAM, CloudWatch e API.</p></div>
+          <div class="project-context"><h4>Limite</h4><p>Evito atribuir funcionalidades ou resultados até confirmar o conteúdo do projeto.</p></div>
+        </div>
         <a href="https://github.com/guinatural/skincaredv" target="_blank" rel="noopener">github.com/guinatural/skincaredv</a>
       </article>
     </div>
