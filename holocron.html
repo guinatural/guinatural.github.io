@@ -125,51 +125,56 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </div>
     <h1 class="case-title">Holocron <span>Sentinel</span></h1>
     <p class="case-sub">
-      Capstone AWS re/Start: prova de conceito de agente de auditoria AWS acionado sob demanda,
-      com ferramentas Boto3 e raciocínio via Amazon Bedrock (Strands). Não é o case de governança por eventos do Wayfinder.
+      Uma revisão de segurança fica mais útil quando sinais de vários serviços podem ser examinados
+      em conjunto. Este capstone explora uma auditoria AWS sob demanda; a integração real ainda
+      está em validação e não é um serviço disponível para uso.
     </p>
     <div class="case-meta">
       <span><strong>Contexto:</strong> Escola da Nuvem · capstone</span>
-      <span><strong>Stack:</strong> Python · Boto3 · Bedrock · Strands</span>
-      <span><strong>Status:</strong> Prova de conceito; consulte o repositório para o estado atual</span>
+      <span><strong>Stack:</strong> Python · FastAPI · Boto3 · Amazon Bedrock</span>
+      <span><strong>Status:</strong> Fluxo local testado com mocks; <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore/pull/2" target="_blank" rel="noopener">correção em revisão ↗</a>; integração AWS real não validada</span>
       <span><strong>AgentCore capstone:</strong> <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Holocron-Sentinel-AWS-AgentCore ↗</a></span>
     </div>
 
     <div class="case-story-grid" aria-label="Problema e resposta do Holocron Sentinel">
       <article class="case-story-card problem">
-        <h2>A necessidade</h2>
+        <h2>Encontrar o que merece atenção</h2>
         <p>
-          Uma revisão pontual de uma conta AWS envolve olhar configurações diferentes de S3, IAM e
-          EC2. O capstone explora como reunir essas verificações quando um consultor solicita uma
-          auditoria, em vez de tratar cada scanner como uma tarefa isolada.
+          Em uma revisão pontual, alertas sobre acesso público em S3, identidade IAM e exposição de
+          rede em EC2 chegam de lugares diferentes. O desafio é reunir os sinais e dar ao consultor
+          uma visão clara do que precisa ser investigado primeiro.
         </p>
       </article>
       <article class="case-story-card solution">
-        <h2>A resposta da prova de conceito</h2>
+        <h2>Uma auditoria sob demanda, com revisão humana</h2>
         <p>
-          O usuário envia um pedido; Strands e Bedrock podem selecionar quatro ferramentas Boto3 e
-          compor um relatório. O fluxo é sob demanda e termina em revisão humana — não é vigilância
-          contínua nem um serviço multi-tenant comprovado em produção.
+          A proposta do capstone é receber uma solicitação, executar scanners Boto3 e organizar
+          achados para revisão humana. A diferença para o Wayfinder é a interação: aqui a análise
+          começa com um pedido; não com vigilância contínua por eventos.
         </p>
       </article>
     </div>
     <aside class="case-status">
-      <strong>Estado real:</strong> o repositório do capstone apresenta a PoC e seus scanners.
-      Uma chave de sessão com <code>tenant_id</code> não demonstra autorização nem isolamento entre
-      clientes. Este projeto é separado do Wayfinder.
+      <strong>Validação local:</strong> uma branch de correção passou 57 testes em Python 3.12,
+      com 54% de cobertura total; Ruff, Black e build do pacote também passaram. O ciclo de API
+      (iniciar auditoria → consultar resultados → consultar resumo) foi exercitado com scanners e
+      Bedrock stubados. Isso verifica o fluxo da aplicação sob mocks, não uma integração AWS real.
+      Não há implantação declarada. <code>tenant_id</code> não comprova autorização ou isolamento
+      seguro entre clientes; a transformação XOR não é criptografia segura. Sem
+      <code>SESSION_KEY</code> configurada, os dados não persistem após reinício.
     </aside>
   </div>
 
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">01</span>
-      <h2>Como a PoC responde a uma solicitação</h2>
+      <h2>Fluxo sob demanda e limites da validação</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
-      Núcleo em <code>01_AGENT_CORE</code>: classe <strong>HolocronSentinelCore</strong> com
-      <strong>FileSessionManager</strong> por <code>tenant_id</code> (<code>empresa_{id}</code>),
-      modelo Claude 3.5 Haiku no Bedrock, e quatro tools Strands em <code>scanners.py</code>.
+      No código atual, <code>app/agents/audit_agent.py</code> orquestra scanners e
+      <code>app/aws/bedrock.py</code> encapsula a chamada ao modelo. A implementação é Python/FastAPI
+      com módulos Boto3; não há base para descrever os scanners como tools Strands em execução.
     </p>
     <div class="metrics-grid">
       <div class="metric"><div class="metric-val">4</div><div class="metric-lbl">Scanners Boto3</div></div>
@@ -178,18 +183,18 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="metric"><div class="metric-val">EC2</div><div class="metric-lbl">EBS available + SG :22</div></div>
     </div>
     <figure class="arch-flow" aria-labelledby="holocron-flow-caption">
-      <figcaption id="holocron-flow-caption">Fluxo conceitual sob demanda; a chave de sessão não comprova isolamento entre tenants</figcaption>
+      <figcaption id="holocron-flow-caption">Ciclo da aplicação testado localmente com dependências externas stubadas; integração e segurança AWS continuam sem validação</figcaption>
       <ol class="arch-steps">
-        <li class="arch-step"><span class="arch-service">Entrada</span><strong>Prompt do DPO ou consultor</strong><span>Solicitação de uma auditoria específica.</span></li>
-        <li class="arch-step"><span class="arch-service">Agente</span><strong>Strands + Amazon Bedrock</strong><span>Interpreta a solicitação e seleciona ferramentas.</span></li>
-        <li class="arch-step"><span class="arch-service">Sessão</span><strong>FileSessionManager</strong><span><code>empresa_{tenant_id}</code> identifica a sessão; não garante autorização ou isolamento.</span></li>
-        <li class="arch-step"><span class="arch-service">Saída</span><strong>Relatório</strong><span>Resultado da execução para revisão.</span></li>
+        <li class="arch-step"><span class="arch-service">Entrada</span><strong>Pedido de auditoria</strong><span>Solicitação recebida pela API do protótipo.</span></li>
+        <li class="arch-step"><span class="arch-service">Orquestração</span><strong>AuditAgent + scanners Boto3</strong><span>O serviço coordena verificações em S3, IAM, EC2 e grupos de segurança.</span></li>
+        <li class="arch-step"><span class="arch-service">Síntese</span><strong>Amazon Bedrock</strong><span>O caminho foi testado com stub determinístico; chamada a um modelo AWS real não foi executada.</span></li>
+        <li class="arch-step"><span class="arch-service">Consulta</span><strong>Status e resultados</strong><span>O ciclo local cobre status, resultados e resumo; persistência após reinício depende de SESSION_KEY configurada.</span></li>
       </ol>
-      <div class="arch-tools" aria-label="Scanners disponíveis no protótipo">
-        <div class="arch-tool">auditar_permissoes_s3</div>
-        <div class="arch-tool">auditar_mfa_iam</div>
-        <div class="arch-tool">analisar_custos_aws_real · EBS available</div>
-        <div class="arch-tool">verificar_seguranca_network · SSH 0.0.0.0/0</div>
+      <div class="arch-tools" aria-label="Áreas cobertas pelos módulos scanner">
+        <div class="arch-tool">S3 · acesso público e configuração</div>
+        <div class="arch-tool">IAM · MFA e credenciais</div>
+        <div class="arch-tool">EC2 · volumes e exposição</div>
+        <div class="arch-tool">Security Groups · portas abertas</div>
       </div>
     </figure>
   </div>
@@ -197,24 +202,24 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">02</span>
-      <h2>Decisões que um recrutador pode testar</h2>
+      <h2>O que a auditoria precisa responder</h2>
       <div class="sec-line"></div>
     </div>
     <div class="adr-grid">
       <div class="adr-card">
         <div class="adr-num">D1</div>
-        <div class="adr-title">Tools, não só texto</div>
-        <div class="adr-why">Cada scanner é um <code>@tool</code> Strands com Boto3. O modelo chama a API da conta, não inventa o achado.</div>
+        <div class="adr-title">Evidência antes da síntese</div>
+        <div class="adr-why">Testes determinísticos confirmam o caminho de síntese com Bedrock stubado e resultados dos scanners. O comportamento com credenciais, permissões e modelo reais continua sem validação.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D2</div>
-        <div class="adr-title">Chave de sessão por tenant</div>
-        <div class="adr-why">A chave inclui tenant_id, mas isso não prova isolamento entre clientes. Autorização, validação de caminhos, permissões do armazenamento e proteção dos dados também precisam ser avaliadas.</div>
+        <div class="adr-title">Resultado recuperável</div>
+        <div class="adr-why">O ciclo local exercita o job pela API até resultados e resumo. A recuperação após reinício exige configurar SESSION_KEY; durabilidade de produção não foi demonstrada.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D3</div>
-        <div class="adr-title">PoC honesta</div>
-        <div class="adr-why">É uma prova de conceito, não um SaaS multi-tenant implantado em produção. A chave de sessão por tenant é apenas parte do desenho e não constitui garantia de isolamento.</div>
+        <div class="adr-title">Isolamento não presumido</div>
+        <div class="adr-why">A chave de sessão inclui <code>tenant_id</code>, mas isso não prova autorização ou isolamento. A transformação XOR não é criptografia segura; permissões, validação de caminhos e armazenamento exigem revisão própria.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D4</div>
@@ -232,7 +237,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </div>
     <ul class="stack-wrap" aria-label="Tecnologias e serviços do protótipo">
       <li class="stack-item">Python</li><li class="stack-item">Boto3</li>
-      <li class="stack-item">Amazon Bedrock</li><li class="stack-item">Strands / AgentCore</li>
+      <li class="stack-item">FastAPI</li><li class="stack-item">Amazon Bedrock</li>
       <li class="stack-item">FileSessionManager</li><li class="stack-item">S3 · IAM · EC2</li>
       <li class="stack-item">LGPD</li><li class="stack-item">FPDF</li>
     </ul>
@@ -241,21 +246,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">04</span>
-      <h2>O que vem depois (código, não só doc)</h2>
+      <h2>O que falta validar antes de confiar no fluxo</h2>
       <div class="sec-line"></div>
     </div>
     <ul class="lesson-list">
-      <li>Testes automatizados dos scanners (moto / pytest) — hoje a prova é lab + execução manual.</li>
-      <li>Não misturar a pasta Codex <code>work\holocron</code> (MCP wrappers + docs) com o V2 em <code>04_CODE\Holocron-Sentinel-V2</code>.</li>
-      <li>Wrappers MCP (<code>audit_event</code>, <code>generate_report</code>, <code>process_user_data</code>) existem como rascunho; o caminho de produto é endurecer o V2.</li>
+      <li>Testar em ambiente AWS controlado com credenciais e permissões mínimas; os testes atuais usam stubs e não chamam Bedrock nem scanners reais.</li>
+      <li>Revisar autenticação, autorização e isolamento seguro entre clientes; substituir a transformação XOR, que não é criptografia segura. O identificador de tenant e os testes locais não comprovam essas propriedades.</li>
+      <li>Configurar e testar SESSION_KEY para recuperação após reinício, e validar implantação, armazenamento e permissões na AWS antes de qualquer uso operacional.</li>
+      <li>A suíte reporta avisos existentes de <code>datetime.utcnow()</code>; não há evidência de execução em produção.</li>
     </ul>
   </div>
 
   <div class="cta-box fade-in">
-    <h3>Ver o capstone e os labs que o originaram</h3>
-    <p>Código no GitHub · padrão dos labs na página de laboratórios · Wayfinder é o outro eixo.</p>
+    <h3>Veja como a ideia está sendo validada</h3>
+    <p>Explore o código, os testes e os limites conhecidos do capstone — e compare a auditoria sob demanda com o fluxo por eventos do Wayfinder.</p>
     <div class="cta-links">
       <a class="btn-p" href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
+      <a class="btn-o" href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore/pull/2" target="_blank" rel="noopener">Correção e testes em revisão</a>
       <a class="btn-o" href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Repositório Sentinel V2</a>
       <a class="btn-o" href="labs.html">23 labs</a>
       <a class="btn-o" href="wayfinder.html">Case Wayfinder</a>

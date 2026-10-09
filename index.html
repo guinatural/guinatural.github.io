@@ -492,23 +492,24 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     <h1 class="hero-name">Guilherme Barreto</h1>
     <div class="hero-role">Cloud Engineer em formação · AWS Security &amp; Governance</div>
     <p class="hero-desc">
-      Desenvolvo projetos de portfólio em <strong>AWS, segurança, governança de dados e automação de infraestrutura</strong>.
-      O Wayfinder Cloud explora uma arquitetura orientada a eventos com AWS Config, EventBridge, Lambda e Terraform.
-      O projeto está em desenvolvimento; não representa um serviço implantado nem um SLA medido.
+      Se uma configuração crítica mudar agora, sua equipe saberia o que mudou, qual recurso foi afetado
+      e quem precisa decidir o próximo passo? Exploro essa pergunta em projetos de
+      <strong>AWS, segurança, governança de dados e automação</strong> — com decisões de arquitetura,
+      código e limites documentados, sem apresentar protótipos como serviços prontos.
     </p>
 
     <div class="hero-stats">
       <div class="hero-stat">
         <span class="hs-val">14</span>
-        <span class="hs-lbl">Regras LGPD escritas</span>
+        <span class="hs-lbl">Regras declaradas no catálogo</span>
       </div>
       <div class="hero-stat">
         <span class="hs-val">4</span>
-        <span class="hs-lbl">Projetos em destaque</span>
+        <span class="hs-lbl">Outros projetos no portfólio</span>
       </div>
       <div class="hero-stat">
         <span class="hs-val">23</span>
-        <span class="hs-lbl">Labs AWS concluídos</span>
+        <span class="hs-lbl">Labs AWS na série</span>
       </div>
       <div class="hero-stat">
         <span class="hs-val">CLF</span>
@@ -530,12 +531,12 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     </ul>
 
     <div class="hero-cta">
-      <a href="#projeto" class="btn-p">Ver o projeto principal →</a>
+      <a href="#projeto" class="btn-p">Explore o Wayfinder →</a>
       <a href="https://github.com/guinatural" target="_blank" rel="noopener" class="btn-o">
         <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
         GitHub
       </a>
-      <a href="labs.html" class="btn-o">Ver os 23 labs</a>
+      <a href="labs.html" class="btn-o">Explore os labs</a>
       <a href="https://www.linkedin.com/in/guillherme-barretog/" target="_blank" rel="noopener" class="btn-o">LinkedIn</a>
     </div>
   </div>
@@ -563,26 +564,26 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       <div class="pf-body">
         <div class="case-story-grid" aria-label="Problema e solução proposta do Wayfinder">
           <article class="case-story-card problem">
-            <h3>Problema · cenário fictício</h3>
+            <h3>O risco · cenário fictício</h3>
             <p>
-              Um bucket com relatórios médicos fica público após uma mudança equivocada. Como
-              detectar a alteração, identificar o recurso afetado e preservar evidências?
-              VitaCore Health é uma história de portfólio, não um incidente real.
+              Em uma empresa de saúde, uma mudança simples pode deixar um dado sensível exposto.
+              O desafio não é só perceber o alerta: é entender o que mudou, localizar o recurso e
+              preservar contexto para uma decisão responsável. VitaCore Health é um cenário fictício.
             </p>
           </article>
           <article class="case-story-card solution">
-            <h3>Solução proposta</h3>
+            <h3>O que o Wayfinder propõe</h3>
             <p>
-              AWS Config, EventBridge e Lambda formam o fluxo-alvo para avaliar mudanças e
-              encaminhar alertas; CloudTrail e armazenamento de auditoria sustentam a investigação.
-              Permissões críticas permanecem sob revisão humana.
+              Conectar avaliação de configuração, roteamento de eventos e processamento para que
+              uma equipe possa investigar com mais contexto — sem automatizar mudanças sensíveis
+              sem revisão humana.
             </p>
           </article>
         </div>
         <p class="project-status">
-          <strong>Estado real:</strong> projeto em desenvolvimento, sem implantação AWS declarada.
-          As 14 regras estão no catálogo Terraform; o repositório informa que ainda não funcionam
-          ponta a ponta. <a href="wayfinder.html">Veja o problema, a proposta e a lacuna técnica →</a>
+          <strong>O que existe hoje:</strong> desenho e código em desenvolvimento, sem implantação AWS
+          declarada. As 14 regras estão catalogadas, mas ainda não operam ponta a ponta.
+          <a href="wayfinder.html">Veja como o fluxo foi pensado e o que falta validar →</a>
         </p>
 
         <div class="metrics">
@@ -631,11 +632,11 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
     <div class="proj-grid fade-in">
       <article class="proj-card">
         <h3>Holocron Sentinel</h3>
-        <div class="proj-meta">Capstone AWS re/Start · agente sob demanda (Boto3 + Bedrock AgentCore)</div>
+        <div class="proj-meta">Capstone AWS re/Start · auditoria sob demanda (FastAPI + Boto3 + Bedrock)</div>
         <div class="project-story">
           <div><h4>Problema</h4><p>Revisar S3, IAM e EC2 numa auditoria pontual exige reunir verificações diferentes.</p></div>
-          <div class="project-response"><h4>Solução da PoC</h4><p>Um pedido sob demanda aciona um agente que escolhe scanners Boto3 e prepara um relatório.</p></div>
-          <div class="project-context"><h4>Limite</h4><p>É um capstone; chave de sessão não comprova isolamento. Não é a vigilância contínua proposta pelo Wayfinder.</p></div>
+          <div class="project-response"><h4>Ideia do capstone</h4><p>Uma solicitação inicia scanners Boto3 e organiza achados para uma revisão humana.</p></div>
+          <div class="project-context"><h4>Fluxo local testado</h4><p>Uma branch de correção passou testes do ciclo de auditoria com Bedrock e scanners stubados. <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore/pull/2" target="_blank" rel="noopener">Correção em revisão ↗</a>; integração AWS real, autorização e implantação não foram validadas. Não é um serviço em produção nem a vigilância contínua proposta pelo Wayfinder.</p></div>
         </div>
         <div class="proj-card-links">
           <a href="holocron.html">Case study →</a>
@@ -679,16 +680,6 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <a href="https://github.com/guinatural/Holocron-Career-AI" target="_blank" rel="noopener">Código no GitHub</a>
         </div>
       </article>
-      <article class="proj-card">
-        <h3>SkinCare da Van (SKDV)</h3>
-        <div class="proj-meta">App Flutter + backend AWS · jan 2024 – fev 2025 · projeto pessoal</div>
-        <div class="project-story">
-          <div><h4>Informação ainda não documentada</h4><p>Os materiais revisados não descrevem com clareza o problema de negócio nem o fluxo do usuário.</p></div>
-          <div class="project-response"><h4>O que posso afirmar</h4><p>O portfólio lista um app Flutter e backend AWS, com VPC, IAM, CloudWatch e API.</p></div>
-          <div class="project-context"><h4>Limite</h4><p>Evito atribuir funcionalidades ou resultados até confirmar o conteúdo do projeto.</p></div>
-        </div>
-        <a href="https://github.com/guinatural/skincaredv" target="_blank" rel="noopener">github.com/guinatural/skincaredv</a>
-      </article>
     </div>
   </div>
 </section>
@@ -718,24 +709,6 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
           <li>IAM, menor privilégio, Zero Trust, criptografia e governança de dados.</li>
           <li>Fluxos com RAG, agentes e serviços AWS para análise e automação.</li>
           <li>Well-Architected (segurança, confiabilidade, operação e custo) e documentação de decisões.</li>
-        </ul>
-      </article>
-      <article class="exp-card">
-        <div class="exp-head">
-          <div>
-            <div class="exp-role">Co-fundador e Administrativo</div>
-            <div class="exp-co">SkinCaredaVan · Empresa familiar · Tempo integral</div>
-          </div>
-          <div>
-            <div class="exp-dates">fev 2019 — dez 2024</div>
-            <div class="exp-loc">Santa Catarina</div>
-          </div>
-        </div>
-        <p>Gestão operacional e administrativa, com processos, fornecedores e experiência do cliente.</p>
-        <ul>
-          <li>Rotinas administrativas, indicadores e organização interna.</li>
-          <li>Relacionamento com fornecedores e apoio comercial.</li>
-          <li>Liderança, comunicação e tomada de decisão no dia a dia da operação.</li>
         </ul>
       </article>
       <article class="exp-card">
@@ -952,8 +925,8 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
       <div class="sh-line"></div>
     </div>
     <div class="labs-cta fade-in">
-      <p>23 labs da trilha SAA-C03 (Skill Builder / Escola da Nuvem). Cada card diz onde foi feito, para que serve o padrão, e se entrou no Wayfinder, no Holocron, no Hack2Hire — ou se foi recusado de propósito (Redshift, EFS, Storage Gateway).</p>
-      <a href="labs.html" class="btn-p">Abrir labs.html →</a>
+      <p>23 tópicos da trilha SAA-C03 (Skill Builder / Escola da Nuvem) conectam fundamentos a escolhas reais de desenho: o que aproveitar, adaptar ou deixar de fora. A pasta local tem 21 roteiros detalhados; o lab 11 traz apenas objetivos e serviços, e o arquivo do lab 13 está vazio — esses limites estão sinalizados.</p>
+      <a href="labs.html" class="btn-p">Explore as decisões por trás dos projetos →</a>
     </div>
   </div>
 </section>

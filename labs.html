@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Notas de 23 laboratórios AWS SAA-C03: contexto dos exercícios e relação com os projetos Wayfinder, Holocron e DocuSmart."/>
+<meta name="description" content="23 tópicos AWS SAA-C03 relacionados às decisões de arquitetura dos projetos Wayfinder, Holocron e DocuSmart; fontes incompletas identificadas."/>
 <link rel="canonical" href="https://guinatural.github.io/labs.html"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Laboratórios AWS — Guilherme Barreto"/>
@@ -91,6 +91,16 @@ h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -1px; 
 .lab-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
 .lab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
 .lab-st { font-size: 11px; font-weight: 700; color: var(--green); }
+.lab-st-incomplete { color: var(--amber); }
+.lab-source-note {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--amber);
+  background: rgba(255,153,0,.08);
+  color: var(--dim);
+  font-size: 12px;
+  line-height: 1.5;
+}
 .lab h2 { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
 .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; list-style: none; padding: 0; }
 .tag {
@@ -136,29 +146,33 @@ a:focus-visible,button:focus-visible { outline: 2px solid var(--blue); outline-o
 <header class="hero">
   <div class="wrapper">
     <div class="kicker">SAA-C03 · Skill Builder · Escola da Nuvem</div>
-    <h1>O lab ensina o serviço. O projeto decide se ele entra.</h1>
+    <h1>Aprender o serviço é o começo. Escolher quando usá-lo é arquitetura.</h1>
     <p class="lede">
-      Os 23 laboratórios abaixo foram feitos em <strong>conta AWS de lab</strong> (trilha Hands-on do Solutions Architect Associate / Escola da Nuvem) — ambiente provisionado e destruído, sem simulador.
-      Não são o portfólio. São a <strong>base de padrão</strong>. Wayfinder Cloud, Holocron Sentinel e Hack2Hire (DocuSmart) são onde o padrão virou decisão: usar, adaptar ou recusar.
+      Esta série reúne <strong>23 tópicos da trilha SAA-C03</strong> (Skill Builder / Escola da Nuvem)
+      e mostra como fundamentos de AWS podem orientar uma decisão de arquitetura — usar, adaptar
+      ou deixar um padrão de fora. Os projetos são estudos separados, não prova de que cada
+      arquitetura esteja implantada.
     </p>
     <p class="lede" style="margin-top:12px;">
-      As relações nos cards registram padrões considerados nos projetos; não afirmam que cada serviço ou arquitetura esteja implementado ou implantado. Confira o estado atual nos repositórios.
+      <strong>Nota sobre as fontes locais:</strong> há 21 roteiros detalhados; o arquivo do lab 11
+      contém apenas descrição, objetivos e serviços, e o arquivo do lab 13 está vazio. Os cards
+      identificam esses limites para não apresentar material ausente como execução comprovada.
     </p>
     <div class="stats">
-      <div><span class="hs-val">23</span><span class="hs-lbl">Labs SAA-C03</span></div>
-      <div><span class="hs-val">3</span><span class="hs-lbl">Projetos que consomem os padrões</span></div>
-      <div><span class="hs-val">3</span><span class="hs-lbl">Labs que recusei no desenho</span></div>
+      <div><span class="hs-val">23</span><span class="hs-lbl">Tópicos na série</span></div>
+      <div><span class="hs-val">21</span><span class="hs-lbl">Roteiros detalhados na pasta</span></div>
+      <div><span class="hs-val">2</span><span class="hs-lbl">Fontes incompletas, sinalizadas</span></div>
     </div>
     <div class="stack">
       <article>
         <div class="src">01 · PROJETOS / wayfinder-cloud</div>
         <h3>Wayfinder Cloud</h3>
-        <p>Arquitetura de governança orientada a eventos (Config, EventBridge, Lambda, Terraform). Combina os labs quando o requisito é controle LGPD, não “subir um serviço”.</p>
+        <p>Um cenário de saúde dá contexto à arquitetura: como transformar uma mudança de configuração em um achado investigável, com revisão humana para decisões sensíveis.</p>
       </article>
       <article>
         <div class="src">01 · PROJETOS / Holocron</div>
         <h3>Holocron Sentinel</h3>
-        <p>Capstone re/Start: auditoria LGPD, menor privilégio, KMS, CloudTrail e agentes (Bedrock / AgentCore). O lab de log e chave vira caixa de vidro.</p>
+        <p>Capstone de auditoria sob demanda: o ciclo local da API passou testes com dependências AWS stubadas. Bedrock real, autorização e implantação continuam sem validação.</p>
       </article>
       <article>
         <div class="src">01 · PROJETOS / Hack2Hire</div>
@@ -168,7 +182,7 @@ a:focus-visible,button:focus-visible { outline: 2px solid var(--blue); outline-o
       <article>
         <div class="src">02 · ESTUDOS / ARCHITECT_SAA-C03 / Laboratórios</div>
         <h3>Série hands-on 01–23</h3>
-        <p>Fonte única destes cards. Cada um isola um padrão (fila, peering, KMS, Aurora). Entrevista: “onde aprendi o tool”. Projeto: “quando e por que usei”.</p>
+        <p>Base de estudo para comparar filas, rede, criptografia e bancos — e explicar por que um padrão serve a um requisito, enquanto outro fica de fora.</p>
       </article>
     </div>
   </div>
@@ -224,7 +238,7 @@ const labs = [
     cats:['Security','Networking'], proj:['Wayfinder','Holocron'],
     onde:'Lab de rede: SG stateful no ENI, NACL stateless na subnet, tráfego EC2 controlado em duas camadas.',
     serve:'Defesa em profundidade de borda. SG é o contrato do workload; NACL é o cinto da subnet. Senior não abre 0.0.0.0/0 “para testar” e esquece — documenta o mínimo e o porquê.',
-    aplica:'Wayfinder: VPC em camadas (sg-alb / sg-app / sg-data). Holocron: isolamento de funções de auditoria. SKDV: VPC no backend móvel.' },
+    aplica:'Wayfinder: VPC em camadas (sg-alb / sg-app / sg-data). Holocron: isolamento de funções de auditoria.' },
   { n:'05', t:'Event-driven com API Gateway, EventBridge e Lambda',
     cats:['Compute','Architecture'], proj:['Wayfinder','Hack2Hire','Holocron'],
     onde:'Lab de microsserviço serverless: HTTP API → EventBridge → regras → Lambda; volta por WebSocket.',
@@ -257,9 +271,11 @@ const labs = [
     aplica:'Wayfinder: o mesmo método de diagnóstico foi para VPC endpoints (ADR-009) — tráfego privado para S3/KMS/Config, sem NAT “porque o peering falhou”.' },
   { n:'11', t:'CloudTrail + CloudWatch — trilha, métrica, alarme, Insights',
     cats:['Security'], proj:['Wayfinder','Holocron'],
-    onde:'Lab de conta: trilha multi-serviço, Trail no Logs, SNS, metric filter, alarme, Insights.',
-    serve:'CloudTrail responde “quem fez”. CloudWatch responde “quando cruzou o limiar”. Sem os dois, auditoria LGPD (art. 37) é planilha. Senior liga trilha em todas as regiões e trata log como dado classificado.',
-    aplica:'Wayfinder: Trail multi-região + dashboard + Athena. Holocron Sentinel: cada acesso a dado sensível registrado — a “caixa de vidro” do pitch.' },
+    fonteStatus:'Resumo de origem',
+    fonteNota:'O arquivo local registra descrição, objetivos e serviços, mas não contém as etapas do laboratório.',
+    onde:'O material disponível descreve CloudTrail, CloudWatch e SNS e lista os objetivos de monitoramento; não documenta o passo a passo nem comprova execução.',
+    serve:'CloudTrail pode registrar atividade da conta; CloudWatch pode transformar sinais em métricas e alarmes. Juntos, ajudam a responder “o que aconteceu?” e “quando precisamos olhar?”.',
+    aplica:'Wayfinder: uma trilha consultável é parte do desenho proposto, não uma capacidade validada neste laboratório ou implantada pelo projeto. Holocron: registro e cobertura também precisam de configuração e teste explícitos.' },
   { n:'12', t:'Arquitetura multi-tier (projeto final da trilha)',
     cats:['Architecture','Networking'], proj:['Wayfinder'],
     onde:'Lab final SAA-C03: CloudFormation de VPC multi-AZ, RDS HA, EFS na app, ASG de web, requisitos de negócio não lineares.',
@@ -267,9 +283,11 @@ const labs = [
     aplica:'Wayfinder: VPC pública / privada-app / privada-data. EFS do lab não veio — objeto de evidência vive no S3 com Object Lock.' },
   { n:'13', t:'Web app altamente disponível — ALB, Auto Scaling, Aurora',
     cats:['Architecture','Compute'], proj:['Wayfinder'],
-    onde:'Padrão da trilha (mapa labs → Wayfinder): health check no ALB, scale na app, banco Multi-AZ. Continuação natural do lab 12.',
-    serve:'Disponibilidade envolve comportamento diante de falhas. Os exercícios abordam health checks, zonas e failover; objetivos de SLA só devem ser citados quando definidos e medidos no ambiente.',
-    aplica:'Wayfinder — camada de aplicação VitaCore (ALB + ECS + Aurora). A esteira de compliance permanece serverless: carga diferente, runtime diferente.' },
+    fonteStatus:'Arquivo de origem vazio',
+    fonteNota:'O arquivo local do lab 13 está vazio. Este card descreve apenas o tema indicado pelo título e sua relação proposta com o lab 12; não é evidência de execução.',
+    onde:'A pasta local contém apenas o título do exercício. ALB, Auto Scaling e Aurora aparecem aqui como o tema previsto, não como um roteiro disponível.',
+    serve:'O tema permite discutir health checks, distribuição entre zonas e comportamento em falhas. Sem o material e sem medições, não se atribui um SLA nem se afirma que o exercício foi concluído.',
+    aplica:'No Wayfinder, a camada de aplicação VitaCore é uma hipótese de arquitetura; não está demonstrada no fluxo de governança do repositório. A esteira de compliance continua sendo um desenho separado.' },
   { n:'14', t:'Storage Gateway — S3 File Gateway (NFS/SMB híbrido)',
     cats:['Storage'], proj:['Recusei'],
     onde:'Lab híbrido: File Gateway em EC2, share NFS/SMB, portas, cópia on-prem → S3, métricas CloudWatch.',
@@ -330,8 +348,9 @@ labs.forEach(lab => {
   el.innerHTML = `
     <div class="lab-top">
       <span class="lab-num">Lab ${lab.n} · trilha SAA-C03</span>
-      <span class="lab-st">Feito em conta de laboratório</span>
+      <span class="lab-st${lab.fonteStatus ? ' lab-st-incomplete' : ''}">${lab.fonteStatus || 'Roteiro detalhado na pasta local'}</span>
     </div>
+    ${lab.fonteNota ? `<p class="lab-source-note">${lab.fonteNota}</p>` : ''}
     <h2>${lab.t}</h2>
     <ul class="tags" aria-label="Categorias e projetos relacionados">
       ${lab.cats.map(c => `<li class="tag">${c}</li>`).join('')}
