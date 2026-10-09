@@ -157,8 +157,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     </div>
     <h1 class="case-title">Wayfinder <span>Cloud</span></h1>
     <p class="case-sub">
-      Um cenário fictício de exposição de dados mostra o problema; o Wayfinder propõe como detectar,
-      registrar e encaminhar a resposta. O desenho ainda não é uma operação implantada.
+      Da mudança inesperada à decisão responsável: veja como um fluxo de governança poderia ajudar
+      uma equipe a entender o que mudou, identificar o recurso afetado e preservar evidências.
+      O cenário é fictício; a arquitetura ainda é uma proposta em desenvolvimento.
     </p>
     <div class="case-meta">
       <span><strong>Contexto:</strong> VitaCore Health (cenário hipotético)</span>
@@ -169,43 +170,43 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
 
     <div class="case-story-grid" aria-label="Problema e resposta proposta do Wayfinder">
       <article class="case-story-card problem">
-        <h2>O problema · cenário fictício</h2>
+        <h2>Quando uma mudança pede contexto</h2>
         <p>
-          Na história da VitaCore Health, um comando equivocado torna público um bucket S3 com
-          relatórios de imagem médica. A pergunta operacional é: como perceber a mudança, identificar
-          o recurso afetado e conservar evidências para decidir o que fazer?
+          Na história da VitaCore Health, uma configuração equivocada torna público um bucket com
+          relatórios de imagem médica. Para quem responde, o trabalho é reconstruir a sequência:
+          o que mudou, qual recurso foi afetado e que evidências ajudam a escolher o próximo passo.
         </p>
         <p>
-          VitaCore e o incidente são fictícios. Números de impacto no repositório são premissas do
-          exercício, não dados de um vazamento real nem resultados do projeto.
+          VitaCore e o incidente são fictícios. Os números do exercício não descrevem um vazamento
+          real nem resultados medidos pelo projeto.
         </p>
       </article>
       <article class="case-story-card solution">
-        <h2>A resposta proposta</h2>
+        <h2>Uma trilha da mudança à decisão</h2>
         <p>
-          Avaliar mudanças de configuração, encaminhar achados para análise e alerta, e manter uma
-          trilha consultável. Alterações sensíveis, como permissões de IAM, devem exigir revisão
-          humana; o desenho não presume remediação automática segura.
+          O desenho conecta avaliação de configuração, roteamento de eventos e processamento de
+          achados; uma trilha de auditoria proposta ajuda a orientar a investigação. O objetivo é dar
+          contexto para priorizar e revisar — não prometer correção automática sem supervisão.
         </p>
       </article>
     </div>
     <aside class="case-status">
       <strong>Estado real:</strong> o repositório documenta Terraform, quatro handlers Lambda Python
-      e 115 testes com serviços AWS simulados. Não há evidência de implantação AWS. As 14 regras
-      custom estão declaradas, mas nenhuma funciona ponta a ponta no estado descrito pelo repositório.
+      e 115 testes com serviços AWS simulados; isso não comprova implantação ou operação em uma conta
+      AWS. As 14 regras custom estão declaradas, mas ainda não funcionam ponta a ponta.
     </aside>
   </div>
 
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">01</span>
-      <h2>Como a solução deveria responder</h2>
+      <h2>Da mudança ao próximo passo</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
       Este é o <strong>fluxo-alvo</strong>, não uma demonstração em produção: avaliar o estado do
-      recurso, rotear a mudança para análise, notificar e guardar uma trilha para consulta.
-      As etapas abaixo explicam a intenção da arquitetura.
+      recurso, dar contexto ao achado, encaminhar para revisão e manter uma trilha consultável.
+      Cada etapa responde a uma pergunta prática de quem precisa investigar.
     </p>
     <p class="body-text">
       A trilha de auditoria também é proposta. Retenção, criptografia e conformidade dependem da
@@ -404,13 +405,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
 
   <!-- CTA -->
   <div class="cta-box fade-in">
-    <h3>Ver o código e a documentação</h3>
-    <p>Consulte o repositório para revisar o código e a documentação disponíveis.</p>
+    <h3>Boas decisões de segurança começam com perguntas melhores.</h3>
+    <p>
+      Explore como o Wayfinder conecta um risco de configuração a uma trilha de investigação —
+      e veja o que ainda precisa ser validado antes que o desenho possa apoiar uma equipe real.
+    </p>
     <div class="cta-links">
       <a href="https://github.com/guinatural/wayfinder-cloud" target="_blank" rel="noopener" class="btn-p">
         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-        Ver no GitHub
+        Explore o código e os ADRs
       </a>
+      <a href="https://www.linkedin.com/in/guillherme-barretog/" target="_blank" rel="noopener" class="btn-o">Converse sobre o desenho</a>
       <a href="index.html" class="btn-o">← Voltar ao portfólio</a>
     </div>
   </div>
