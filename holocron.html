@@ -126,13 +126,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     <h1 class="case-title">Holocron <span>Sentinel</span></h1>
     <p class="case-sub">
       Uma revisão de segurança fica mais útil quando sinais de vários serviços podem ser examinados
-      em conjunto. Este capstone explora uma auditoria AWS sob demanda; o fluxo ainda está em
-      validação e não é um serviço disponível para uso.
+      em conjunto. Este capstone explora uma auditoria AWS sob demanda; a integração real ainda
+      está em validação e não é um serviço disponível para uso.
     </p>
     <div class="case-meta">
       <span><strong>Contexto:</strong> Escola da Nuvem · capstone</span>
       <span><strong>Stack:</strong> Python · FastAPI · Boto3 · Amazon Bedrock</span>
-      <span><strong>Status:</strong> Protótipo em validação; fluxo completo ainda não comprovado</span>
+      <span><strong>Status:</strong> Fluxo local testado com mocks; <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore/pull/2" target="_blank" rel="noopener">correção em revisão ↗</a>; integração AWS real não validada</span>
       <span><strong>AgentCore capstone:</strong> <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Holocron-Sentinel-AWS-AgentCore ↗</a></span>
     </div>
 
@@ -155,18 +155,20 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       </article>
     </div>
     <aside class="case-status">
-      <strong>Estado real:</strong> o CI mais recente passou 60 testes, mas isso não comprovou o
-      fluxo completo. A revisão encontrou um argumento incompatível na chamada Bedrock e uma lacuna
-      na recuperação de resultados persistidos; ambos precisam ser corrigidos e testados antes de
-      afirmar que a auditoria funciona de ponta a ponta. Não há implantação AWS declarada. Uma chave
-      <code>tenant_id</code> também não comprova autorização ou isolamento entre clientes.
+      <strong>Validação local:</strong> uma branch de correção passou 57 testes em Python 3.12,
+      com 54% de cobertura total; Ruff, Black e build do pacote também passaram. O ciclo de API
+      (iniciar auditoria → consultar resultados → consultar resumo) foi exercitado com scanners e
+      Bedrock stubados. Isso verifica o fluxo da aplicação sob mocks, não uma integração AWS real.
+      Não há implantação declarada. <code>tenant_id</code> não comprova autorização ou isolamento
+      seguro entre clientes; a transformação XOR não é criptografia segura. Sem
+      <code>SESSION_KEY</code> configurada, os dados não persistem após reinício.
     </aside>
   </div>
 
   <div class="sec fade-in">
     <div class="sec-header">
       <span class="sec-num">01</span>
-      <h2>O fluxo que a PoC pretende concluir</h2>
+      <h2>Fluxo sob demanda e limites da validação</h2>
       <div class="sec-line"></div>
     </div>
     <p class="body-text">
@@ -181,12 +183,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="metric"><div class="metric-val">EC2</div><div class="metric-lbl">EBS available + SG :22</div></div>
     </div>
     <figure class="arch-flow" aria-labelledby="holocron-flow-caption">
-      <figcaption id="holocron-flow-caption">Fluxo pretendido sob demanda; Bedrock e recuperação de jobs ainda precisam passar por testes funcionais</figcaption>
+      <figcaption id="holocron-flow-caption">Ciclo da aplicação testado localmente com dependências externas stubadas; integração e segurança AWS continuam sem validação</figcaption>
       <ol class="arch-steps">
         <li class="arch-step"><span class="arch-service">Entrada</span><strong>Pedido de auditoria</strong><span>Solicitação recebida pela API do protótipo.</span></li>
         <li class="arch-step"><span class="arch-service">Orquestração</span><strong>AuditAgent + scanners Boto3</strong><span>O serviço coordena verificações em S3, IAM, EC2 e grupos de segurança.</span></li>
-        <li class="arch-step"><span class="arch-service">Síntese</span><strong>Amazon Bedrock</strong><span>A chamada de relatório precisa corrigir o contrato do wrapper antes de ser considerada funcional.</span></li>
-        <li class="arch-step"><span class="arch-service">Consulta</span><strong>Status e resultados</strong><span>A recuperação após salvar o job precisa ler a persistência, não depender só da memória do processo.</span></li>
+        <li class="arch-step"><span class="arch-service">Síntese</span><strong>Amazon Bedrock</strong><span>O caminho foi testado com stub determinístico; chamada a um modelo AWS real não foi executada.</span></li>
+        <li class="arch-step"><span class="arch-service">Consulta</span><strong>Status e resultados</strong><span>O ciclo local cobre status, resultados e resumo; persistência após reinício depende de SESSION_KEY configurada.</span></li>
       </ol>
       <div class="arch-tools" aria-label="Áreas cobertas pelos módulos scanner">
         <div class="arch-tool">S3 · acesso público e configuração</div>
@@ -207,17 +209,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="adr-card">
         <div class="adr-num">D1</div>
         <div class="adr-title">Evidência antes da síntese</div>
-        <div class="adr-why">O relatório deve partir de resultados dos scanners Boto3. A chamada Bedrock precisa ser corrigida e testada para não cair no relatório de fallback.</div>
+        <div class="adr-why">Testes determinísticos confirmam o caminho de síntese com Bedrock stubado e resultados dos scanners. O comportamento com credenciais, permissões e modelo reais continua sem validação.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D2</div>
         <div class="adr-title">Resultado recuperável</div>
-        <div class="adr-why">Uma auditoria só é útil se o solicitante puder consultar o job depois. O estado persistido precisa voltar pela API com testes que validem respostas de sucesso.</div>
+        <div class="adr-why">O ciclo local exercita o job pela API até resultados e resumo. A recuperação após reinício exige configurar SESSION_KEY; durabilidade de produção não foi demonstrada.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D3</div>
         <div class="adr-title">Isolamento não presumido</div>
-        <div class="adr-why">A chave de sessão inclui <code>tenant_id</code>, mas isso não prova autorização ou isolamento. Permissões, validação de caminhos e armazenamento exigem uma revisão própria.</div>
+        <div class="adr-why">A chave de sessão inclui <code>tenant_id</code>, mas isso não prova autorização ou isolamento. A transformação XOR não é criptografia segura; permissões, validação de caminhos e armazenamento exigem revisão própria.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D4</div>
@@ -248,9 +250,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
       <div class="sec-line"></div>
     </div>
     <ul class="lesson-list">
-      <li>No último CI consultado, 60 testes passaram com 52% de cobertura; parte dos testes de API aceita HTTP 500 e não prova o caminho feliz do usuário.</li>
-      <li>Corrigir e testar com mock a chamada de síntese Bedrock; corrigir e provar a leitura do job salvo pelos endpoints de status e resultado.</li>
-      <li>Manter integração Bedrock real, autorização, isolamento entre clientes e implantação AWS como itens não validados por esta suite local/CI.</li>
+      <li>Testar em ambiente AWS controlado com credenciais e permissões mínimas; os testes atuais usam stubs e não chamam Bedrock nem scanners reais.</li>
+      <li>Revisar autenticação, autorização e isolamento seguro entre clientes; substituir a transformação XOR, que não é criptografia segura. O identificador de tenant e os testes locais não comprovam essas propriedades.</li>
+      <li>Configurar e testar SESSION_KEY para recuperação após reinício, e validar implantação, armazenamento e permissões na AWS antes de qualquer uso operacional.</li>
+      <li>A suíte reporta avisos existentes de <code>datetime.utcnow()</code>; não há evidência de execução em produção.</li>
     </ul>
   </div>
 
@@ -259,6 +262,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offs
     <p>Explore o código, os testes e os limites conhecidos do capstone — e compare a auditoria sob demanda com o fluxo por eventos do Wayfinder.</p>
     <div class="cta-links">
       <a class="btn-p" href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
+      <a class="btn-o" href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore/pull/2" target="_blank" rel="noopener">Correção e testes em revisão</a>
       <a class="btn-o" href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Repositório Sentinel V2</a>
       <a class="btn-o" href="labs.html">23 labs</a>
       <a class="btn-o" href="wayfinder.html">Case Wayfinder</a>

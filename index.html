@@ -636,7 +636,7 @@ footer { border-top: 1px solid var(--borda); padding: 32px 0; margin-top: 24px; 
         <div class="project-story">
           <div><h4>Problema</h4><p>Revisar S3, IAM e EC2 numa auditoria pontual exige reunir verificações diferentes.</p></div>
           <div class="project-response"><h4>Ideia do capstone</h4><p>Uma solicitação inicia scanners Boto3 e organiza achados para uma revisão humana.</p></div>
-          <div class="project-context"><h4>Validação em andamento</h4><p>Os testes atuais não comprovam o fluxo completo; chamadas ao Bedrock e recuperação de resultados precisam ser corrigidas. Não é um serviço em produção nem a vigilância contínua proposta pelo Wayfinder.</p></div>
+          <div class="project-context"><h4>Fluxo local testado</h4><p>Uma branch de correção passou testes do ciclo de auditoria com Bedrock e scanners stubados. <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore/pull/2" target="_blank" rel="noopener">Correção em revisão ↗</a>; integração AWS real, autorização e implantação não foram validadas. Não é um serviço em produção nem a vigilância contínua proposta pelo Wayfinder.</p></div>
         </div>
         <div class="proj-card-links">
           <a href="holocron.html">Case study →</a>
