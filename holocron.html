@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Holocron Sentinel — Case Study. Agente de auditoria AWS sob demanda: Boto3, Bedrock/Strands, isolamento de sessão e LGPD."/>
+<meta name="description" content="Case de portfólio Holocron Sentinel: agente de auditoria AWS sob demanda com Boto3, Bedrock e Strands."/>
+<link rel="canonical" href="https://guinatural.github.io/holocron.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Holocron Sentinel — Case de portfólio"/>
+<meta property="og:description" content="Agente de auditoria AWS sob demanda apresentado como prova de conceito de portfólio."/>
+<meta property="og:url" content="https://guinatural.github.io/holocron.html"/>
 <title>Holocron Sentinel — Case Study · Guilherme Barreto</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -89,8 +94,9 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
 .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
 .footer-links a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;}
 .footer-links a:hover{color:var(--purple);}
-.fade-in{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease;}
-.fade-in.visible{opacity:1;transform:translateY(0);}
+.fade-in{opacity:1;transform:none;}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ciano);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
 </head>
 <body>
@@ -112,24 +118,24 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
     </div>
     <h1 class="case-title">Holocron <span>Sentinel</span></h1>
     <p class="case-sub">
-      Capstone AWS re/Start: agente de auditoria que consulta a conta AWS <strong style="color:var(--txt)">agora</strong>,
-      com ferramentas Boto3 reais e raciocínio via Amazon Bedrock (Strands). Não é chatbot. Não é Config 24/7.
+      Capstone AWS re/Start: prova de conceito de agente de auditoria AWS acionado sob demanda,
+      com ferramentas Boto3 e raciocínio via Amazon Bedrock (Strands). Não é o case de governança por eventos do Wayfinder.
     </p>
     <div class="case-meta">
       <span><strong>Contexto:</strong> Escola da Nuvem · capstone</span>
       <span><strong>Stack:</strong> Python · Boto3 · Bedrock · Strands</span>
-      <span><strong>Status:</strong> PoC funcional (agente + scanners)</span>
-      <span><strong>Repo:</strong> <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Holocron-Sentinel-AWS-AgentCore ↗</a></span>
+      <span><strong>Status:</strong> Prova de conceito; consulte o repositório para o estado atual</span>
+      <span><strong>AgentCore capstone:</strong> <a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Holocron-Sentinel-AWS-AgentCore ↗</a></span>
     </div>
 
     <div class="incident-banner">
       <div class="ib-label">Diferença do Wayfinder</div>
-      <div class="ib-title">Sob demanda vs vigilância contínua</div>
+      <div class="ib-title">Sob demanda vs avaliação orientada a eventos</div>
       <p style="font-size:13.5px;color:rgba(226,232,240,.8);line-height:1.7;">
-        O <strong style="color:#fff">Wayfinder</strong> usa AWS Config e EventBridge para vigiar a conta o tempo todo.
+        O case <strong style="color:#fff">Wayfinder</strong> explora AWS Config e EventBridge para avaliação orientada a eventos.
         O <strong style="color:#fff">Holocron</strong> entra quando um DPO ou consultor dispara um prompt:
         o agente escolhe scanners (S3, IAM MFA, EBS órfão, porta 22 aberta) e devolve relatório.
-        São dois eixos no mesmo PDI — não o mesmo produto.
+        São projetos e repositórios distintos, não modos de operação de um único produto.
       </p>
     </div>
   </div>
@@ -156,14 +162,14 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
 <span class="s">Prompt do DPO / consultor</span>
     ▼
 <span class="s">Agent (Strands + Bedrock)</span>
-    ├─ session_id = empresa_{tenant_id}   <span class="g">isolamento de memória</span>
+    ├─ session_id = empresa_{tenant_id}   <span class="g">chave de sessão; não prova isolamento</span>
     └─ tools:
          auditar_permissoes_s3
          auditar_mfa_iam
          analisar_custos_aws_real      <span class="m">volumes EBS available</span>
          verificar_seguranca_network   <span class="m">SSH 0.0.0.0/0</span>
     ▼
-<span class="g">Relatório</span> (PDF / sessão do tenant)
+<span class="g">Relatório</span> (PDF / sessão identificada pelo tenant)
 
 <span class="m">Labs que viram ferramenta: SG, IAM, S3, Boto3 (não tutorial solto).</span></div>
   </div>
@@ -182,18 +188,18 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
       </div>
       <div class="adr-card">
         <div class="adr-num">D2</div>
-        <div class="adr-title">Sessão por tenant</div>
-        <div class="adr-why">FileSessionManager com session_id próprio. Empresa Alpha não herda cache da Beta — LGPD como isolamento, não como parágrafo.</div>
+        <div class="adr-title">Chave de sessão por tenant</div>
+        <div class="adr-why">A chave inclui tenant_id, mas isso não prova isolamento entre clientes. Autorização, validação de caminhos, permissões do armazenamento e proteção dos dados também precisam ser avaliadas.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D3</div>
         <div class="adr-title">PoC honesta</div>
-        <div class="adr-why">Ainda não é SaaS multi-tenant em produção. É agente + disco local / AgentCore. O desenho de tenant_id já está no código.</div>
+        <div class="adr-why">É uma prova de conceito, não um SaaS multi-tenant implantado em produção. A chave de sessão por tenant é apenas parte do desenho e não constitui garantia de isolamento.</div>
       </div>
       <div class="adr-card">
         <div class="adr-num">D4</div>
         <div class="adr-title">Dois produtos, um portfólio</div>
-        <div class="adr-why">Holocron consulta agora. Wayfinder vigia sempre. Quem lê os dois cases não deve achar que é o mesmo repo.</div>
+        <div class="adr-why">Holocron explora acionamento sob demanda; Wayfinder explora avaliação orientada a eventos. São projetos e repositórios distintos.</div>
       </div>
     </div>
   </div>
@@ -234,6 +240,7 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
     <p>Código no GitHub · padrão dos labs na página de laboratórios · Wayfinder é o outro eixo.</p>
     <div class="cta-links">
       <a class="btn-p" href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Código no GitHub</a>
+      <a class="btn-o" href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Repositório Sentinel V2</a>
       <a class="btn-o" href="labs.html">23 labs</a>
       <a class="btn-o" href="wayfinder.html">Case Wayfinder</a>
     </div>
@@ -251,10 +258,5 @@ footer{border-top:1px solid var(--borda);padding:24px 0;margin-top:20px;}
   </div>
 </footer>
 
-<script>
-document.querySelectorAll('.fade-in').forEach((el,i) => {
-  setTimeout(() => el.classList.add('visible'), 80 + i * 70);
-});
-</script>
 </body>
 </html>

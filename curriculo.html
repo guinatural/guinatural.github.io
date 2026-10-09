@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Currículo de Guilherme Barreto Gomes, com experiência em tecnologia, negócios, cloud e estudos AWS.">
+  <link rel="canonical" href="https://guinatural.github.io/curriculo.html">
   <title>Guilherme Barreto Gomes — Currículo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +62,10 @@
       color: #555;
       text-decoration: none;
     }
+    a:focus-visible {
+      outline: 2px solid #1d4ed8;
+      outline-offset: 2px;
+    }
 
     /* ---- Sections ---- */
     .section {
@@ -67,6 +73,7 @@
     }
 
     .section-title {
+      margin-top: 0;
       font-size: 10pt;
       font-weight: 700;
       text-transform: uppercase;
@@ -206,6 +213,24 @@
         border-radius: 4px;
       }
     }
+
+    @media screen and (max-width: 560px) {
+      body {
+        padding: 24px 20px;
+        margin: 0 auto;
+      }
+
+      .job-header,
+      .edu-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .header .contacts {
+        overflow-wrap: anywhere;
+      }
+    }
   </style>
 </head>
 <body>
@@ -216,7 +241,7 @@
     <div class="subtitle">Cloud Computing | AWS Certified Cloud Practitioner | Segurança & Compliance</div>
     <div class="contacts">
       Palhoça – SC &nbsp;|&nbsp; (48) 98828-3200 &nbsp;|&nbsp; barreto.guiv@gmail.com<br>
-      <a href="https://www.linkedin.com/in/guilherme-barreto-gomes/">linkedin.com/in/guilherme-barreto-gomes</a> &nbsp;|&nbsp;
+      <a href="https://www.linkedin.com/in/guillherme-barretog/" target="_blank" rel="noopener">linkedin.com/in/guillherme-barretog</a> &nbsp;|&nbsp;
       <a href="https://github.com/guinatural">github.com/guinatural</a>
     </div>
   </div>
@@ -228,15 +253,15 @@
 
   <!-- RESUMO PROFISSIONAL -->
   <div class="section">
-    <div class="section-title">Resumo Profissional</div>
+    <h2 class="section-title">Resumo Profissional</h2>
     <p class="summary">
-      Profissional em transição para Cloud Computing, certificado AWS Cloud Practitioner, com formação pelo programa AWS re/Start (Escola da Nuvem) e mais de 10 anos de experiência em análise de riscos, governança e gestão adquirida nas áreas jurídica e de negócios. Desenvolvo soluções voltadas à automação de processos e segurança em nuvem utilizando serviços AWS e Inteligência Artificial Generativa, unindo visão analítica, capacidade de comunicação com diferentes áreas e foco na redução de riscos operacionais. Busco minha primeira oportunidade como Cloud Support Engineer, Cloud Analyst ou DevOps Júnior, contribuindo com aprendizado contínuo, resolução de problemas e boas práticas em Cloud Computing.
+      Profissional em transição para Cloud Computing, certificado AWS Cloud Practitioner, com formação pelo programa AWS re/Start (Escola da Nuvem) e experiência em análise de riscos, governança e gestão nas áreas jurídica e de negócios. Desenvolvo projetos de portfólio voltados à automação de processos e segurança em nuvem utilizando serviços AWS e Inteligência Artificial Generativa, unindo visão analítica e comunicação com diferentes áreas. Busco oportunidades como Cloud Support Engineer, Cloud Analyst ou DevOps Júnior, contribuindo com aprendizado contínuo, resolução de problemas e boas práticas em Cloud Computing.
     </p>
   </div>
 
   <!-- COMPETÊNCIAS TÉCNICAS -->
   <div class="section">
-    <div class="section-title">Competências Técnicas</div>
+    <h2 class="section-title">Competências Técnicas</h2>
     <ul class="skills-list">
       <li><strong>Cloud Computing:</strong> AWS (EC2, IAM, S3, Lambda, VPC, RDS, CloudWatch, Cognito)</li>
       <li><strong>Infraestrutura:</strong> Linux, Git, GitHub, AWS CLI, Shell Scripting</li>
@@ -248,7 +273,7 @@
 
   <!-- EXPERIÊNCIA PROFISSIONAL -->
   <div class="section">
-    <div class="section-title">Experiência Profissional</div>
+    <h2 class="section-title">Experiência Profissional</h2>
 
     <div class="job">
       <div class="job-header">
@@ -256,7 +281,7 @@
         <span class="job-date">2022 – 2024</span>
       </div>
       <ul class="job-bullets">
-        <li>Desenvolvi a integração de aplicações mobile (Flutter) com backend AWS e Firebase, garantindo a entrega de funcionalidades em ambiente de produção</li>
+        <li>Desenvolvi a integração de aplicações mobile (Flutter) com backend AWS e Firebase, apoiando a entrega de funcionalidades para o produto</li>
         <li>Gerenciei controle de identidade e acessos via IAM, aplicando princípios de menor privilégio para proteger recursos em nuvem</li>
         <li>Estruturei o versionamento de código com Git/GitHub e documentei APIs REST para padronizar a comunicação entre equipes</li>
       </ul>
@@ -268,7 +293,7 @@
         <span class="job-date">2012 – 2022</span>
       </div>
       <ul class="job-bullets">
-        <li>Conduzi a implantação de soluções tecnológicas com alcance em 177 municípios, coordenando equipes e garantindo cobertura operacional em escala</li>
+        <li>Conduzi a implantação de soluções tecnológicas para municípios de Santa Catarina, coordenando equipes e acompanhando a operação</li>
         <li>Negociei contratos e gerenciei relacionamento com stakeholders de diferentes perfis, desenvolvendo habilidades de comunicação executiva aplicáveis à gestão de projetos cloud</li>
         <li>Analisei e resolvi problemas complexos envolvendo riscos operacionais e conformidade regulatória, experiência que hoje aplico em governança e segurança cloud</li>
       </ul>
@@ -277,19 +302,18 @@
 
   <!-- PROJETOS -->
   <div class="section">
-    <div class="section-title">Projetos</div>
+    <h2 class="section-title">Projetos</h2>
 
     <div class="job">
       <div class="job-header">
-        <span class="job-title">Holocron Sentinel V2 — Sistema de Auditoria e Compliance na AWS</span>
+        <span class="job-title">Holocron Sentinel — capstone AgentCore e projeto Sentinel V2</span>
         <span class="job-date">2026</span>
       </div>
       <ul class="job-bullets">
-        <li>Arquitetei a evolução de um script de auditoria para um ecossistema completo de IA na AWS, reduzindo o tempo de auditoria em até 95%</li>
-        <li>Desenvolvi a orquestração de agentes inteligentes utilizando Amazon Bedrock AgentCore e Claude 3.5 Haiku para automatizar processos de conformidade</li>
-        <li>Estruturei uma arquitetura baseada em Zero Trust utilizando IAM, Cognito e KMS para garantir autenticação segura e proteção dos dados</li>
-        <li>Implementei pipeline de RAG com busca vetorial para consultas contextuais de compliance e LGPD</li>
-        <li>Integrei Model Context Protocol (MCP) para padronização de comunicação entre microserviços serverless (Lambda)</li>
+        <li><a href="https://github.com/guinatural/Holocron-Sentinel-AWS-AgentCore" target="_blank" rel="noopener">Capstone AgentCore</a>: protótipo de auditoria AWS com Bedrock, Strands e ferramentas Boto3</li>
+        <li><a href="https://github.com/guinatural/Holocron-Sentinel-Startup-V2" target="_blank" rel="noopener">Sentinel V2</a>: repositório independente; consulte o código para o escopo atual</li>
+        <li>Estudos de identidade, criptografia e privilégio mínimo com IAM e KMS</li>
+        <li>Exploração de RAG e Model Context Protocol (MCP) em projetos de portfólio</li>
       </ul>
     </div>
 
@@ -307,27 +331,30 @@
 
   <!-- FORMAÇÃO ACADÊMICA -->
   <div class="section">
-    <div class="section-title">Formação Acadêmica</div>
+    <h2 class="section-title">Formação Acadêmica</h2>
     <div class="edu-item">
       <span class="edu-name">Técnico em Desenvolvimento Web — SENAI</span>
       <span class="edu-date">2025</span>
     </div>
     <div class="edu-item">
-      <span class="edu-name">Bacharelado em Direito — [PREENCHER INSTITUIÇÃO]</span>
+      <span class="edu-name">Bacharelado em Direito — Faculdade Novo Milênio</span>
       <span class="edu-date">2012</span>
     </div>
   </div>
 
   <!-- CERTIFICAÇÕES -->
   <div class="section">
-    <div class="section-title">Certificações</div>
+    <h2 class="section-title">Certificações</h2>
     <div class="cert-item">
       AWS Certified Cloud Practitioner (CLF-C02) — 2026
-      <span class="cert-detail">&nbsp;|&nbsp; Credly: [PREENCHER LINK] &nbsp;|&nbsp; Expira: [PREENCHER DATA]</span>
+      <span class="cert-detail">&nbsp;|&nbsp; <a href="https://www.credly.com/badges/9f28dc2a-d9b8-4774-ab9f-dfe3a8324ff0/public_url" target="_blank" rel="noopener">Credencial</a> &nbsp;|&nbsp; Expira: fev. 2029</span>
     </div>
-    <div class="cert-item">AWS re/Start — Escola da Nuvem (2026) — 300h</div>
-    <div class="cert-item">AWS Certified AI Practitioner (AIF-C01) — em andamento (Jul/2026)</div>
-    <div class="cert-item">Building Production-Ready AI Agents with Amazon Bedrock AgentCore — AWS (2026)</div>
+    <div class="cert-item">AWS re/Start — Escola da Nuvem (2026)</div>
+    <div class="cert-item">
+      AWS Certified AI Practitioner (AIF-C01) — 2026
+      <span class="cert-detail">&nbsp;|&nbsp; <a href="https://www.credly.com/badges/7445eb92-7adf-4c92-ae73-f16fb24757bb" target="_blank" rel="noopener">Credencial</a></span>
+    </div>
+    <div class="cert-item">Curso AWS: Building Production-Ready AI Agents with Amazon Bedrock AgentCore (2026)</div>
     <div class="cert-item">Hackers do Bem — Cibersegurança (2025)</div>
     <div class="cert-item">CS50: Introduction to Computer Science — Harvard University (2023)</div>
     <div class="cert-item">Análise de Dados com Python — PROWAY (2023)</div>
@@ -335,7 +362,7 @@
 
   <!-- IDIOMAS -->
   <div class="section">
-    <div class="section-title">Idiomas</div>
+    <h2 class="section-title">Idiomas</h2>
     <p class="languages">Português (Nativo) &nbsp;|&nbsp; Inglês (Intermediário) &nbsp;|&nbsp; Espanhol (Intermediário/Avançado)</p>
   </div>
 
